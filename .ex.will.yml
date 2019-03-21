@@ -1,0 +1,39 @@
+
+about :
+
+  name : "doc.generator"
+  description : "Utility to generate documentation from jsdoc annotated source code"
+  version : "0.1.0"
+  enabled : 1
+  interpreters :
+  - nodejs >= 6.0.0
+  - chrome >= 60.0.0
+  - firefox >= 60.0.0
+  keywords :
+  - wTools
+
+step :
+
+  export.proto :
+    inherit : predefined.export
+    export : path::proto
+    tar : 0
+    criterion :
+      debug : 1
+      proto : 1
+      doc : 0
+
+build :
+
+  proto.export :
+    criterion :
+      default : 1
+      debug : 1
+      raw : 1
+      proto : 1
+      doc : 0
+      export : 1
+      tar : 1
+      public : 1
+    steps :
+      - step::export.proto

@@ -1,0 +1,48 @@
+{
+  "name": "wDocGenerator",
+  "version": "0.1.0",
+  "engine": "node >= 6.0.0",
+  "description": "Utility to generate documentation from jsdoc annotated source code",
+  "license": "MIT",
+  "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
+  "contributors": [
+    {
+      "name": "Kostiantyn Wandalen",
+      "email": "wanalen@willbe.so"
+    },
+    {
+      "name": "Volodymyr M.",
+      "email": "volodymyr.migdal@gmail.com"
+    }
+  ],
+  "main": "proto/dwtools/atop/docgen/Make.s",
+  "files": [
+    "proto/dwtools/atop/docgen"
+  ],
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wandalen/wDocGenerator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wandalen/wDocGenerator/issues"
+  },
+  "dependencies": {
+    "wFiles": "",
+    "wtemplatetreeenvironment": "",
+    "wtemplatetreeresolver": "",
+    "wselector": "",
+    "wselectorextra": "",
+    "wcommandsaggregator": "",
+    "wcommandsconfig": "",
+    "jsdoc-to-markdown": "",
+    "express": ""
+  },
+  "devDependencies": {},
+  "keywords": [
+    "wTools",
+    "Documentation",
+    "jsdoc",
+    "jsdoc2md"
+  ]
+}

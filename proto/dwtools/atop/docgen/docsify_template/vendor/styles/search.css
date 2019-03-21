@@ -1,0 +1,17 @@
+.search .input
+{
+  width: 100% !important;
+}
+
+.search input
+{
+  border-radius: 0px !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.search .content
+{
+  position : inherit !important;
+  padding-top: 0px !important;
+}

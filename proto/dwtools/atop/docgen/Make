@@ -1,0 +1,11 @@
+#! /usr/bin/env node
+
+if( typeof module !== 'undefined' )
+{
+  var _ = require( 'wTools' );
+  _.include( 'wFiles' );
+  _.include( 'wExternalFundamentals' );
+}
+
+var _ = _global_.wTools;
+var shell = _.shellNodePassingThrough( _.path.effectiveMainFile() + '.s' );

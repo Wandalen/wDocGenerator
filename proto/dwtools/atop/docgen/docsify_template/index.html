@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="vendor/themes/vue.css">
+  <link rel="stylesheet" href="vendor/semantic-2.4.1/semantic.min.css">
+  <link rel="stylesheet" href="vendor/styles/style.css">
+</head>
+<body>
+  <div class="ui sidebar vertical visible custom-sidebar">
+    <div class="ui top fixed menu">
+    <a class="item" href='#/README?id=modules'>Reference</a>
+    <a class="item" href='#/manual/ManualsIndex'>Manuals</a>
+    <div class="item ui search">
+        <div class="ui left icon input">
+          <input class="prompt" type="text" placeholder="Search in reference" autocomplete="off">
+        </div>
+      <div class="results"></div>
+    </div>
+    </div>
+    <br>
+
+    <div class="ui index bulleted list" style="padding:10px !important">
+    </div>
+  </div>
+  <button onclick="scrollToTop()" id="scrollToTop" title="Back to top"><i class="big arrow alternate circle up outline icon"></i></button>
+  <div id="app"></div>
+  <script src="vendor/scripts/jquery-3.3.1.min.js"></script>
+  <script src="vendor/semantic-2.4.1/semantic.min.js"></script>
+  <script src="vendor/scripts/docsify.js"></script>
+  <script src="vendor/scripts/main.js"></script>
+  <script src="vendor/scripts/search.js"></script>
+</body>
+</html>

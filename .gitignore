@@ -1,0 +1,15 @@
+
+.*
+*.tmp
+*.tmp.*
+*.out
+*.out.*
+**/package-lock.json
+*.out.will
+
+/module/**
+
+node_modules
+
+out/debug
+out
