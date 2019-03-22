@@ -1,43 +1,26 @@
-( function _Make_s_() {
+( function _MainBase_s_() {
 
 'use strict';
+
+/**
+ * Utility to generate documentation from jsdoc annotated source code.
+  @module Tools/wDocGenerator
+*/
+
+/**
+ * @file Main.base.s
+ */
 
 if( typeof module !== 'undefined' )
 {
 
-  if( typeof _global_ === 'undefined' || !_global_.wBase )
-  {
-    let toolsPath = '../../../dwtools/Base.s';
-    let toolsExternal = 0;
-    try
-    {
-      require.resolve( toolsPath );
-    }
-    catch( err )
-    {
-      toolsExternal = 1;
-      require( 'wTools' );
-    }
-    if( !toolsExternal )
-    require( toolsPath );
-  }
-
-  let _ = _global_.wTools;
+  require( './IncludeBase.s' );
 
   var jsdoc2md = require('jsdoc-to-markdown')
   var state = require( 'dmd/lib/state.js' );
 
   var arrayify = require('array-back');
   var where = require('test-value').where;
-
-  _.include( 'wCopyable' );
-  _.include( 'wFiles' );
-  _.include( 'wTemplateTreeEnvironment' );
-  _.include( 'wTemplateTreeResolver' );
-  _.include( 'wSelectorExtra' );
-
-  _.include( 'wCommandsAggregator' );
-  _.include( 'wCommandsConfig' );
 }
 
 //
@@ -46,12 +29,7 @@ let _ = _global_.wTools;
 let Parent = null;
 let Self = function wDocGenerator( o )
 {
-  if( !( this instanceof Self ) )
-  if( o instanceof Self )
-  return o;
-  else
-  return Self._make( o );
-  return Self.prototype.init.apply( this,arguments );
+  return _.instanceConstructor( Self, this, arguments );
 }
 
 Self.shortName = 'DocGenerator';
@@ -81,25 +59,9 @@ function init( o )
 
 //
 
-function Exec()
+function finit()
 {
-  let generator = new this.Self();
-  return generator.exec();
-}
-
-//
-
-function exec()
-{
-
-  _.assert( arguments.length === 0 );
-
-  let self = this;
-
-  let appArgs = _.appArgs();
-  let ca = self.commandsMake();
-
-  return ca.appArgsPerform({ appArgs : appArgs });
+  return _.Copyable.prototype.finit.apply( this, arguments );
 }
 
 //
@@ -108,7 +70,22 @@ function form( e )
 {
   let self = this;
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 0 || arguments.length === 1 );
+
+  let appArgs;
+
+  if( !e )
+  {
+    appArgs = _.appArgs();
+  }
+  else
+  {
+    appArgs =
+    {
+      subject : e.argument,
+      map : e.propertiesMap
+    }
+  }
 
   _.appArgsReadTo
   ({
@@ -127,12 +104,12 @@ function form( e )
       tutorialsPath : 'tutorialsPath',
       tutorials : 'tutorialsPath'
     },
-    propertiesMap : e.propertiesMap
+    propertiesMap : appArgs.map
   });
 
-  _.sure( _.strDefined( e.argument ), '{-sourcesPath-} needs value, please pass a subject' );
+  _.sure( _.strDefined( appArgs.subject ), '{-sourcesPath-} needs value, please pass a subject' );
 
-  self.sourcesPath = e.argument;
+  self.sourcesPath = appArgs.subject;
 
   self.pathsResolve();
 
@@ -199,7 +176,7 @@ function templateDataRead()
     self.templateData = jsdoc2md.getTemplateDataSync
     ({
       files : path.s.nativize( files ),
-      configure : path.nativize( path.join( __dirname, 'doc.json' ) )
+      configure : path.nativize( path.join( __dirname,  'templates/jsdoc2md/conf/doc.json' ) )
     })
   }
   catch( err )
@@ -219,7 +196,7 @@ function docsifyTemplateCopy()
 
   _.assert( arguments.length === 0 );
 
-  let docsifyTemplatePath = path.join( __dirname, 'docsify_template' );
+  let docsifyTemplatePath = path.join( __dirname, 'templates/docsify' );
 
   _.sure( self.provider.fileExists( docsifyTemplatePath ) );
 
@@ -241,8 +218,8 @@ function markdownGenerate()
 
   /* index */
 
-  let partial = path.s.join( __dirname, 'js2md_template/partial/index/**' )
-  let helper = path.s.join( __dirname, 'js2md_template/partial/helpers/**' );
+  let partial = path.s.join( __dirname, 'templates/jsdoc2md/index/**' )
+  let helper = path.s.join( __dirname, 'templates/jsdoc2md/helpers/**' );
 
   let index = jsdoc2md.renderSync
   ({
@@ -296,8 +273,8 @@ function markdownGenerate()
 
     let result = identifiers( hash );
 
-    let partial = path.s.join( __dirname, 'js2md_template/partial/main-template/**' )
-    let helper = path.s.join( __dirname, 'js2md_template/partial/helpers/**' );
+    let partial = path.s.join( __dirname, 'templates/jsdoc2md/main-template/**' )
+    let helper = path.s.join( __dirname, 'templates/jsdoc2md/helpers/**' );
 
     let o =
     {
@@ -339,89 +316,6 @@ function prepareTutorials()
   ({
     reflectMap : { [ self.tutorialsPath ] : self.outTutorialsPath }
   });
-}
-
-//
-
-function commandHelp( e )
-{
-  let self = this;
-  let ca = e.ca;
-
-  ca._commandHelp( e );
-
-  if( !e.subject )
-  {
-    _.assert( 0 );
-  }
-
-}
-
-//
-
-function commandGenerate( e )
-{
-  let self = this;
-
-  self.form( e );
-
-  self.templateDataRead();
-
-  if( self.docsify )
-  self.docsifyTemplateCopy();
-
-  self.markdownGenerate();
-
-  if( self.includingManuals )
-  self.prepareManuals();
-
-  if( self.includingTutorials )
-  self.prepareTutorials();
-}
-
-//
-
-function commandGenerateMarkdown( e )
-{
-  let self = this;
-
-  self.form( e );
-  self.templateDataRead();
-  self.markdownGenerate();
-}
-
-//
-
-function commandsMake()
-{
-  let self = this;
-
-  _.assert( _.instanceIs( self ) );
-  _.assert( arguments.length === 0 );
-
-  let commands =
-  {
-
-    'help' :                    { e : _.routineJoin( self, self.commandHelp ),                  h : 'Get help.' },
-    // 'set' :                  { e : _.routineJoin( self, self.commandSet ),                   h : 'Command set.' },
-    'generate' :                { e : _.routineJoin( self, self.commandGenerate ),              h : 'Generates markdown files and docsify.' },
-    'generate markdown' :       { e : _.routineJoin( self, self.commandGenerateMarkdown ),      h : 'Generates only markdown files.' },
-  }
-
-  let ca = _.CommandsAggregator
-  ({
-    basePath : self.provider.path.current(),
-    commands : commands,
-    commandPrefix : 'node ',
-    logger : self.logger,
-  })
-
-  _.assert( ca.logger === self.logger );
-  _.assert( ca.verbosity === self.verbosity );
-
-  ca.form();
-
-  return ca;
 }
 
 // --
@@ -471,7 +365,6 @@ let Medials =
 
 let Statics =
 {
-  Exec : Exec
 }
 
 let Events =
@@ -486,11 +379,12 @@ let Forbids =
 // declare
 // --
 
-let Proto =
+let Extend =
 {
 
   init : init,
-  exec : exec,
+  finit : finit,
+
   form : form,
 
   pathsResolve : pathsResolve,
@@ -501,13 +395,6 @@ let Proto =
 
   prepareManuals : prepareManuals,
   prepareTutorials : prepareTutorials,
-
-  commandHelp : commandHelp,
-
-  commandGenerate : commandGenerate,
-  commandGenerateMarkdown : commandGenerateMarkdown,
-
-  commandsMake : commandsMake,
 
   // relations
 
@@ -527,7 +414,7 @@ _.classDeclare
 ({
   cls : Self,
   parent : Parent,
-  extend : Proto,
+  extend : Extend,
 });
 
 _.Copyable.mixin( Self );
@@ -535,11 +422,8 @@ _.Verbal.mixin( Self );
 
 //
 
-_global_[ Self.name ] = wTools[ Self.shortName ] = Self;
-if( typeof module !== 'undefined' )
+if( typeof module !== 'undefined' && module !== null )
 module[ 'exports' ] = Self;
-
-if( typeof module !== 'undefined' && !module.parent )
-Self.Exec();
+wTools[ Self.shortName ] = Self;
 
 })();
