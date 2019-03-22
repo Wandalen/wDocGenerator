@@ -9,3 +9,9 @@ npm install -g wdocgenerator
 wdocgen .generate asset/realFiles
 node out/documentation/staticserver.ss
 ```
+Or
+```
+npm install 
+npm run-script wdocgen .generate asset/realFiles
+node out/documentation/staticserver.ss
+```
