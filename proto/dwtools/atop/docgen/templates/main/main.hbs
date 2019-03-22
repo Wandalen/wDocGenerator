@@ -1,7 +1,10 @@
 {{#currentEntity~}}
-{{>header~}}
+{{!-- head --}}
+<a id="{{{escapedAnchor ( anchorName ) }}}"></a>
+
+{{>heading-indent}}{{>sig-name}}
+{{!-- head --}}
 {{>body}}
-{{!-- {{>member-index~}} --}}
 {{>separator~}}
 {{>members~}}
 {{/currentEntity~}}

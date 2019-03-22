@@ -17,6 +17,7 @@ if( typeof module !== 'undefined' )
   require( './IncludeBase.s' );
 
   var jsdoc2md = require('jsdoc-to-markdown')
+  var ddata = require( 'dmd/helpers/ddata.js' )
   var state = require( 'dmd/lib/state.js' );
 
   var arrayify = require('array-back');
@@ -229,11 +230,12 @@ function markdownGenerate()
     template : '{{>index}}'
   })
 
-  // let searchIndexPath = path.join( self.outPath, 'searchIndex.json' );
-  // self.provider.fileWrite({ filePath : searchIndexPath, data : state.searchIndex, encoding : 'json.min' });
-
   let filePath = path.join( self.outPath, 'README.md' );
   self.provider.fileWrite( filePath,index );
+
+  /* search index */
+
+  searchIndexMake();
 
   /*  */
 
@@ -267,6 +269,26 @@ function markdownGenerate()
 
   /*  */
 
+  function parentObject( e )
+  {
+    return arrayify( self.templateData ).find( where( { id: e.memberof } ) );
+  }
+
+  /*  */
+
+  function escapedAnchor( e )
+  {
+    let anchor = ddata.anchorName.call( e, state.options );
+    anchor = anchor.replace( /[\.\+\/]/g, '_' );
+    return anchor;
+  }
+
+  /*  */
+
+  function isPrivate ( e ) { return e.access === 'private' }
+
+  /*  */
+
   function renderIdentifiers( hash )
   {
     _.assert( hash.kind );
@@ -294,6 +316,43 @@ function markdownGenerate()
       let filePath = path.join( self.outReferencePath, hash.kind, fileName );
       self.provider.fileWrite( filePath, result );
     })
+  }
+
+  /*  */
+
+  function searchIndexMake()
+  {
+    let searchIndex = Object.create( null );
+
+    self.templateData.forEach( ( e ) =>
+    {
+      if( isPrivate( e ) )
+      return;
+
+      let anchor = escapedAnchor( e );
+      let parent = parentObject( e );
+
+      let id = e.name;
+
+      if( parent )
+      id = parent.name + '.' + e.name;
+
+      let url;
+
+      if( parent )
+      {
+        url = `/#/Reference/${parent.kind}/${parent.name}?id=${anchor}`;
+      }
+      else
+      {
+        url = `/#/Reference/${e.kind}/${e.name}?id=${anchor}`;
+      }
+
+      searchIndex[ id ] = { title : id, url : url };
+    })
+
+    let searchIndexPath = path.join( self.outPath, 'searchIndex.json' );
+    self.provider.fileWrite({ filePath : searchIndexPath, data : searchIndex, encoding : 'json.min' });
   }
 
 }

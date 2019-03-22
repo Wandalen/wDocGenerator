@@ -15,20 +15,26 @@ function escapedAnchor( src )
 
 //
 
-function saveToSearchIndex( src )
-{
-  let id = this.name;
+// function saveToSearchIndex( anchor, parent )
+// {
+//   let id = this.name;
 
-  if( !this.meta )
-  return;
+//   if( parent )
+//   id = parent.name + '.' + this.name;
 
-  if( this.memberof )
-  id = this.memberof + '.' + this.name;
+//   let url;
 
-  let url = `/#/${this.meta.docsifypath}#${escapedAnchor( src.id )}`;
-  url.replace( 'module:', '' );
-  state.searchIndex[ id ] = { title : id, url : url };
-}
+//   if( parent )
+//   {
+//     url = `/#/Reference/${parent.kind}/${parent.name}?id=${anchor}`;
+//   }
+//   else
+//   {
+//     url = `/#/Reference/${this.kind}/${this.name}?id=${anchor}`;
+//   }
+
+//   state.searchIndex[ id ] = { title : id, url : url };
+// }
 
 //
 
@@ -105,7 +111,7 @@ function debug( src )
 }
 
 exports.escapedAnchor = escapedAnchor;
-exports.saveToSearchIndex = saveToSearchIndex;
+// exports.saveToSearchIndex = saveToSearchIndex;
 exports.emptyLine = emptyLine;
 
 exports.namespaces = namespacesGet;
