@@ -1,5 +1,11 @@
-### Steps to generate doc:
-1. ```npm install```
-2. ```node proto\dwtools\atop\docgen\Make.s .generate examples/realFiles```
-3. ```node out\documentation\staticserver.ss```
-3. ```open http://localhost:3000 in browser```
+
+# wDocGenerator [![Build Status](https://travis-ci.org/Wandalen/wDocGenerator.svg?branch=master)](https://travis-ci.org/Wandalen/wDocGenerator)
+
+Utility to generate documentation from jsdoc annotated source code.
+
+## Try out
+```
+npm install -g wdocgenerator
+wdocgen .generate examples/realFiles
+node out/documentation/staticserver.ss
+```
