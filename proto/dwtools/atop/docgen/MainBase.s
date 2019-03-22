@@ -176,7 +176,7 @@ function templateDataRead()
     self.templateData = jsdoc2md.getTemplateDataSync
     ({
       files : path.s.nativize( files ),
-      configure : path.nativize( path.join( __dirname,  'templates/jsdoc2md/conf/doc.json' ) )
+      configure : path.nativize( path.join( __dirname,  'conf/doc.json' ) )
     })
   }
   catch( err )
@@ -189,18 +189,18 @@ function templateDataRead()
 
 //
 
-function docsifyTemplateCopy()
+function docsifyAppBaseCopy()
 {
   let self = this;
   let path = self.provider.path;
 
   _.assert( arguments.length === 0 );
 
-  let docsifyTemplatePath = path.join( __dirname, 'templates/docsify' );
+  let docsifyAppPath = path.join( __dirname, 'docsify-app' );
 
-  _.sure( self.provider.fileExists( docsifyTemplatePath ) );
+  _.sure( self.provider.fileExists( docsifyAppPath ) );
 
-  self.provider.filesReflect({ reflectMap : { [ docsifyTemplatePath ] : self.outPath } });
+  self.provider.filesReflect({ reflectMap : { [ docsifyAppPath ] : self.outPath } });
 
   return true;
 }
@@ -218,8 +218,8 @@ function markdownGenerate()
 
   /* index */
 
-  let partial = path.s.join( __dirname, 'templates/jsdoc2md/index/**' )
-  let helper = path.s.join( __dirname, 'templates/jsdoc2md/helpers/**' );
+  let partial = path.s.join( __dirname, 'templates/index/**' )
+  let helper = path.s.join( __dirname, 'helpers/**' );
 
   let index = jsdoc2md.renderSync
   ({
@@ -273,8 +273,8 @@ function markdownGenerate()
 
     let result = identifiers( hash );
 
-    let partial = path.s.join( __dirname, 'templates/jsdoc2md/main-template/**' )
-    let helper = path.s.join( __dirname, 'templates/jsdoc2md/helpers/**' );
+    let partial = path.s.join( __dirname, 'templates/main/**' )
+    let helper = path.s.join( __dirname, 'helpers/**' );
 
     let o =
     {
@@ -390,7 +390,7 @@ let Extend =
   pathsResolve : pathsResolve,
 
   templateDataRead : templateDataRead,
-  docsifyTemplateCopy : docsifyTemplateCopy,
+  docsifyAppBaseCopy : docsifyAppBaseCopy,
   markdownGenerate : markdownGenerate,
 
   prepareManuals : prepareManuals,

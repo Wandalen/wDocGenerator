@@ -67,7 +67,7 @@ function commandGenerate( e )
   self.templateDataRead();
 
   if( self.docsify )
-  self.docsifyTemplateCopy();
+  self.docsifyAppBaseCopy();
 
   self.markdownGenerate();
 
