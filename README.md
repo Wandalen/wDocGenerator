@@ -6,6 +6,6 @@ Utility to generate documentation from jsdoc annotated source code.
 ## Try out
 ```
 npm install -g wdocgenerator
-wdocgen .generate examples/realFiles
+wdocgen .generate asset/realFiles
 node out/documentation/staticserver.ss
 ```
