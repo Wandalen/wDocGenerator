@@ -5,12 +5,15 @@ let handlebars = require( 'handlebars' );
 let ddata = require( 'dmd/helpers/ddata.js' );
 let _ = require( 'wFiles' )
 
+//
 
 function escapedAnchor( src )
 {
   if ( typeof src !== 'string' ) return null;
   return src.replace( /[\.\+\/]/g, '_' );
 }
+
+//
 
 function saveToSearchIndex( src )
 {
@@ -27,10 +30,7 @@ function saveToSearchIndex( src )
   state.searchIndex[ id ] = { title : id, url : url };
 }
 
-function thisToString( src )
-{
-  logger.log( _.toStr( src, { levels : 99 } ) )
-}
+//
 
 function emptyLine()
 {
@@ -38,6 +38,8 @@ function emptyLine()
   `
   `
 }
+
+//
 
 function namespacesGet( options )
 {
@@ -77,6 +79,16 @@ function namespacesGet( options )
 //   return '';
 // }
 
+//
+
+function summaryGet()
+{
+  let result = _.strIsolateInsideOrAll( this.summary, '<p>', '</p>' )[ 2 ];
+  return result || this.summary;
+}
+
+//
+
 function currentEntity( options )
 {
   options.hash.id = state.currentId;
@@ -84,15 +96,25 @@ function currentEntity( options )
   return result ? options.fn(result) : 'ERROR, Cannot find entity.'
 }
 
+//
+
+function debug( src )
+{
+  if( this.kind === 'class' )
+  logger.log( _.toStr( src, { levels : 99 } ) )
+}
+
 exports.escapedAnchor = escapedAnchor;
 exports.saveToSearchIndex = saveToSearchIndex;
-exports.thisToString = thisToString;
 exports.emptyLine = emptyLine;
 
 exports.namespaces = namespacesGet;
 // exports.modules2 = modules2;
 // exports.classes2 = classes2;
+exports.summary = summaryGet;
 
 exports.currentEntity = currentEntity;
+
+exports.debug = debug;
 
 })();
