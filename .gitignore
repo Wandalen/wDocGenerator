@@ -1,15 +1,22 @@
 
 .*
+-*
+*.log
+*.db
+*.sh
+*.bat
 *.tmp
 *.tmp.*
 *.out
 *.out.*
+*.special
+build
+builder
+html.build.coffee
+node_modules
+package-lock.json
 **/package-lock.json
 *.out.will
-
 /module/**
-
-node_modules
-
 out/debug
 out
