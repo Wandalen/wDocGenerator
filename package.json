@@ -21,12 +21,11 @@
     "production"
   ],
   "bin": {
-    "wdocgen": "proto/dwtools/atop/docgen/Exec2"
+    "wdoc": "proto/dwtools/atop/docgen/Exec2"
   },
   "scripts": {
     "test": "wtest proto",
-    "docgen": "wdocgen proto",
-    "wdocgen": "node proto/dwtools/atop/docgen/Exec2"
+    "wdoc": "node proto/dwtools/atop/docgen/Exec2"
   },
   "repository": {
     "type": "git",

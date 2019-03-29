@@ -71,8 +71,8 @@ function commandGenerate( e )
 
   self.markdownGenerate();
 
-  if( self.includingManuals )
-  self.prepareManuals();
+  if( self.includingConcepts )
+  self.prepareConcepts();
 
   if( self.includingTutorials )
   self.prepareTutorials();
@@ -91,6 +91,36 @@ function commandGenerateMarkdown( e )
 
 //
 
+function commandGenerateDocsify( e )
+{
+  let self = this;
+
+  self.form( e );
+  self.docsifyAppBaseCopy();
+}
+
+//
+
+function commandGenerateTutorials( e )
+{
+  let self = this;
+
+  self.form( e );
+  self.prepareTutorials();
+}
+
+//
+
+function commandGenerateConcepts( e )
+{
+  let self = this;
+
+  self.form( e );
+  self.prepareConcepts();
+}
+
+//
+
 function commandsMake()
 {
   let self = this;
@@ -101,10 +131,12 @@ function commandsMake()
   let commands =
   {
 
-    'help' :                    { e : _.routineJoin( self, self.commandHelp ),                  h : 'Get help.' },
-    // 'set' :                  { e : _.routineJoin( self, self.commandSet ),                   h : 'Command set.' },
-    'generate' :                { e : _.routineJoin( self, self.commandGenerate ),              h : 'Generates markdown files and docsify.' },
-    'generate markdown' :       { e : _.routineJoin( self, self.commandGenerateMarkdown ),      h : 'Generates only markdown files.' },
+    'help' :                    { e : _.routineJoin( self, self.commandHelp ),                h : 'Get help.' },
+    'generate' :                { e : _.routineJoin( self, self.commandGenerate ),            h : 'Generates markdown files and docsify.' },
+    'generate docsify' :        { e : _.routineJoin( self, self.commandGenerateDocsify ),     h : 'Copies built docsify app into root of `outPath` directory.' },
+    'generate reference' :      { e : _.routineJoin( self, self.commandGenerateMarkdown ),    h : 'Generates *.md files from jsdoc annotated js files.' },
+    'generate tutorials' :      { e : _.routineJoin( self, self.commandGenerateTutorials ),   h : 'Aggregates tutorials and creates index file.' },
+    'generate concepts' :       { e : _.routineJoin( self, self.commandGenerateConcepts ),    h : 'Aggregates concepts and creates index file.' },
   }
 
   let ca = _.CommandsAggregator
@@ -166,6 +198,9 @@ let Extend =
 
   commandGenerate : commandGenerate,
   commandGenerateMarkdown : commandGenerateMarkdown,
+  commandGenerateDocsify: commandGenerateDocsify,
+  commandGenerateTutorials: commandGenerateTutorials,
+  commandGenerateConcepts: commandGenerateConcepts,
 
   commandsMake : commandsMake,
 

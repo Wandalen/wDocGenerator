@@ -98,23 +98,23 @@ function form( e )
       outPath : 'outPath',
       out : 'outPath',
       docsify : 'docsify',
-      includingManuals : 'includingManuals',
+      includingConcepts : 'includingConcepts',
       includingTutorials : 'includingTutorials',
-      manualsPath : 'manualsPath',
-      manuals: 'manualsPath',
+      conceptsPath : 'conceptsPath',
+      manuals: 'conceptsPath',
       tutorialsPath : 'tutorialsPath',
       tutorials : 'tutorialsPath'
     },
     propertiesMap : appArgs.map
   });
 
-  _.sure( _.strDefined( appArgs.subject ), '{-sourcesPath-} needs value, please pass a subject' );
+  // _.sure( _.strDefined( appArgs.subject ), '{-sourcesPath-} needs value, please pass a subject' );
 
   self.sourcesPath = appArgs.subject;
 
   self.pathsResolve();
 
-  _.assert( self.provider.fileExists( self.sourcesPath ), 'Provided sourcesPath doesn`t exist:', self.sourcesPath );
+  // _.assert( self.provider.fileExists( self.sourcesPath ), 'Provided sourcesPath doesn`t exist:', self.sourcesPath );
 
   if( self.includeAny )
   self.includeAny = new RegExp( self.includeAny );
@@ -129,8 +129,10 @@ function pathsResolve()
   let self = this;
   let path = self.provider.path;
 
+  if( self.sourcesPath )
   self.sourcesPath = path.resolve( path.current(),self.sourcesPath );
-  self.manualsPath = path.resolve( path.current(),self.manualsPath );
+  self.conceptsPath = path.resolve( path.current(),self.conceptsPath );
+  self.tutorialsPath = path.resolve( path.current(),self.tutorialsPath );
   self.outPath = path.resolve( path.current(),self.outPath );
 
   if( !self.env )
@@ -138,7 +140,7 @@ function pathsResolve()
   self.env.pathsNormalize();
 
   self.outReferencePath = path.resolve( path.current(),self.outReferencePath );
-  self.outManualsPath = path.resolve( path.current(),self.outManualsPath );
+  self.outconceptsPath = path.resolve( path.current(),self.outconceptsPath );
   self.outTutorialsPath = path.resolve( path.current(),self.outTutorialsPath );
 }
 
@@ -151,6 +153,9 @@ function templateDataRead()
   let self = this;
   let logger = self.logger;
   let path = self.provider.path;
+
+  _.sure( _.strDefined( self.sourcesPath ), '{-sourcesPath-} needs value, please pass a subject' );
+  _.assert( self.provider.fileExists( self.sourcesPath ), 'Provided sourcesPath doesn`t exist:', self.sourcesPath );
 
   let files = self.provider.filesFind
   ({
@@ -230,7 +235,7 @@ function markdownGenerate()
     template : '{{>index}}'
   })
 
-  let filePath = path.join( self.outPath, 'README.md' );
+  let filePath = path.join( self.outPath, 'ReferenceIndex.md' );
   self.provider.fileWrite( filePath,index );
 
   /* search index */
@@ -359,13 +364,16 @@ function markdownGenerate()
 
 //
 
-function prepareManuals()
+function prepareConcepts()
 {
   let self = this;
   self.provider.filesReflect
   ({
-    reflectMap : { [ self.manualsPath ] : self.outManualsPath }
+    reflectMap : { [ self.conceptsPath ] : self.outconceptsPath }
   });
+
+  self._indexGenerate( self.outconceptsPath, 'ConceptsIndex.md' );
+
 }
 
 function prepareTutorials()
@@ -375,6 +383,76 @@ function prepareTutorials()
   ({
     reflectMap : { [ self.tutorialsPath ] : self.outTutorialsPath }
   });
+
+  self._indexGenerate( self.outTutorialsPath, 'TutorialsIndex.md' );
+}
+
+//
+
+function _indexGenerate( manualsPath, indexName )
+{
+  let self = this;
+  let provider = self.provider;
+  let path = provider.path;
+
+  let manualsIndexPath = path.join( self.outPath, indexName );
+
+  if( !provider.fileExists( manualsPath ) )
+  return;
+
+  let manualsIndex = '# <center>Manuals</center>';
+  let manualsLocalPath = '.';
+
+  /* manuals index */
+
+  let dirs = provider.filesFind
+  ({
+    filePath : manualsPath,
+    recursive : 1,
+    includingTerminals : 0,
+    includingDirs : 1,
+    includingStem : 0
+  })
+
+  dirs.forEach( ( dir ) =>
+  {
+    let files = provider.filesFind
+    ({
+      filePath : dir.absolute,
+      recursive : 2,
+      includingTerminals : 1,
+      includingDirs : 1,
+      includingStem : 0,
+      filter : { ends : 'md' }
+    })
+
+    let readmePath = path.join( dir.absolute, 'README.md' );
+
+    if( provider.fileExists( readmePath ) )
+    {
+      let localPath = path.join( manualsLocalPath, dir.relative, 'README.md' );
+      localPath = path.undot( localPath );
+
+      manualsIndex += `\n### ${dir.name}\n`
+      manualsIndex += `  * [${dir.name}/README](${localPath})\n`
+    }
+    else
+    {
+      manualsIndex += `\n### ${dir.name}\n`
+
+      files.forEach( ( record ) =>
+      {
+        let localPath = path.join( manualsLocalPath,dir.relative, record.relative );
+        localPath = path.undot( localPath );
+        let title = _.strRemoveBegin( record.relative, './' );
+        title = path.withoutExt( title );
+
+        manualsIndex += `  * [${title}](${localPath})\n`
+      })
+    }
+  })
+
+  provider.fileWrite( manualsIndexPath, manualsIndex );
 }
 
 // --
@@ -387,18 +465,18 @@ let Composes =
   verbosity : 1,
 
   sourcesPath : 'proto',
-  manualsPath : 'doc/manual',
+  conceptsPath : 'doc/concepts',
   tutorialsPath : 'doc/tutorial',
 
-  outPath : 'out/documentation',
+  outPath : 'out/doc',
 
   includeAny : ".+\\.(js|ss|s)(doc)?$",
   excludeAny : "(^|\\/|\\.)(-|node_modules|3rd|external|test)",
 
   docsify : 1,
 
-  includingManuals : 0,
-  includingTutorials : 0
+  includingConcepts : 1,
+  includingTutorials : 1
 
 }
 
@@ -414,7 +492,7 @@ let Restricts =
   templateData : null,
 
   outReferencePath : '{{outPath}}/Reference',
-  outManualsPath : '{{outPath}}/Manuals',
+  outconceptsPath : '{{outPath}}/Manuals',
   outTutorialsPath : '{{outPath}}/Tutorials',
 }
 
@@ -452,8 +530,10 @@ let Extend =
   docsifyAppBaseCopy : docsifyAppBaseCopy,
   markdownGenerate : markdownGenerate,
 
-  prepareManuals : prepareManuals,
+  prepareConcepts : prepareConcepts,
   prepareTutorials : prepareTutorials,
+
+  _indexGenerate : _indexGenerate,
 
   // relations
 

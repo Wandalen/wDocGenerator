@@ -4,6 +4,7 @@ window.$docsify =
   repo: '',
   loadNavbar : false,
   loadSidebar : false,
+  homepage : 'ReferenceIndex.md',
   markdown:
   {
     renderer:

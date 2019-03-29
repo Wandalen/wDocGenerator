@@ -14,71 +14,6 @@ let provider = _.fileProvider;
 
 /*  */
 
-function indexGenerate()
-{
-  let manualsPath = path.join( __dirname, 'manual' );
-  let manualsIndexPath = path.join( manualsPath, 'ManualsIndex.md' );
-
-  if( !provider.fileExists(manualsPath  ) )
-  return;
-
-  let manualsIndex = '# <center>Manuals</center>';
-  let manualsLocalPath = '.';
-
-  /* manuals index */
-
-  let dirs = provider.filesFind
-  ({
-    filePath : manualsPath,
-    recursive : 1,
-    includingTerminals : 0,
-    includingDirs : 1,
-    includingStem : 0
-  })
-
-  dirs.forEach( ( dir ) =>
-  {
-    let files = provider.filesFind
-    ({
-      filePath : dir.absolute,
-      recursive : 2,
-      includingTerminals : 1,
-      includingDirs : 1,
-      includingStem : 0,
-      filter : { ends : 'md' }
-    })
-
-    let readmePath = path.join( dir.absolute, 'README.md' );
-
-    if( provider.fileExists( readmePath ) )
-    {
-      let localPath = path.join( manualsLocalPath, dir.relative, 'README.md' );
-      localPath = path.undot( localPath );
-
-      manualsIndex += `\n### ${dir.name}\n`
-      manualsIndex += `  * [${dir.name}/README](${localPath})\n`
-    }
-    else
-    {
-      manualsIndex += `\n### ${dir.name}\n`
-
-      files.forEach( ( record ) =>
-      {
-        let localPath = path.join( manualsLocalPath,dir.relative, record.relative );
-        localPath = path.undot( localPath );
-        let title = _.strRemoveBegin( record.relative, './' );
-        title = path.withoutExt( title );
-
-        manualsIndex += `  * [${title}](${localPath})\n`
-      })
-    }
-  })
-
-  provider.fileWrite( manualsIndexPath, manualsIndex );
-}
-
-/*  */
-
 function serverStart()
 {
   let express = require('express');
@@ -140,7 +75,6 @@ function serverStart()
 
 /* */
 
-indexGenerate();
 serverStart();
 
 })();
