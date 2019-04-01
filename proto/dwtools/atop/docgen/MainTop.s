@@ -106,6 +106,7 @@ function commandGenerateTutorials( e )
   let self = this;
 
   self.form( e );
+  self.tutorialsPath = self.sourcesPath;
   self.prepareTutorials();
 }
 
@@ -116,6 +117,7 @@ function commandGenerateConcepts( e )
   let self = this;
 
   self.form( e );
+  self.conceptsPath = self.sourcesPath;
   self.prepareConcepts();
 }
 

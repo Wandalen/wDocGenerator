@@ -140,7 +140,7 @@ function pathsResolve()
   self.env.pathsNormalize();
 
   self.outReferencePath = path.resolve( path.current(),self.outReferencePath );
-  self.outconceptsPath = path.resolve( path.current(),self.outconceptsPath );
+  self.outConceptsPath = path.resolve( path.current(),self.outConceptsPath );
   self.outTutorialsPath = path.resolve( path.current(),self.outTutorialsPath );
 }
 
@@ -367,92 +367,193 @@ function markdownGenerate()
 function prepareConcepts()
 {
   let self = this;
+  let path = self.provider.path;
+
   self.provider.filesReflect
   ({
-    reflectMap : { [ self.conceptsPath ] : self.outconceptsPath }
+    reflectMap : { [ self.conceptsPath ] : self.outConceptsPath },
   });
 
-  self._indexGenerate( self.outconceptsPath, 'ConceptsIndex.md' );
+  // self.indexGenerate( self.outConceptsPath, 'ConceptsIndex.md' );
 
+  let index = self.indexGenerate( self.outConceptsPath );
+  let indexPath = path.join( self.outPath, 'ConceptsIndex.md' )
+  self.provider.fileWrite( indexPath, index );
 }
 
 function prepareTutorials()
 {
   let self = this;
+  let path = self.provider.path;
+
   self.provider.filesReflect
   ({
     reflectMap : { [ self.tutorialsPath ] : self.outTutorialsPath }
   });
 
-  self._indexGenerate( self.outTutorialsPath, 'TutorialsIndex.md' );
+  let index = self.indexGenerate( self.outTutorialsPath );
+  let indexPath = path.join( self.outPath, 'TutorialsIndex.md' )
+  self.provider.fileWrite( indexPath, index );
 }
 
 //
 
-function _indexGenerate( manualsPath, indexName )
+// function _indexGenerate( manualsPath, indexName )
+// {
+//   let self = this;
+//   let provider = self.provider;
+//   let path = provider.path;
+
+//   let manualsIndexPath = path.join( self.outPath, indexName );
+
+//   if( !provider.fileExists( manualsPath ) )
+//   return;
+
+//   let manualsIndex = '# <center>Manuals</center>';
+//   let manualsLocalPath = '.';
+
+//   /* manuals index */
+
+//   let dirs = provider.filesFind
+//   ({
+//     filePath : manualsPath,
+//     recursive : 1,
+//     includingTerminals : 0,
+//     includingDirs : 1,
+//     includingStem : 0
+//   })
+
+//   dirs.forEach( ( dir ) =>
+//   {
+//     let files = provider.filesFind
+//     ({
+//       filePath : dir.absolute,
+//       recursive : 2,
+//       includingTerminals : 1,
+//       includingDirs : 1,
+//       includingStem : 0,
+//       filter : { ends : 'md' }
+//     })
+
+//     let readmePath = path.join( dir.absolute, 'README.md' );
+
+//     if( provider.fileExists( readmePath ) )
+//     {
+//       let localPath = path.join( manualsLocalPath, dir.relative, 'README.md' );
+//       localPath = path.undot( localPath );
+
+//       manualsIndex += `\n### ${dir.name}\n`
+//       manualsIndex += `  * [${dir.name}/README](${localPath})\n`
+//     }
+//     else
+//     {
+//       manualsIndex += `\n### ${dir.name}\n`
+
+//       files.forEach( ( record ) =>
+//       {
+//         let localPath = path.join( manualsLocalPath,dir.relative, record.relative );
+//         localPath = path.undot( localPath );
+//         let title = _.strRemoveBegin( record.relative, './' );
+//         title = path.withoutExt( title );
+
+//         manualsIndex += `  * [${title}](${localPath})\n`
+//       })
+//     }
+//   })
+
+//   provider.fileWrite( manualsIndexPath, manualsIndex );
+// }
+
+//
+
+function indexGenerate( srcPath )
 {
   let self = this;
   let provider = self.provider;
   let path = provider.path;
 
-  let manualsIndexPath = path.join( self.outPath, indexName );
-
-  if( !provider.fileExists( manualsPath ) )
-  return;
-
-  let manualsIndex = '# <center>Manuals</center>';
-  let manualsLocalPath = '.';
-
-  /* manuals index */
+  let results = {};
 
   let dirs = provider.filesFind
   ({
-    filePath : manualsPath,
-    recursive : 1,
+    filePath : srcPath,
+    recursive : 2,
     includingTerminals : 0,
     includingDirs : 1,
-    includingStem : 0
+    includingStem : 1,
   })
 
-  dirs.forEach( ( dir ) =>
+  dirs.forEach( ( f ) =>
   {
+    let moduleName = '.';
+
+    if( f.relative !== '.' )
+    {
+      let dirRelative = path.relative( srcPath, f.absolute );
+      dirRelative = _.strAppendOnce( dirRelative, '/' )
+      moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
+    }
+
     let files = provider.filesFind
     ({
-      filePath : dir.absolute,
-      recursive : 2,
+      filePath : f.absolute,
+      recursive : 1,
       includingTerminals : 1,
-      includingDirs : 1,
+      includingDirs : 0,
       includingStem : 0,
-      filter : { ends : 'md' }
+      filter : { ends : 'md' },
     })
 
-    let readmePath = path.join( dir.absolute, 'README.md' );
+    if( !files.length )
+    return;
 
-    if( provider.fileExists( readmePath ) )
+    if( !results[ moduleName ] )
+    results[ moduleName ] = [];
+
+    var relative = _.select( files, '*/relative' );
+
+    if( _.arrayHas( relative, './README.md' ) )
     {
-      let localPath = path.join( manualsLocalPath, dir.relative, 'README.md' );
-      localPath = path.undot( localPath );
-
-      manualsIndex += `\n### ${dir.name}\n`
-      manualsIndex += `  * [${dir.name}/README](${localPath})\n`
+      let filePath = path.join( f.absolute, './README' );
+      results[ moduleName ].push( path.relative( srcPath, filePath ) );
     }
     else
     {
-      manualsIndex += `\n### ${dir.name}\n`
+      let names = path.s.name( relative );
+      let filePaths = path.s.join( f.absolute, names );
+      filePaths = path.s.relative( srcPath, filePaths );
 
-      files.forEach( ( record ) =>
-      {
-        let localPath = path.join( manualsLocalPath,dir.relative, record.relative );
-        localPath = path.undot( localPath );
-        let title = _.strRemoveBegin( record.relative, './' );
-        title = path.withoutExt( title );
-
-        manualsIndex += `  * [${title}](${localPath})\n`
-      })
+      _.arrayAppendArray( results[ moduleName ], filePaths );
     }
   })
 
-  provider.fileWrite( manualsIndexPath, manualsIndex );
+  /*  */
+
+  let index = '';
+
+  for( let m in results )
+  {
+    let name = m;
+
+    if( m === '.' )
+    name = path.name( srcPath )
+
+    index += '\n';
+    index += `## ${name}`;
+    index += '\n';
+
+    results[ m ] = _.arrayAs( results[ m ] );
+
+    results[ m ].forEach( ( e ) =>
+    {
+      let dirPath = path.dir( path.dir( e ) ) + '/';
+      let name = _.strRemoveBegin( e, dirPath );
+      index += `* [${ name }](${ path.name( srcPath ) + '/' + e})`
+      index += '\n';
+    })
+  }
+
+  return index;
 }
 
 // --
@@ -492,7 +593,7 @@ let Restricts =
   templateData : null,
 
   outReferencePath : '{{outPath}}/Reference',
-  outconceptsPath : '{{outPath}}/Manuals',
+  outConceptsPath : '{{outPath}}/Concepts',
   outTutorialsPath : '{{outPath}}/Tutorials',
 }
 
@@ -533,7 +634,7 @@ let Extend =
   prepareConcepts : prepareConcepts,
   prepareTutorials : prepareTutorials,
 
-  _indexGenerate : _indexGenerate,
+  indexGenerate : indexGenerate,
 
   // relations
 
