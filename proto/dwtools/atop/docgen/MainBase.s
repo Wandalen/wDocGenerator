@@ -374,7 +374,8 @@ function prepareConcepts()
     reflectMap : { [ self.conceptsPath ] : self.outConceptsPath },
   });
 
-  // self.indexGenerate( self.outConceptsPath, 'ConceptsIndex.md' );
+  if( !provider.fileExists( self.outConceptsPath ) )
+  return;
 
   let index = self.indexGenerate( self.outConceptsPath );
   let indexPath = path.join( self.outPath, 'ConceptsIndex.md' )
@@ -390,6 +391,9 @@ function prepareTutorials()
   ({
     reflectMap : { [ self.tutorialsPath ] : self.outTutorialsPath }
   });
+
+  if( !provider.fileExists( self.outTutorialsPath ) )
+  return;
 
   let index = self.indexGenerate( self.outTutorialsPath );
   let indexPath = path.join( self.outPath, 'TutorialsIndex.md' )
