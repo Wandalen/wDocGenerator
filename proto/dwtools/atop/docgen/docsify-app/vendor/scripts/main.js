@@ -68,7 +68,12 @@ function sidebarIndex( hook )
 
     found.each( ( index ,value ) =>
     {
-      var e = `<div class="item"><a href=${value.href}>${value.innerText}</a></div>`
+      let innerText = value.innerText;
+      let match = innerText.match( /(?=.*)[.~].*(?=[(:])/ );
+      if( !match )
+      match = innerText.match( /(?=.*)[.~].*$/ );
+      innerText = match || innerText;
+      var e = `<div class="item"><a href=${value.href}>${innerText}</a></div>`
       target.append( e )
     })
 
