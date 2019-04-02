@@ -367,9 +367,10 @@ function markdownGenerate()
 function prepareConcepts()
 {
   let self = this;
-  let path = self.provider.path;
+  let provider =  self.provider;
+  let path = provider.path;
 
-  self.provider.filesReflect
+  provider.filesReflect
   ({
     reflectMap : { [ self.conceptsPath ] : self.outConceptsPath },
   });
@@ -385,9 +386,10 @@ function prepareConcepts()
 function prepareTutorials()
 {
   let self = this;
-  let path = self.provider.path;
+  let provider =  self.provider;
+  let path = provider.path;
 
-  self.provider.filesReflect
+  provider.filesReflect
   ({
     reflectMap : { [ self.tutorialsPath ] : self.outTutorialsPath }
   });
