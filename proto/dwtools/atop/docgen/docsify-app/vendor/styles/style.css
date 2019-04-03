@@ -87,3 +87,13 @@ section.content
   cursor: pointer;
   box-shadow: none !important;
 }
+
+/*  */
+
+.header-url-icon
+{
+  font-size: 0.8em !important;
+  text-decoration: none !important;
+  color: black !important
+}
+

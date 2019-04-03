@@ -19,13 +19,20 @@ window.$docsify =
         }
         // return this.origin.link( href,title,text );
         return `<a href="/#/${href}" title="${title}">${text}</a>`
-      }
+      },
+      // heading : function()
+      // {
+      //   let result = this.origin.heading.apply( this.origin, arguments );
+      //   debugger
+      //   return result;
+      // }
     }
   },
   plugins :
   [
     accordion,
-    sidebarIndex
+    sidebarIndex,
+    headerLink
   ]
 }
 
@@ -130,4 +137,40 @@ function sidebarIndex( hook )
     next(html);
   });
 
+}
+
+//
+
+function headerLink( hook )
+{
+  hook.doneEach( function()
+  {
+
+    $( '.anchor').mouseenter( hoverIn );
+    $( '.anchor').mouseleave( hoverOut );
+
+    function hoverIn()
+    {
+      let elem =  $( `<i class="linkify button icon header-url-icon"></i>` );
+      let self = $(this);
+
+        self.prepend( elem )
+
+        new ClipboardJS( '.linkify',
+        {
+          text: function()
+          {
+            return self[ 0 ].href;
+          }
+        });
+
+    }
+
+    function hoverOut()
+    {
+      let self = $(this);
+      self.find( '.linkify' ).remove();
+    }
+
+  })
 }
