@@ -70,10 +70,20 @@
 section.content
 {
   position: relative !important;
-  left: 50px !important;
+  left: 0 !important;
+  margin: 0 0 !important;
 }
 
 .pusher .markdown-section
 {
-  margin: 0px 0px !important;
+  margin : 0px auto !important
+}
+
+.custom-sidebar-toggle
+{
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: none !important;
 }

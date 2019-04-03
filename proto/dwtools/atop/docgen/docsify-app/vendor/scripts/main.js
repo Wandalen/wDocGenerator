@@ -59,8 +59,27 @@ $( document ).ready( () =>
   ({
     dimPage : false,
     closable : false,
+    // onHide : sidebarOnHide,
+    // onVisible :sidebarOnVisible,
+    transition: 'overlay'
   })
-  .sidebar( 'show' );
+  .sidebar( 'toggle' )
+
+  // $('.custom-sidebar-toggle').on( 'click', () =>  $('.custom-sidebar').sidebar( 'toggle' ) );
+
+  // function sidebarOnHide()
+  // {
+  //   $('.custom-sidebar-toggle i').removeClass( 'left' ).addClass( 'right' );
+  //   // $('.markdown-section').css( 'margin', '0px auto' )
+  // }
+
+  // function sidebarOnVisible()
+  // {
+  //   $('.custom-sidebar-toggle i').removeClass( 'right' ).addClass( 'left' );
+  //   // $('.markdown-section').css( 'margin', '0px 300px' )
+  // }
+
+  /*  */
 })
 
 /**/
