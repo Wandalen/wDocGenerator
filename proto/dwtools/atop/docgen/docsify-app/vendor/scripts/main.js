@@ -29,6 +29,8 @@ window.$docsify =
   ]
 }
 
+//
+
 window.onscroll = () =>
 {
     let scrollToTop = document.getElementById( 'scrollToTop' );
@@ -38,11 +40,38 @@ window.onscroll = () =>
     scrollToTop.style.display = 'none';
 }
 
+//
+
+$( document ).ready( () =>
+{
+  /* menu */
+
+  $('.custom-nav-item').on('click', (e) =>
+  {
+    $('.custom-nav-item').removeClass( 'active' );
+    $( e.currentTarget ).addClass( 'active' );
+  })
+
+  /* sidebar */
+
+  $('.custom-sidebar')
+  .sidebar
+  ({
+    dimPage : false,
+    closable : false,
+  })
+  .sidebar( 'show' );
+})
+
+/**/
+
 function scrollToTop()
 {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
+
+//
 
 function accordion( hook )
 {
@@ -52,6 +81,8 @@ function accordion( hook )
     .accordion();
   });
 }
+
+//
 
 function sidebarIndex( hook )
 {

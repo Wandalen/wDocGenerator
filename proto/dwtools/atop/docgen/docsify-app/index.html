@@ -11,25 +11,25 @@
   <link rel="stylesheet" href="vendor/styles/style.css">
 </head>
 <body>
-  <div class="ui sidebar vertical visible custom-sidebar">
-    <div class="ui top fixed menu">
-    <a class="item" href='#/ReferenceIndex'>Reference</a>
-    <a class="item" href='#/ConceptsIndex'>Concepts</a>
-    <a class="item" href='#/TutorialsIndex'>Tutorials</a>
-    <div class="item ui search">
-        <div class="ui left icon input">
-          <input class="prompt" type="text" placeholder="Search in reference" autocomplete="off">
-        </div>
-      <div class="results"></div>
-    </div>
-    </div>
+  <div class="ui sidebar vertical custom-sidebar">
+      <div class="ui secondary vertical menu">
+        <a class="item custom-nav-item active" href='#/ReferenceIndex'>Reference</a>
+        <a class="item custom-nav-item" href='#/ConceptsIndex'>Concepts</a>
+        <a class="item custom-nav-item" href='#/TutorialsIndex'>Tutorials</a>
+      </div>
+      <div class="item ui search">
+          <div class="ui left icon input">
+            <input class="prompt" type="text" placeholder="Search in reference" autocomplete="off">
+          </div>
+        <div class="results"></div>
+      </div>
     <br>
-
-    <div class="ui index bulleted list" style="padding:10px !important">
-    </div>
+    <div class="ui index bulleted list" style="padding:10px !important"></div>
   </div>
+  <div class="pusher">
   <button onclick="scrollToTop()" id="scrollToTop" title="Back to top"><i class="big arrow alternate circle up outline icon"></i></button>
   <div id="app"></div>
+  </div>
   <script src="vendor/scripts/jquery-3.3.1.min.js"></script>
   <script src="vendor/semantic-2.4.1/semantic.min.js"></script>
   <script src="vendor/scripts/docsify.js"></script>

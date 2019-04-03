@@ -351,7 +351,7 @@ function main(config) {
     '</aside>';
 
   return (
-    (isMobile ? (aside + "<main>") : ("<main>" + aside)) +
+    // (isMobile ? (aside + "<main>") : ("<main>" + aside)) +
     '<section class="content">' +
     '<article class="markdown-section" id="main"><!--main--></article>' +
     '</section>' +

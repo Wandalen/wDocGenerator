@@ -61,5 +61,19 @@
 
 .custom-sidebar
 {
-  width: 450px !important;
+  width: 300px !important;
+  overflow: hidden !important;
+}
+
+/*  */
+
+section.content
+{
+  position: relative !important;
+  left: 50px !important;
+}
+
+.pusher .markdown-section
+{
+  margin: 0px 0px !important;
 }
