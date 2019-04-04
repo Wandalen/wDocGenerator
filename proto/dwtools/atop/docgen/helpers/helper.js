@@ -47,6 +47,13 @@ function emptyLine()
 
 //
 
+function strCapitalize( src )
+{
+  return _.strCapitalize( src );
+}
+
+//
+
 function namespacesGet( options )
 {
   options.hash.kind = 'namespace'
@@ -95,6 +102,15 @@ function summaryGet()
 
 //
 
+function nameNoPrefix()
+{
+  if( _.strBegins( this.name, 'w' ) )
+  return this.name.slice( 1 );
+  return this.name;
+}
+
+//
+
 function currentEntity( options )
 {
   options.hash.id = state.currentId;
@@ -104,9 +120,28 @@ function currentEntity( options )
 
 //
 
+function entitySignature()
+{
+  let signature;
+
+  var mSig = ddata.methodSig.call( this );
+
+  if( ddata.isConstructor.call( this ) || ddata.isFunction.call( this ) )
+  {
+    signature = '( ' + mSig + ' )'
+  }
+  else if( ddata.isEvent.call( this ) )
+  {
+    if( mSig ) signature = '( ' + mSig + ' )'
+  }
+
+  return signature;
+}
+
+//
+
 function debug( src )
 {
-  if( this.kind === 'class' )
   logger.log( _.toStr( src, { levels : 99 } ) )
 }
 
@@ -118,8 +153,11 @@ exports.namespaces = namespacesGet;
 // exports.modules2 = modules2;
 // exports.classes2 = classes2;
 exports.summary = summaryGet;
+exports.nameNoPrefix = nameNoPrefix;
 
 exports.currentEntity = currentEntity;
+exports.entitySignature = entitySignature;
+exports.strCapitalize = strCapitalize;
 
 exports.debug = debug;
 

@@ -294,6 +294,18 @@ function markdownGenerate()
 
   /*  */
 
+  function nameNoPrefix( e )
+  {
+    let firstIsW = _.strBegins( e.name, 'w' );
+    let secondIsCapital = /[A-Z]/.test( e.name[ 1 ] );
+
+    if( firstIsW && secondIsCapital )
+    return e.name.slice( 1 );
+    return e.name;
+  }
+
+  /*  */
+
   function renderIdentifiers( hash )
   {
     _.assert( hash.kind );
@@ -316,11 +328,14 @@ function markdownGenerate()
       state.currentId = e.id;
 
       let result = jsdoc2md.renderSync( o );
+      let name = nameNoPrefix( e );
 
-      let fileName = e.name /* + '-' + e.meta.filename + '-' + e.order */ + '.md';
+      let fileName = name /* + '-' + e.meta.filename + '-' + e.order */ + '.md';
       let filePath = path.join( self.outReferencePath, hash.kind, fileName );
       self.provider.fileWrite( filePath, result );
     })
+
+
   }
 
   /*  */
