@@ -145,7 +145,6 @@ function headerLink( hook )
 {
   hook.doneEach( function()
   {
-
     $( '.anchor').mouseenter( hoverIn );
     $( '.anchor').mouseleave( hoverOut );
 
