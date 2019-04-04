@@ -1,5 +1,7 @@
 {{#children inherited=undefined ~}}
+{{#unless  (equal kind 'function')~}}
 {{>module-member-heading~}}
 {{>module-member-body~}}
 {{>separator~}}
+{{/unless ~}}
 {{/children~}}
