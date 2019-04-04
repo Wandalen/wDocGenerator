@@ -8,23 +8,23 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="vendor/themes/vue.css">
   <link rel="stylesheet" href="vendor/semantic-2.4.1/semantic.min.css">
+  <link rel="stylesheet" href="vendor/styles/search.css">
   <link rel="stylesheet" href="vendor/styles/style.css">
 </head>
 <body>
 
   <div class="ui sidebar vertical overlay custom-sidebar">
-
-      <div class="ui secondary vertical menu">
-        <a class="item custom-nav-item active" href='#/ReferenceIndex'>Reference</a>
-        <a class="item custom-nav-item" href='#/ConceptsIndex'>Concepts</a>
-        <a class="item custom-nav-item" href='#/TutorialsIndex'>Tutorials</a>
+    <div class="item ui search">
+      <div class="ui fluid icon input">
+        <input class="prompt search-input" type="text" placeholder="Search in reference" autocomplete="off">
       </div>
-      <div class="item ui search">
-          <div class="ui left icon input">
-            <input class="prompt" type="text" placeholder="Search in reference" autocomplete="off">
-          </div>
-        <div class="results"></div>
-      </div>
+      <div class="results"></div>
+    </div>
+    <div class="ui secondary vertical menu">
+      <a class="item custom-nav-item active" href='#/ReferenceIndex'>Reference</a>
+      <a class="item custom-nav-item" href='#/ConceptsIndex'>Concepts</a>
+      <a class="item custom-nav-item" href='#/TutorialsIndex'>Tutorials</a>
+    </div>
     <br>
     <div class="ui index bulleted list" style="padding:10px !important"></div>
     <!-- <button class="ui basic attached fixed icon top button">
