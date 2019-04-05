@@ -393,7 +393,7 @@ function prepareConcepts()
   if( !provider.fileExists( self.outConceptsPath ) )
   return;
 
-  let index = self.indexGenerate( self.outConceptsPath );
+  let index = self.indexGenerate( self.outConceptsPath, 'Concepts', 'Concepts.md' );
   let indexPath = path.join( self.outPath, 'Concepts.md' )
   self.provider.fileWrite( indexPath, index );
 }
@@ -412,7 +412,7 @@ function prepareTutorials()
   if( !provider.fileExists( self.outTutorialsPath ) )
   return;
 
-  let index = self.indexGenerate( self.outTutorialsPath );
+  let index = self.indexGenerate( self.outTutorialsPath, 'Tutorials', 'Tutorials.md' );
   let indexPath = path.join( self.outPath, 'Tutorials.md' )
   self.provider.fileWrite( indexPath, index );
 }
@@ -487,7 +487,7 @@ function prepareTutorials()
 
 //
 
-function indexGenerate( srcPath )
+function indexGenerate( srcPath, title, targetFileName )
 {
   let self = this;
   let provider = self.provider;
@@ -498,22 +498,17 @@ function indexGenerate( srcPath )
   let dirs = provider.filesFind
   ({
     filePath : srcPath,
-    recursive : 2,
+    recursive : 1,
     includingTerminals : 0,
     includingDirs : 1,
-    includingStem : 1,
+    includingStem : 0,
   })
 
   dirs.forEach( ( f ) =>
   {
-    let moduleName = '.';
-
-    if( f.relative !== '.' )
-    {
-      let dirRelative = path.relative( srcPath, f.absolute );
-      dirRelative = _.strAppendOnce( dirRelative, '/' )
-      moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
-    }
+    let dirRelative = path.relative( srcPath, f.absolute );
+    dirRelative = _.strAppendOnce( dirRelative, '/' )
+    let moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
 
     let files = provider.filesFind
     ({
@@ -528,50 +523,31 @@ function indexGenerate( srcPath )
     if( !files.length )
     return;
 
-    if( !results[ moduleName ] )
-    results[ moduleName ] = [];
-
     var relative = _.select( files, '*/relative' );
 
-    if( _.arrayHas( relative, './README.md' ) )
+    if( _.arrayHas( relative, `./${targetFileName}` ) )
     {
-      let filePath = path.join( f.absolute, './README' );
-      results[ moduleName ].push( path.relative( srcPath, filePath ) );
+      let filePath = path.join( f.absolute, targetFileName );
+      results[ moduleName ] = path.relative( srcPath, filePath );
     }
-    else
+    else if( _.arrayHas( relative, `./README.md` ) )
     {
-      let names = path.s.name( relative );
-      let filePaths = path.s.join( f.absolute, names );
-      filePaths = path.s.relative( srcPath, filePaths );
-
-      _.arrayAppendArray( results[ moduleName ], filePaths );
+      let filePath = path.join( f.absolute, `./README.md` );
+      results[ moduleName ] = path.relative( srcPath, filePath );
     }
   })
 
   /*  */
 
-  let index = '';
+  let index = `### ${title}\n`;
 
   for( let m in results )
   {
     let name = m;
 
-    if( m === '.' )
-    name = path.name( srcPath )
-
     index += '\n';
-    index += `## ${name}`;
+    index += `* [${ name }](${ path.name( srcPath ) + '/' + results[ m ]})`
     index += '\n';
-
-    results[ m ] = _.arrayAs( results[ m ] );
-
-    results[ m ].forEach( ( e ) =>
-    {
-      let dirPath = path.dir( path.dir( e ) ) + '/';
-      let name = _.strRemoveBegin( e, dirPath );
-      index += `* [${ name }](${ path.name( srcPath ) + '/' + e})`
-      index += '\n';
-    })
   }
 
   return index;

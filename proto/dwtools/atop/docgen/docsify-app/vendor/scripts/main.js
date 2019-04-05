@@ -18,6 +18,10 @@ window.$docsify =
           href = currentDir + '/' + href;
         }
         // return this.origin.link( href,title,text );
+
+        if( href[ 0 ] === '/' )
+        href = href.slice( 1 );
+
         return `<a href="/#/${href}" title="${title}">${text}</a>`
       },
       // heading : function()
