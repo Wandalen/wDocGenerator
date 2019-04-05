@@ -102,5 +102,6 @@ section.content
 
 .anchor-special
 {
-  margin-left: -30px !important
+  margin-left: -30px !important;
+  color: black !important;
 }
