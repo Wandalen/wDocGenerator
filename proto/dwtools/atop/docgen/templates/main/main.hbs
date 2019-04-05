@@ -2,6 +2,10 @@
 {{#if (equal kind 'module')~}}
 {{>module}}
 {{else~}}
+{{#if (equal kind 'class')~}}
+{{>class}}
+{{else~}}
 {{>entity}}
+{{/if~}}
 {{/if~}}
 {{/currentEntity~}}

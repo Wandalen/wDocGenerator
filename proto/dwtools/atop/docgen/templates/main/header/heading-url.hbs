@@ -1,0 +1,6 @@
+/#/reference/
+{{~#if (parentObject) ~}}
+{{#with (parentObject)}}{{kind}}/{{nameNoPrefix}}{{/with}}#{{>heading-id}}
+{{~else~}}
+{{{kind}}}/{{{nameNoPrefix}}}#{{>heading-id}}
+{{~/if~}}

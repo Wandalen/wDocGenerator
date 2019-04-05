@@ -26,11 +26,11 @@ function escapedAnchor( src )
 
 //   if( parent )
 //   {
-//     url = `/#/Reference/${parent.kind}/${parent.name}?id=${anchor}`;
+//     url = `/#/reference/${parent.kind}/${parent.name}?id=${anchor}`;
 //   }
 //   else
 //   {
-//     url = `/#/Reference/${this.kind}/${this.name}?id=${anchor}`;
+//     url = `/#/reference/${this.kind}/${this.name}?id=${anchor}`;
 //   }
 
 //   state.searchIndex[ id ] = { title : id, url : url };

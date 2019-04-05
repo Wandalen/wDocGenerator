@@ -235,7 +235,7 @@ function markdownGenerate()
     template : '{{>index}}'
   })
 
-  let filePath = path.join( self.outPath, 'ReferenceIndex.md' );
+  let filePath = path.join( self.outPath, 'Reference.md' );
   self.provider.fileWrite( filePath,index );
 
   /* search index */
@@ -361,11 +361,11 @@ function markdownGenerate()
 
       if( parent )
       {
-        url = `/#/Reference/${parent.kind}/${nameNoPrefix(parent)}#${e.kind}_${nameNoPrefix( e )}`;
+        url = `/#/reference/${parent.kind}/${nameNoPrefix(parent)}#${e.kind}_${nameNoPrefix( e )}`;
       }
       else
       {
-        url = `/#/Reference/${e.kind}/${nameNoPrefix( e )}#${e.kind}_${nameNoPrefix( e )}`
+        url = `/#/reference/${e.kind}/${nameNoPrefix( e )}#${e.kind}_${nameNoPrefix( e )}`
       }
 
       searchIndex[ id ] = { title : id, url : url };
@@ -394,7 +394,7 @@ function prepareConcepts()
   return;
 
   let index = self.indexGenerate( self.outConceptsPath );
-  let indexPath = path.join( self.outPath, 'ConceptsIndex.md' )
+  let indexPath = path.join( self.outPath, 'Concepts.md' )
   self.provider.fileWrite( indexPath, index );
 }
 
@@ -413,7 +413,7 @@ function prepareTutorials()
   return;
 
   let index = self.indexGenerate( self.outTutorialsPath );
-  let indexPath = path.join( self.outPath, 'TutorialsIndex.md' )
+  let indexPath = path.join( self.outPath, 'Tutorials.md' )
   self.provider.fileWrite( indexPath, index );
 }
 

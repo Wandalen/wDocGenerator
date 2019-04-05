@@ -1,7 +1,1 @@
-<h3><a class="anchor-special" kind="{{{kind}}}" name="{{{nameNoPrefix}}}" id="{{{kind}}}_{{{nameNoPrefix}}}" url="/#/Reference/
-{{~#if (parentObject) ~}}
-{{#with (parentObject)}}{{kind}}/{{nameNoPrefix}}{{/with}}#{{{kind}}}_{{{nameNoPrefix}}}
-{{~else~}}
-{{{kind}}}/{{{nameNoPrefix}}}#{{{kind}}}_{{{nameNoPrefix}}}
-{{~/if~}}">
-{{>heading-name}}</a></h3>
+<h3><a class="anchor-special" kind="{{{kind}}}" name="{{{nameNoPrefix}}}" id="{{>heading-id}}" url="{{>heading-url}}">{{>heading-name}}</a></h3>

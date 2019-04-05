@@ -4,7 +4,7 @@ window.$docsify =
   repo: '',
   loadNavbar : false,
   loadSidebar : false,
-  homepage : 'ReferenceIndex.md',
+  homepage : 'Reference.md',
   markdown:
   {
     renderer:
@@ -49,6 +49,23 @@ window.onscroll = () =>
 
 //
 
+$(window).scroll( function()
+{
+  let index = $('.sidebar-index-item');
+  let anchors = $('.anchor-special');
+
+  anchors.each( function( i )
+  {
+    if( $(window).scrollTop() >= $(this).position().top )
+    {
+      $( index ).find( 'a' ).removeClass( 'sidebar-index-item-active' );
+      $( index[ i ] ).find( 'a' ).addClass( 'sidebar-index-item-active' );
+    }
+	});
+});
+
+//
+
 $( document ).ready( () =>
 {
   /* menu */
@@ -66,30 +83,14 @@ $( document ).ready( () =>
   ({
     dimPage : false,
     closable : false,
-    // onHide : sidebarOnHide,
-    // onVisible :sidebarOnVisible,
-    // transition: 'overlay'
   })
   .sidebar( 'toggle' )
 
-  // $('.custom-sidebar-toggle').on( 'click', () =>  $('.custom-sidebar').sidebar( 'toggle' ) );
-
-  // function sidebarOnHide()
-  // {
-  //   $('.custom-sidebar-toggle i').removeClass( 'left' ).addClass( 'right' );
-  //   // $('.markdown-section').css( 'margin', '0px auto' )
-  // }
-
-  // function sidebarOnVisible()
-  // {
-  //   $('.custom-sidebar-toggle i').removeClass( 'right' ).addClass( 'left' );
-  //   // $('.markdown-section').css( 'margin', '0px 300px' )
-  // }
-
   /*  */
+
 })
 
-/**/
+//
 
 function scrollToTop()
 {
@@ -134,10 +135,22 @@ function sidebarIndex( hook )
       // var e = `<div class="item"><a href=${value.href}>${innerText}</a></div>`
       let kind = self.attr( 'kind' );
       let name = self.attr( 'name' );
+      let id = self.attr( 'id' );
       let href = origin + self.attr( 'url' );
-      var e = `<div class="item"><a href=${href}>${kind} ${name}</a></div>`
+      var e = `<div class="item sidebar-index-item"><code>${kind}</code><a href=${href}> ${name}</a></div>`
 
       target.append( e )
+    })
+
+    let currentActive;
+
+    $('.sidebar-index-item').on( 'click', function ()
+    {
+      if( currentActive )
+      $( currentActive ).removeClass( 'sidebar-index-item-active' );
+
+      currentActive = $( this );
+      $( this ).addClass( 'sidebar-index-item-active' )
     })
 
     next(html);
