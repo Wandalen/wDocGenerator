@@ -15,6 +15,7 @@ window.$docsify =
         {
           let currentPath = document.location.href.replace( document.location.origin + '/#','' );
           let currentDir = currentPath.substr( 1,currentPath.lastIndexOf( '/' ) );
+
           href = currentDir + '/' + href;
         }
         // return this.origin.link( href,title,text );
@@ -58,14 +59,20 @@ $(window).scroll( function()
   let index = $('.sidebar-index-item');
   let anchors = $('.anchor-special');
 
-  anchors.each( function( i )
+  anchors.each( onEach );
+
+  anchors = $('.anchor');
+
+  anchors.each( onEach )
+
+  function onEach( i )
   {
     if( $(window).scrollTop() >= $(this).position().top )
     {
       $( index ).find( 'a' ).removeClass( 'sidebar-index-item-active' );
       $( index[ i ] ).find( 'a' ).addClass( 'sidebar-index-item-active' );
     }
-	});
+  }
 });
 
 //
@@ -126,25 +133,43 @@ function sidebarIndex( hook )
 
     found = found.slice();
 
-    target.empty();
-
-    found.each( ( index ,value ) =>
+    if( found.length )
     {
-      let self = $(value);
-      // let innerText = value.innerText;
-      // let match = innerText.match( /(?=.*)[.~].*(?=[(:])/ );
-      // if( !match )
-      // match = innerText.match( /(?=.*)[.~].*$/ );
-      // innerText = match || innerText;
-      // var e = `<div class="item"><a href=${value.href}>${innerText}</a></div>`
-      let kind = self.attr( 'kind' );
-      let name = self.attr( 'name' );
-      let id = self.attr( 'id' );
-      let href = origin + self.attr( 'url' );
-      var e = `<div class="item sidebar-index-item"><code>${kind}</code><a href=${href}> ${name}</a></div>`
+      target.empty();
 
-      target.append( e )
-    })
+      found.each( ( index ,value ) =>
+      {
+        let self = $(value);
+        // let innerText = value.innerText;
+        // let match = innerText.match( /(?=.*)[.~].*(?=[(:])/ );
+        // if( !match )
+        // match = innerText.match( /(?=.*)[.~].*$/ );
+        // innerText = match || innerText;
+        // var e = `<div class="item"><a href=${value.href}>${innerText}</a></div>`
+        let kind = self.attr( 'kind' );
+        let name = self.attr( 'name' );
+        let id = self.attr( 'id' );
+        let href = origin + self.attr( 'url' );
+        var e = `<div class="item sidebar-index-item"><code>${kind}</code><a href=${href}> ${name}</a></div>`
+
+        target.append( e )
+      })
+    }
+    else
+    {
+      found = obj.find( '.anchor' );
+
+      target.empty();
+
+      found.each( ( index ,value ) =>
+      {
+        let self = $(value);
+        let innerText = value.innerText;
+        let href = self.attr( 'href' );
+        var e = `<div class="item sidebar-index-item"><a href=${href}>${innerText}</a></div>`
+        target.append( e )
+      })
+    }
 
     let currentActive;
 
@@ -168,8 +193,12 @@ function headerLink( hook )
 {
   hook.doneEach( function()
   {
-    $( '.anchor-special').each( ( index, value ) =>
-    {
+    $( '.anchor-special').each( onEach );
+    $( '.anchor').each( onEach );
+  })
+
+  function onEach( index, value )
+  {
       let elem =  $( `<i class="linkify button icon header-url-icon"></i>` );
       $(value).prepend( elem );
 
@@ -180,7 +209,7 @@ function headerLink( hook )
       {
         let self = $(this);
 
-        let url = self.attr( 'url' );
+        let url = self.attr( 'url' ) || self.attr( 'href' );
 
         self.find( '.linkify' ).css( 'visibility', 'visible' );
 
@@ -201,6 +230,6 @@ function headerLink( hook )
         self.find( '.linkify' ).css( 'visibility', 'hidden' );
       }
 
-    })
-  })
+  }
+
 }
