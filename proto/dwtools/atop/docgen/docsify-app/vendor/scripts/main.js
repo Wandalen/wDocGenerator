@@ -145,31 +145,39 @@ function headerLink( hook )
 {
   hook.doneEach( function()
   {
-    $( '.anchor').mouseenter( hoverIn );
-    $( '.anchor').mouseleave( hoverOut );
-
-    function hoverIn()
+    $( '.anchor-special').each( ( index, value ) =>
     {
       let elem =  $( `<i class="linkify button icon header-url-icon"></i>` );
-      let self = $(this);
+      $(value).prepend( elem );
 
-        self.prepend( elem )
+      $(value).mouseenter( hoverIn );
+      $(value).mouseleave( hoverOut );
+
+      function hoverIn()
+      {
+        let self = $(this);
+
+        let url = self.attr( 'url' );
+
+        self.find( '.linkify' ).css( 'visibility', 'visible' );
 
         new ClipboardJS( '.linkify',
         {
           text: function()
           {
-            return self[ 0 ].href;
+            window.history.pushState({ url : url }, document.title, url );
+            return origin + url;
           }
         });
 
-    }
+      }
 
-    function hoverOut()
-    {
-      let self = $(this);
-      self.find( '.linkify' ).remove();
-    }
+      function hoverOut()
+      {
+        let self = $(this);
+        self.find( '.linkify' ).css( 'visibility', 'hidden' );
+      }
 
+    })
   })
 }

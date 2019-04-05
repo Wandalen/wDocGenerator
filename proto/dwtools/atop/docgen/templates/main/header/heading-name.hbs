@@ -5,7 +5,7 @@
 {{!-- {{#if @prefix}}{{@prefix}} {{/if~}} --}}
 {{!-- {{@parent~}} --}}
 {{!-- {{@accessSymbol}} --}}
-{{#if kind}}<code>{{{strCapitalize kind}}} </code>{{/if~}}{{#if (isEvent)}}"{{{nameNoPrefix}}}"{{else}}{{{escape (nameNoPrefix)}}}{{/if~}}
+{{#if kind}}<code>{{{strCapitalize kind}}}</code> {{/if~}}{{#if (isEvent)}}"{{{nameNoPrefix}}}"{{else}}{{{escape (nameNoPrefix)}}}{{/if~}}
 {{#if @methodSign}}{{#if (isEvent)}} {{{entitySignature}}}{{else}}{{{entitySignature}}}{{/if}}{{/if~}}
 {{{@codeClose}~}}
 {{#if @returnSymbol}} {{@returnSymbol}}{{/if~}}

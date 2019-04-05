@@ -104,7 +104,10 @@ function summaryGet()
 
 function nameNoPrefix()
 {
-  if( _.strBegins( this.name, 'w' ) )
+  let firstIsSmall = /[a-z]/.test( this.name[ 0 ] );
+  let secondIsCapital = /[A-Z]/.test( this.name[ 1 ] );
+
+  if( firstIsSmall && secondIsCapital )
   return this.name.slice( 1 );
   return this.name;
 }

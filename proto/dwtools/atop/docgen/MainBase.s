@@ -296,10 +296,10 @@ function markdownGenerate()
 
   function nameNoPrefix( e )
   {
-    let firstIsW = _.strBegins( e.name, 'w' );
+    let firstIsSmall = /[a-z]/.test( e.name[ 0 ] );
     let secondIsCapital = /[A-Z]/.test( e.name[ 1 ] );
 
-    if( firstIsW && secondIsCapital )
+    if( firstIsSmall && secondIsCapital )
     return e.name.slice( 1 );
     return e.name;
   }

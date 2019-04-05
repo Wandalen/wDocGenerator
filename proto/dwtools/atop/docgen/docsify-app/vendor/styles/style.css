@@ -95,5 +95,12 @@ section.content
 {
   font-size: 0.8em !important;
   text-decoration: none !important;
-  color: black !important
+  color: black !important;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.anchor-special
+{
+  margin-left: -30px !important
 }
