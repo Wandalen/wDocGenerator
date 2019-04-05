@@ -9,7 +9,7 @@
 {{#if @methodSign}}{{#if (isEvent)}} {{{entitySignature}}}{{else}}{{{entitySignature}}}{{/if}}{{/if~}}
 {{{@codeClose}~}}
 {{#if @returnSymbol}} {{@returnSymbol}}{{/if~}}
-{{#if @returnTypes}} {{>linked-type-list types=@returnTypes delimiter=" \| " }}{{/if~}}
+{{#if @returnTypes}} {{>linked-type-list types=@returnTypes delimiter=" | " }}{{/if~}}
 {{#if @suffix}} {{@suffix}}{{/if~}}
 {{{@depClose}~}}
 {{~/sig}}{{/if~}}
