@@ -117,7 +117,7 @@ function sidebarIndex( hook )
     let target = $( '.ui.index.list' );
 
     let obj = $( html );
-    let found = obj.find( 'a[href].anchor' );
+    let found = obj.find( '.anchor-special' );
 
     found = found.slice();
 
@@ -125,12 +125,18 @@ function sidebarIndex( hook )
 
     found.each( ( index ,value ) =>
     {
-      let innerText = value.innerText;
-      let match = innerText.match( /(?=.*)[.~].*(?=[(:])/ );
-      if( !match )
-      match = innerText.match( /(?=.*)[.~].*$/ );
-      innerText = match || innerText;
-      var e = `<div class="item"><a href=${value.href}>${innerText}</a></div>`
+      let self = $(value);
+      // let innerText = value.innerText;
+      // let match = innerText.match( /(?=.*)[.~].*(?=[(:])/ );
+      // if( !match )
+      // match = innerText.match( /(?=.*)[.~].*$/ );
+      // innerText = match || innerText;
+      // var e = `<div class="item"><a href=${value.href}>${innerText}</a></div>`
+      let kind = self.attr( 'kind' );
+      let name = self.attr( 'name' );
+      let href = origin + self.attr( 'url' );
+      var e = `<div class="item"><a href=${href}>${kind} ${name}</a></div>`
+
       target.append( e )
     })
 
