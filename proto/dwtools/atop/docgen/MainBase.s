@@ -361,11 +361,11 @@ function markdownGenerate()
 
       if( parent )
       {
-        url = `/#/Reference/${parent.kind}/${parent.name}?id=${anchor}`;
+        url = `/#/Reference/${parent.kind}/${nameNoPrefix(parent)}#${e.kind}_${nameNoPrefix( e )}`;
       }
       else
       {
-        url = `/#/Reference/${e.kind}/${e.name}?id=${anchor}`;
+        url = `/#/Reference/${e.kind}/${nameNoPrefix( e )}#${e.kind}_${nameNoPrefix( e )}`
       }
 
       searchIndex[ id ] = { title : id, url : url };

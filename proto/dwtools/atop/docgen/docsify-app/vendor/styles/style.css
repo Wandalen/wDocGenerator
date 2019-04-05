@@ -64,6 +64,7 @@
   width: 300px !important;
   overflow: hidden !important;
   padding-top: 0px !important;
+  box-shadow: none !important;
 }
 
 /*  */
@@ -75,9 +76,17 @@ section.content
   margin: 0 0 !important;
 }
 
+.pusher
+{
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
 .pusher .markdown-section
 {
-  margin : 0px auto !important
+  margin : 0px 300px!important;
 }
 
 .custom-sidebar-toggle
@@ -104,4 +113,9 @@ section.content
 {
   margin-left: -30px !important;
   color: black !important;
+}
+
+.anchor-special code
+{
+  vertical-align: baseline !important;
 }

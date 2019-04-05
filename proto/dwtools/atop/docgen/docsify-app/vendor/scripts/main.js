@@ -68,7 +68,7 @@ $( document ).ready( () =>
     closable : false,
     // onHide : sidebarOnHide,
     // onVisible :sidebarOnVisible,
-    transition: 'overlay'
+    // transition: 'overlay'
   })
   .sidebar( 'toggle' )
 
