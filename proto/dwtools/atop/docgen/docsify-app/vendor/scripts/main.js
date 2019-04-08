@@ -72,15 +72,11 @@ $( document ).ready( () =>
 
     if( visible )
     {
-      icon.removeClass( 'left' );
-      icon.addClass( 'right' );
       $( this ).css( 'left', '10px' );
       $( '.markdown-section' ).css( 'margin-left', 'auto' );
     }
     else
     {
-      icon.removeClass( 'right' );
-      icon.addClass( 'left' );
       let left = $('.custom-sidebar').css( 'width' );
       $( this ).css( 'left', left );
       $( '.markdown-section' ).css( 'margin-left', '300px' );
