@@ -47,7 +47,7 @@
 
 .index
 {
-  max-height:calc(100vh - 220px) !important;
+  max-height:calc(100vh - 160px) !important;
   overflow-y: auto !important;
   overflow-x: auto !important;
 }
