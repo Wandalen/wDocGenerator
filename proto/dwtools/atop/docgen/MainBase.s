@@ -22,6 +22,8 @@ if( typeof module !== 'undefined' )
 
   var arrayify = require('array-back');
   var where = require('test-value').where;
+
+  require( 'willbe' );
 }
 
 //
@@ -103,7 +105,9 @@ function form( e )
       conceptsPath : 'conceptsPath',
       manuals: 'conceptsPath',
       tutorialsPath : 'tutorialsPath',
-      tutorials : 'tutorialsPath'
+      tutorials : 'tutorialsPath',
+      useWillForManuals : 'useWillForManuals',
+      willModulePath : 'willModulePath',
     },
     propertiesMap : appArgs.map
   });
@@ -120,6 +124,11 @@ function form( e )
   self.includeAny = new RegExp( self.includeAny );
   if( self.excludeAny )
   self.excludeAny = new RegExp( self.excludeAny );
+
+  if( self.useWillForManuals )
+  {
+    self.will = new _.Will({ verbosity : self.verbosity });
+  }
 }
 
 //
@@ -135,6 +144,8 @@ function pathsResolve()
   self.tutorialsPath = path.resolve( path.current(),self.tutorialsPath );
   self.outPath = path.resolve( path.current(),self.outPath );
 
+  self.willModulePath = path.resolve( path.current(),self.willModulePath );
+
   if( !self.env )
   self.env = _.TemplateTreeEnvironment({ tree : self });
   self.env.pathsNormalize();
@@ -142,6 +153,7 @@ function pathsResolve()
   self.outReferencePath = path.resolve( path.current(),self.outReferencePath );
   self.outConceptsPath = path.resolve( path.current(),self.outConceptsPath );
   self.outTutorialsPath = path.resolve( path.current(),self.outTutorialsPath );
+
 }
 
 //
@@ -385,18 +397,37 @@ function prepareConcepts()
   let provider =  self.provider;
   let path = provider.path;
 
-  provider.filesReflect
-  ({
-    reflectMap : { [ self.conceptsPath ] : self.outConceptsPath },
-  });
+  let index;
 
-  if( !provider.fileExists( self.outConceptsPath ) )
-  return;
+  if( self.useWillForManuals )
+  {
+    let o =
+    {
+      docPathSelector : 'path::doc.concepts',
+      outDirPath : self.outConceptsPath,
+      indexTitle : 'Concepts',
+      indexPathSelector : 'path::doc.concepts.index'
+    }
+    index = self._prepareManualsUsingWill( o );
+  }
+  else
+  {
+    provider.filesReflect
+    ({
+      reflectMap : { [ self.conceptsPath ] : self.outConceptsPath },
+    });
 
-  let index = self.indexGenerate( self.outConceptsPath, 'Concepts', 'Concepts.md' );
+    if( !provider.fileExists( self.outConceptsPath ) )
+    return;
+
+    index =  self.indexGenerate( self.outConceptsPath, 'Concepts', 'README.md' );
+  }
+
   let indexPath = path.join( self.outPath, 'Concepts.md' )
   self.provider.fileWrite( indexPath, index );
 }
+
+//
 
 function prepareTutorials()
 {
@@ -404,86 +435,105 @@ function prepareTutorials()
   let provider =  self.provider;
   let path = provider.path;
 
-  provider.filesReflect
-  ({
-    reflectMap : { [ self.tutorialsPath ] : self.outTutorialsPath }
-  });
+  let index;
 
-  if( !provider.fileExists( self.outTutorialsPath ) )
-  return;
+  if( self.useWillForManuals )
+  {
+    let o =
+    {
+      docPathSelector : 'path::doc.tutorials',
+      outDirPath : self.outTutorialsPath,
+      indexTitle : 'Tutorials',
+      indexPathSelector : 'path::doc.tutorials.index'
+    }
+    index = self._prepareManualsUsingWill( o );
+  }
+  else
+  {
+    provider.filesReflect
+    ({
+      reflectMap : { [ self.tutorialsPath ] : self.outTutorialsPath },
+    });
 
-  let index = self.indexGenerate( self.outTutorialsPath, 'Tutorials', 'Tutorials.md' );
+    if( !provider.fileExists( self.outTutorialsPath ) )
+    return;
+
+    index = self.indexGenerate( self.outTutorialsPath, 'Tutorials', 'README.md' );
+  }
+
   let indexPath = path.join( self.outPath, 'Tutorials.md' )
   self.provider.fileWrite( indexPath, index );
 }
 
 //
 
-// function _indexGenerate( manualsPath, indexName )
-// {
-//   let self = this;
-//   let provider = self.provider;
-//   let path = provider.path;
+function _prepareManualsUsingWill( o )
+{
+  let self = this;
+  let provider = self.provider;
+  let module = self.will.moduleMake({ dirPath : self.willModulePath });
 
-//   let manualsIndexPath = path.join( self.outPath, indexName );
+  module.ready.deasync();
 
-//   if( !provider.fileExists( manualsPath ) )
-//   return;
+  let submodules = module.submodulesResolve({ selector : '*' });
 
-//   let manualsIndex = '# <center>Manuals</center>';
-//   let manualsLocalPath = '.';
+  let index = `### ${o.indexTitle}\n`;
 
-//   /* manuals index */
+  submodules.forEach( ( sub ) =>
+  {
+    let srcPath;
+    let moduleDirPath = sub.loadedModule.resolve( 'path::in' );
 
-//   let dirs = provider.filesFind
-//   ({
-//     filePath : manualsPath,
-//     recursive : 1,
-//     includingTerminals : 0,
-//     includingDirs : 1,
-//     includingStem : 0
-//   })
+    try
+    {
+      srcPath = sub.loadedModule.resolve( o.docPathSelector );
+    }
+    catch( err )
+    {
+      srcPath = provider.path.join( moduleDirPath, 'doc' );
+    }
 
-//   dirs.forEach( ( dir ) =>
-//   {
-//     let files = provider.filesFind
-//     ({
-//       filePath : dir.absolute,
-//       recursive : 2,
-//       includingTerminals : 1,
-//       includingDirs : 1,
-//       includingStem : 0,
-//       filter : { ends : 'md' }
-//     })
+    if( !provider.fileExists( srcPath ) )
+    return;
 
-//     let readmePath = path.join( dir.absolute, 'README.md' );
+    let name = sub.loadedModule.resolve( 'about::name' );
+    let dstPath = provider.path.join( o.outDirPath, name );
 
-//     if( provider.fileExists( readmePath ) )
-//     {
-//       let localPath = path.join( manualsLocalPath, dir.relative, 'README.md' );
-//       localPath = path.undot( localPath );
+    let files = provider.filesReflect
+    ({
+      reflectMap : { [ srcPath ] : dstPath },
+      srcFilter :
+      {
+        ends : 'md'
+      }
+    });
 
-//       manualsIndex += `\n### ${dir.name}\n`
-//       manualsIndex += `  * [${dir.name}/README](${localPath})\n`
-//     }
-//     else
-//     {
-//       manualsIndex += `\n### ${dir.name}\n`
+    if( !files.length )
+    return;
 
-//       files.forEach( ( record ) =>
-//       {
-//         let localPath = path.join( manualsLocalPath,dir.relative, record.relative );
-//         localPath = path.undot( localPath );
-//         let title = _.strRemoveBegin( record.relative, './' );
-//         title = path.withoutExt( title );
+    let srcIndexPath;
 
-//         manualsIndex += `  * [${title}](${localPath})\n`
-//       })
-//     }
-//   })
+    try
+    {
+      srcIndexPath = sub.loadedModule.resolve( o.indexPathSelector );
+    }
+    catch( err )
+    {
+      srcIndexPath = provider.path.join( srcPath, 'README.md' );
+    }
 
-//   provider.fileWrite( manualsIndexPath, manualsIndex );
-// }
+    if( !provider.fileExists( srcIndexPath ) )
+    return;
+
+    index += '\n';
+    index += `* [${ name }](${ path.name( outDirPath ) + '/' + provider.path.relative( outDirPath, srcIndexPath )})`
+    index += '\n';
+
+  })
+
+  return index;
+
+}
 
 //
 
@@ -566,6 +616,8 @@ let Composes =
   conceptsPath : 'doc/concepts',
   tutorialsPath : 'doc/tutorial',
 
+  willModulePath : '.',
+
   outPath : 'out/doc',
 
   includeAny : ".+\\.(js|ss|s)(doc)?$",
@@ -574,7 +626,9 @@ let Composes =
   docsify : 1,
 
   includingConcepts : 1,
-  includingTutorials : 1
+  includingTutorials : 1,
+
+  useWillForManuals : 0
 
 }
 
@@ -592,6 +646,8 @@ let Restricts =
   outReferencePath : '{{outPath}}/Reference',
   outConceptsPath : '{{outPath}}/Concepts',
   outTutorialsPath : '{{outPath}}/Tutorials',
+
+  will : null
 }
 
 let Medials =
@@ -632,6 +688,7 @@ let Extend =
   prepareTutorials : prepareTutorials,
 
   indexGenerate : indexGenerate,
+  _prepareManualsUsingWill : _prepareManualsUsingWill,
 
   // relations
 

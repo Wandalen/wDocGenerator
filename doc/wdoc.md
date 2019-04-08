@@ -90,6 +90,9 @@ docsify : 1, # controls docsify app preparation
 includingConcepts : 1,  # controls including of concepts
 includingTutorials : 1  # controls including of tutorials
 
+willModulePath : '.' # path to will module, is used in pair with `useWillForManuals` option
+useWillForManuals : 0 # controls including of tutorials/concepts from submodules of provided will module, ignores `conceptsPath` and `tutorialsPath` if enabled
+
 ```
 
 List of commands:
@@ -120,7 +123,9 @@ Example#3 - custom path for tutorials :
 
 `wdoc .generate sourcePath tutorialsPath : path/to/tutorials`
 
+Example#4 - include tutorials from submodules using will config :
 
+`wdoc .generate.tutorials useWillForManuals : 1 willModulePath : path/to/some/module`
 
 
 

@@ -16,6 +16,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wCommandsAggregator' );
   _.include( 'wCommandsConfig' );
 
+  require( 'willbe' );
 }
 
 })();
