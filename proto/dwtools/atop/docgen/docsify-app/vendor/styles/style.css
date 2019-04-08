@@ -146,8 +146,3 @@ section.content
   margin-left: -30px !important;
   color: black !important;
 }
-
-.anchor-special code
-{
-  vertical-align: baseline !important;
-}
