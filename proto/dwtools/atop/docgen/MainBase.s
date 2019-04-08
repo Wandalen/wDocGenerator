@@ -23,7 +23,6 @@ if( typeof module !== 'undefined' )
   var arrayify = require('array-back');
   var where = require('test-value').where;
 
-  require( 'willbe' );
 }
 
 //
