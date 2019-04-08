@@ -54,29 +54,6 @@ window.onscroll = () =>
 
 //
 
-$(window).scroll( function()
-{
-  let index = $('.sidebar-index-item');
-  let anchors = $('.anchor-special');
-
-  anchors.each( onEach );
-
-  anchors = $('.anchor');
-
-  anchors.each( onEach )
-
-  function onEach( i )
-  {
-    if( $(window).scrollTop() >= $(this).position().top )
-    {
-      $( index ).find( 'a' ).removeClass( 'sidebar-index-item-active' );
-      $( index[ i ] ).find( 'a' ).addClass( 'sidebar-index-item-active' );
-    }
-  }
-});
-
-//
-
 $( document ).ready( () =>
 {
   /* menu */
