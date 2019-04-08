@@ -43,17 +43,6 @@ window.$docsify =
 
 //
 
-window.onscroll = () =>
-{
-    let scrollToTop = document.getElementById( 'scrollToTop' );
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20)
-    scrollToTop.style.display = 'block';
-    else
-    scrollToTop.style.display = 'none';
-}
-
-//
-
 $( document ).ready( () =>
 {
   /* menu */
@@ -72,19 +61,55 @@ $( document ).ready( () =>
     dimPage : false,
     closable : false,
   })
-  .sidebar( 'toggle' )
+  .sidebar( 'toggle' );
 
-  /*  */
+  $('.custom-sidebar-toggle').css( 'left', $('.custom-sidebar').css( 'width' ) );
+
+  $('.custom-sidebar-toggle').on( 'click', function()
+  {
+    let visible =  $('.custom-sidebar').sidebar( 'is visible' );
+    let icon = $( this ).find( 'i' );
+
+    if( visible )
+    {
+      icon.removeClass( 'left' );
+      icon.addClass( 'right' );
+      $( this ).css( 'left', '10px' );
+      $( '.markdown-section' ).css( 'margin-left', 'auto' );
+    }
+    else
+    {
+      icon.removeClass( 'right' );
+      icon.addClass( 'left' );
+      let left = $('.custom-sidebar').css( 'width' );
+      $( this ).css( 'left', left );
+      $( '.markdown-section' ).css( 'margin-left', '300px' );
+    }
+
+    $('.custom-sidebar').sidebar( 'toggle' );
+
+  })
+
+
+
+  /* scrollToTop */
+
+  $( window ).on( 'scroll', () =>
+  {
+    let scrollToTop = $('.scrollToTop' );
+    if ( document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 )
+    scrollToTop.css( 'display', 'block' );
+    else
+    scrollToTop.css( 'display', 'none' );
+  })
+
+  $( '.scrollToTop' ).on( 'click', () =>
+  {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  })
 
 })
-
-//
-
-function scrollToTop()
-{
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}
 
 //
 

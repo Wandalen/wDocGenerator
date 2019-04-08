@@ -27,7 +27,7 @@
 
 /*  */
 
-#scrollToTop
+.scrollToTop
 {
   display: none;
   position: fixed;
@@ -44,6 +44,13 @@
 }
 
 /*  */
+
+.index
+{
+  max-height:calc(100vh - 220px) !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+}
 
 .list .item a
 {
@@ -62,7 +69,6 @@
 .custom-sidebar
 {
   width: 300px !important;
-  overflow: hidden !important;
   padding-top: 0px !important;
   box-shadow: none !important;
 }
@@ -77,6 +83,18 @@
   margin: 0 0;
   padding: 0px 5px;
   white-space: pre-wrap;
+}
+
+.custom-sidebar-toggle
+{
+  position: fixed;
+  bottom: 20px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 10px;
 }
 
 .sidebar-index-item-active
@@ -103,16 +121,7 @@ section.content
 
 .pusher .markdown-section
 {
-  margin : 0px 300px!important;
-}
-
-.custom-sidebar-toggle
-{
-  border: none;
-  outline: none;
-  background: transparent;
-  cursor: pointer;
-  box-shadow: none !important;
+  margin : 0px 300px;
 }
 
 /*  */

@@ -13,25 +13,26 @@
 </head>
 <body>
 
-  <div class="ui sidebar vertical left custom-sidebar">
+  <div class="ui sidebar vertical left custom-sidebar" style="overflow:hidden !important">
     <div class="item ui search">
       <div class="ui fluid icon input">
         <input class="prompt search-input" type="text" placeholder="Search in reference" autocomplete="off">
       </div>
       <div class="results"></div>
     </div>
-    <div class="ui secondary vertical menu">
+    <div class="ui secondary horizontal menu">
       <a class="item custom-nav-item active" href='#/Reference'>Reference</a>
       <a class="item custom-nav-item" href='#/Concepts'>Concepts</a>
       <a class="item custom-nav-item" href='#/Tutorials'>Tutorials</a>
     </div>
     <div class="ui divider"></div>
-    <div class="ui index bulleted list" style="padding:10px !important"></div>
+    <div class="ui index list" style="padding:10px !important" ></div>
     <!-- <button class="ui basic attached fixed icon top button">
         <i class="left arrow icon"></i>
     </button> -->
   </div>
-  <button onclick="scrollToTop()" id="scrollToTop" title="Back to top"><i class="big arrow alternate circle up outline icon"></i></button>
+  <button class="scrollToTop" title="Back to top"><i class="big arrow alternate circle up outline icon"></i></button>
+  <button class="custom-sidebar-toggle" title="Toggle sidebar"><i class="big arrow alternate left icon"></i></button>
   <div class="pusher">
     <div id="app"></div>
   </div>
