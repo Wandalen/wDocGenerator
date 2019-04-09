@@ -180,7 +180,7 @@ function templateDataRead()
         excludeAny : self.excludeAny
       }
     },
-    includingTransient : 1,
+    includingTransient : 0,
 	  includingDirs : 0,
     outputFormat : 'absolute',
     recursive : 2,
@@ -188,18 +188,26 @@ function templateDataRead()
 
   _.assert( files.length, 'No files found at sourcesPath:', self.sourcesPath )
 
-  try
+  let configPathNative = path.nativize( path.join( __dirname,  'conf/doc.json' ) );
+
+  files.forEach( ( file ) =>
   {
-    self.templateData = jsdoc2md.getTemplateDataSync
-    ({
-      files : path.s.nativize( files ),
-      configure : path.nativize( path.join( __dirname,  'conf/doc.json' ) )
-    })
-  }
-  catch( err )
-  {
-    _.errLogOnce( _.err( 'jsdoc2md: Error during parse:', err ) );
-  }
+    try
+    {
+      let currentFileData = jsdoc2md.getTemplateDataSync
+      ({
+        files : [ path.nativize( file ) ],
+        configure : configPathNative
+      });
+
+      _.arrayAppendArray( self.templateData,currentFileData  )
+    }
+    catch( err )
+    {
+      if( self.verbosity > 1 )
+      _.errLogOnce( _.err( 'jsdoc2md: Error during parse:', file, err ) );
+    }
+  })
 
   // logger.log( _.toStr( self.parsedTemplateData, { jsLike : 1 } ) )
 }
@@ -640,7 +648,7 @@ let Associates =
 let Restricts =
 {
   env : null,
-  templateData : null,
+  templateData : _.define.own( [] ),
 
   outReferencePath : '{{outPath}}/Reference',
   outConceptsPath : '{{outPath}}/Concepts',
