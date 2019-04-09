@@ -148,6 +148,24 @@ function debug( src )
   logger.log( _.toStr( src, { levels : 99 } ) )
 }
 
+function entityKind( options )
+{
+  let kind = this.kind;
+  let scope = this.scope;
+  let parent = ddata.parentObject.call( this, options );
+
+  if( parent && kind === 'function' )
+  {
+    if( scope === 'static' )
+    kind = 'routine';
+
+    if( scope === 'instance' )
+    kind = 'method';
+  }
+
+  return kind;
+}
+
 exports.escapedAnchor = escapedAnchor;
 // exports.saveToSearchIndex = saveToSearchIndex;
 exports.emptyLine = emptyLine;
@@ -163,5 +181,6 @@ exports.entitySignature = entitySignature;
 exports.strCapitalize = strCapitalize;
 
 exports.debug = debug;
+exports.entityKind = entityKind;
 
 })();

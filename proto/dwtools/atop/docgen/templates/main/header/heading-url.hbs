@@ -1,6 +1,6 @@
 /#/reference/
 {{~#if (parentObject) ~}}
-{{#with (parentObject)}}{{kind}}/{{nameNoPrefix}}{{/with}}#{{>heading-id}}
+{{#with (parentObject)}}{{entityKind}}/{{nameNoPrefix}}{{/with}}#{{>heading-id}}
 {{~else~}}
-{{{kind}}}/{{{nameNoPrefix}}}#{{>heading-id}}
+{{{entityKind}}}/{{{nameNoPrefix}}}#{{>heading-id}}
 {{~/if~}}
