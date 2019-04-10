@@ -5086,6 +5086,6 @@ initGlobalAPI();
 /**
  * Run Docsify
  */
-ready(function (_) { return new Docsify(); });
+ready(function (_) { window.docsifyApp = new Docsify(); return window.docsifyApp });
 
 }());
