@@ -51,38 +51,24 @@ $( document ).ready( () =>
 
   /* sidebar */
 
-  $('.custom-sidebar')
-  .sidebar
-  ({
-    dimPage : false,
-    closable : false,
-  })
-  .sidebar( 'toggle' );
-
-  $('.custom-sidebar-toggle').css( 'left', $('.custom-sidebar').css( 'width' ) );
+  let visible = true;
 
   $('.custom-sidebar-toggle').on( 'click', function()
   {
-    let visible =  $('.custom-sidebar').sidebar( 'is visible' );
-    let icon = $( this ).find( 'i' );
-
     if( visible )
     {
       $( this ).css( 'left', '10px' );
-      $( '.markdown-section' ).css( 'margin-left', 'auto' );
+      $('.custom-sidebar').css( 'display', 'none' );
+      visible = false;
     }
     else
     {
+      $('.custom-sidebar').css( 'display', 'block' );
       let left = $('.custom-sidebar').css( 'width' );
       $( this ).css( 'left', left );
-      $( '.markdown-section' ).css( 'margin-left', '300px' );
+      visible = true;
     }
-
-    $('.custom-sidebar').sidebar( 'toggle' );
-
   })
-
-
 
   /* scrollToTop */
 

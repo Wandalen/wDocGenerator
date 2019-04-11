@@ -68,9 +68,12 @@
 
 .custom-sidebar
 {
-  width: 300px !important;
   padding-top: 0px !important;
   box-shadow: none !important;
+  height: 100% !important;
+  border-right: 1px solid rgba(34,36,38,.15);
+  position: fixed !important;
+  overflow: hidden;
 }
 
 .custom-sidebar code
@@ -95,6 +98,7 @@
   background: transparent;
   cursor: pointer;
   font-size: 10px;
+  margin-left: 25px;
 }
 
 .sidebar-index-item-active
@@ -119,9 +123,9 @@ section.content
   transition: none !important;
 }
 
-.pusher .markdown-section
+.markdown-section
 {
-  margin : 0px 300px;
+  margin : 0px 15% !important;
 }
 
 /*  */

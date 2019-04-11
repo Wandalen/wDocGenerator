@@ -12,8 +12,35 @@
   <link rel="stylesheet" href="vendor/styles/style.css">
 </head>
 <body>
+  <div class="ui two column grid">
+    <div class="three wide column">
+      <div class="left sidebar custom-sidebar">
+        <div class="item ui search">
+            <div class="ui fluid icon input">
+              <input class="prompt search-input" type="text" placeholder="Search in reference" autocomplete="off">
+            </div>
+            <div class="results"></div>
+          </div>
+          <div class="ui secondary horizontal menu">
+            <a class="item custom-nav-item active" href='#/Reference'>Reference</a>
+            <a class="item custom-nav-item" href='#/Concepts'>Concepts</a>
+            <a class="item custom-nav-item" href='#/Tutorials'>Tutorials</a>
+          </div>
+          <div class="ui divider"></div>
+          <div class="ui index list" style="padding:10px !important" ></div>
+        </div>
+    </div>
+    <div class="thirteen wide column">
 
-  <div class="ui sidebar vertical left custom-sidebar" style="overflow:hidden !important">
+        <button class="ui custom-sidebar-toggle" title="Toggle sidebar"><i class="big bars icon"></i></button>
+        <button class="scrollToTop" title="Back to top"><i class="big arrow alternate circle up outline icon"></i></button>
+
+        <!-- <div class="pusher"> -->
+          <div id="app"></div>
+        <!-- </div> -->
+    </div>
+  </div>
+  <!-- <div class="ui sidebar vertical left custom-sidebar" style="overflow:hidden !important">
     <div class="item ui search">
       <div class="ui fluid icon input">
         <input class="prompt search-input" type="text" placeholder="Search in reference" autocomplete="off">
@@ -27,15 +54,8 @@
     </div>
     <div class="ui divider"></div>
     <div class="ui index list" style="padding:10px !important" ></div>
-    <!-- <button class="ui basic attached fixed icon top button">
-        <i class="left arrow icon"></i>
-    </button> -->
-  </div>
-  <button class="scrollToTop" title="Back to top"><i class="big arrow alternate circle up outline icon"></i></button>
-  <button class="custom-sidebar-toggle" title="Toggle sidebar"><i class="big bars icon"></i></button>
-  <div class="pusher">
-    <div id="app"></div>
-  </div>
+  </div> -->
+
 
   <script src="vendor/scripts/jquery-3.3.1.min.js"></script>
   <script src="vendor/semantic-2.4.1/semantic.min.js"></script>
