@@ -143,6 +143,85 @@ function entitySignature()
 
 //
 
+function getLink( input,options )
+{
+  var linked, matches, namepath
+  var output = {}
+
+  if ( ( matches = input.match(/.*?<(.*?)>/) ) )
+  {
+    namepath = matches[1]
+  } else
+  {
+    namepath = input
+  }
+
+  options.hash = { id: namepath }
+  linked = ddata._identifier( options )
+
+  if (!linked)
+  {
+    options.hash = { longname: namepath }
+    linked = ddata._identifier( options )
+  }
+
+  if( !linked )
+  {
+    output = { name: input, url: null }
+  }
+  else
+  {
+    output.name = linked.name;
+    output.url = '/#/reference/';
+
+    let parent = ddata.parentObject.call( linked, options );
+
+    if( !parent )
+    parent = linked;
+
+
+    output.url += parent.kind + '/' + nameNoPrefix.call( parent ) + '#' + entityKind.call( linked, options ) + '_' + nameNoPrefix.call( linked );
+  }
+
+  return output;
+}
+
+//
+
+function inlineLinks (text, options)
+{
+  if( text )
+  {
+    if( _.strHas( text, 'wTools.arrayLeftIndex' ) )
+    debugger
+
+    var links = ddata.parseLink( text );
+
+    if( !links.length )
+    {
+      options.hash = { id: text };
+      let entity = ddata._identifier( options )
+      if( entity )
+      links = [ { caption : entity.name, url : text, original : text } ];
+    }
+
+    links.forEach( function( link )
+    {
+      var linked = getLink(link.url, options);
+      if (link.caption === link.url)
+      link.caption = linked.name;
+      if( linked.url )
+      {
+        link.url = linked.url;
+        text = text.replace(link.original, `<a href=${link.url}>${link.caption}</a>`);
+      }
+    })
+  }
+  return text
+}
+
+//
+
 function debug( src )
 {
   logger.log( _.toStr( src, { levels : 99 } ) )
@@ -182,5 +261,7 @@ exports.strCapitalize = strCapitalize;
 
 exports.debug = debug;
 exports.entityKind = entityKind;
+
+exports.inlineLinks = inlineLinks;
 
 })();
