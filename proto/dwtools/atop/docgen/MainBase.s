@@ -209,6 +209,18 @@ function templateDataRead()
     }
   })
 
+  //
+
+  self.templateData.forEach( ( e ) =>
+  {
+    if( e.kind != 'namespace' )
+    return;
+
+    e.name = _.strRemoveBegin( e.longname, e.memberof );
+    e.name = _.strRemoveBegin( e.name, '.' );
+
+  })
+
   // logger.log( _.toStr( self.parsedTemplateData, { jsLike : 1 } ) )
 }
 
