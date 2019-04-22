@@ -336,6 +336,20 @@ function markdownGenerate()
     return e.name;
   }
 
+  function nameForHd( e )
+  {
+    let name = nameNoPrefix( e );
+
+    if( e.kind === 'namespace' )
+    {
+      name = name.replace( /[():\s]/g, '_' );
+      name = _.strRemoveBegin( name, '_' );
+      name = _.strRemoveEnd( name, '_' );
+    }
+
+    return name;
+  }
+
   /*  */
 
   function renderIdentifiers( hash )
@@ -360,7 +374,7 @@ function markdownGenerate()
       state.currentId = e.id;
 
       let result = jsdoc2md.renderSync( o );
-      let name = nameNoPrefix( e );
+      let name = nameForHd( e );
 
       let fileName = name /* + '-' + e.meta.filename + '-' + e.order */ + '.md';
       let filePath = path.join( self.outReferencePath, hash.kind, fileName );
@@ -391,13 +405,16 @@ function markdownGenerate()
 
       let url;
 
+      let entityName = nameForHd( e );
+
       if( parent )
       {
-        url = `/#/reference/${parent.kind}/${nameNoPrefix(parent)}#${e.kind}_${nameNoPrefix( e )}`;
+        let parentName = nameForHd( parent );
+        url = `/#/reference/${parent.kind}/${parentName}#${e.kind}_${entityName}`;
       }
       else
       {
-        url = `/#/reference/${e.kind}/${nameNoPrefix( e )}#${e.kind}_${nameNoPrefix( e )}`
+        url = `/#/reference/${e.kind}/${entityName}#${e.kind}_${entityName}`
       }
 
       searchIndex[ id ] = { title : id, url : url };

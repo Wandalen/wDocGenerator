@@ -114,6 +114,24 @@ function nameNoPrefix()
 
 //
 
+function nameForUrl()
+{
+  let name = nameNoPrefix.call( this );
+
+  if( this.kind === 'namespace' )
+  {
+    name = name.replace( /[():\s]/g, '_' );
+    name = _.strRemoveBegin( name, '_' );
+    name = _.strRemoveEnd( name, '_' );
+    return name;
+  }
+
+  return name;
+}
+
+
+//
+
 function currentEntity( options )
 {
   options.hash.id = state.currentId;
@@ -180,7 +198,7 @@ function getLink( input,options )
     parent = linked;
 
 
-    output.url += parent.kind + '/' + nameNoPrefix.call( parent ) + '#' + entityKind.call( linked, options ) + '_' + nameNoPrefix.call( linked );
+    output.url += parent.kind + '/' + nameForUrl.call( parent ) + '#' + entityKind.call( linked, options ) + '_' + nameNoPrefix.call( linked );
   }
 
   return output;
@@ -254,6 +272,7 @@ exports.namespaces = namespacesGet;
 // exports.classes2 = classes2;
 exports.summary = summaryGet;
 exports.nameNoPrefix = nameNoPrefix;
+exports.nameForUrl = nameForUrl;
 
 exports.currentEntity = currentEntity;
 exports.entitySignature = entitySignature;
