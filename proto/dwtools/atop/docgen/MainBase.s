@@ -216,6 +216,7 @@ function templateDataRead()
     if( e.kind != 'namespace' )
     return;
 
+    if( e.memberof )
     e.name = _.strRemoveBegin( e.longname, e.memberof );
     e.name = _.strRemoveBegin( e.name, '.' );
 
