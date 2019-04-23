@@ -1,5 +1,7 @@
 {{#children inherited=undefined ~}}
 {{>module-member-heading~}}
 {{>body~}}
+{{#if (equal kind 'class')~}}<b>See:</b><a href="{{>module-member-heading-url}}"> {{nameNoPrefix}}</a>{{/if~}}
+{{#if (equal kind 'namespace')~}}<b>See:</b><a href="{{>module-member-heading-url}}"> {{nameNoPrefix}}</a>{{/if~}}
 {{>separator~}}
 {{/children~}}

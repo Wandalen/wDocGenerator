@@ -5,7 +5,11 @@
 {{#if (equal kind 'class')~}}
 {{>class}}
 {{else~}}
+{{#if (equal kind 'namespace')~}}
+{{>namespace}}
+{{else~}}
 {{>entity}}
+{{/if~}}
 {{/if~}}
 {{/if~}}
 {{/currentEntity~}}

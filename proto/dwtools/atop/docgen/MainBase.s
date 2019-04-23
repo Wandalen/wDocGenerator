@@ -342,7 +342,7 @@ function markdownGenerate()
 
     if( e.kind === 'namespace' )
     {
-      name = name.replace( /[():\s]/g, '_' );
+      name = name.replace( /[():\s]+/g, '_' );
       name = _.strRemoveBegin( name, '_' );
       name = _.strRemoveEnd( name, '_' );
     }
