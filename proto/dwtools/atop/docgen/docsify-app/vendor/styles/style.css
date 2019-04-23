@@ -74,6 +74,9 @@
   border-right: 1px solid rgba(34,36,38,.15);
   position: fixed !important;
   overflow: hidden;
+  min-width: 300px !important;
+  width : auto !important;
+  min-width: 300px !important;
 }
 
 .custom-sidebar code
@@ -98,7 +101,7 @@
   background: transparent;
   cursor: pointer;
   font-size: 10px;
-  margin-left: 25px;
+  margin-left: -45px;
 }
 
 .sidebar-index-item-active

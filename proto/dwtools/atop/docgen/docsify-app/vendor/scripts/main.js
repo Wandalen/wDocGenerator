@@ -58,6 +58,7 @@ $( document ).ready( () =>
     if( visible )
     {
       $( this ).css( 'left', '10px' );
+      $( this ).css( 'margin-left', '0px' );
       $('.custom-sidebar').css( 'display', 'none' );
       visible = false;
     }
