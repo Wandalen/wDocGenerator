@@ -613,7 +613,7 @@ function indexGenerate( srcPath, title )
     if( indexPath )
     {
       let moduleName = path.name( self.inPath );
-      results[ moduleName ] = indexPath;
+      results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), path.relative( srcPath, indexPath ) );
     }
     else
     {
@@ -624,7 +624,10 @@ function indexGenerate( srcPath, title )
         let moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
         let indexPath = selectIndex( f.absolute );
         if( indexPath )
-        results[ moduleName ] = indexPath;
+        { 
+          let relative = path.relative( self.docPath, indexPath );
+          results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), relative );
+        }
       })
     }
   }
@@ -654,11 +657,11 @@ function indexGenerate( srcPath, title )
 
     if( provider.fileExists( indexPath ) )
     {
-      return path.join( prefixPath, path.relative( self.outDocPath, indexPath ) );
+      return indexPath;
     }
     else if( provider.fileExists( ReadmePath ) )
     {
-      return path.join( prefixPath, path.relative( self.outDocPath, ReadmePath ) );
+      return ReadmePath;
     }
   }
 }
