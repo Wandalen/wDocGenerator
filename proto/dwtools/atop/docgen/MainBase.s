@@ -96,6 +96,7 @@ function form( e )
     {
       verbosity : 'verbosity',
       v : 'verbosity',
+      referencePath : 'referencePath',
       outPath : 'outPath',
       docPath : 'docPath',
       doc : 'docPath',
@@ -115,7 +116,7 @@ function form( e )
 
   // _.sure( _.strDefined( appArgs.subject ), '{-referencePath-} needs value, please pass a subject' );
 
-  self.referencePath = appArgs.subject;
+  self.referencePath = appArgs.map.referencePath || appArgs.subject;
 
   self.pathsResolve();
 
@@ -248,7 +249,7 @@ function docsifyAppBaseCopy()
 
 //
 
-function markdownGenerate()
+function referenceGenerate()
 {
   let self = this;
   let path = self.provider.path;
@@ -686,13 +687,13 @@ let Composes =
   verbosity : 1,
 
   referencePath : 'proto',
+  docPath : 'doc',
   conceptsPath : 'out/doc/Doc',
   tutorialsPath : 'out/doc/Doc',
 
   willModulePath : '.',
 
   inPath : '.',
-  docPath : 'doc',
   outPath : 'out/doc',
 
   includeAny : ".+\\.(js|ss|s)(doc)?$",
@@ -756,7 +757,7 @@ let Extend =
 
   templateDataRead : templateDataRead,
   docsifyAppBaseCopy : docsifyAppBaseCopy,
-  markdownGenerate : markdownGenerate,
+  referenceGenerate : referenceGenerate,
 
   prepareConcepts : prepareConcepts,
   prepareTutorials : prepareTutorials,

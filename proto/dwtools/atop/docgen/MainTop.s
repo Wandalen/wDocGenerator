@@ -69,9 +69,10 @@ function commandGenerate( e )
   if( self.docsify )
   self.docsifyAppBaseCopy();
 
-  self.markdownGenerate();
+  self.referenceGenerate();
 
   if( self.includingConcepts || self.includingTutorials )
+  if( !self.useWillForManuals )
   self.prepareDoc();
 
   if( self.includingConcepts )
@@ -83,16 +84,40 @@ function commandGenerate( e )
   self.installPackages();
 }
 
+commandGenerate.commandProperties =
+{
+  docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
+  tutorialsPath : 'Path to tutorials index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
+  conceptsPath : 'Path to concepts index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
+  inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
+  outPath : 'Path where to save result of generation. Default : "out/doc"',
+  useWillForManuals : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  includingConcepts : 'Generates concepts and index file if enabled. Default : 1.',
+  includingTutorials : 'Generates tutorials and index file if enabled. Default : 1.',
+  docsify : 'Prepares docsify app if enabled. Default : 1',
+  v : 'Verbosity level. Default:1.'
+}
+
 //
 
-function commandGenerateMarkdown( e )
+function commandGenerateReference( e )
 {
   let self = this;
 
   self.form( e );
   self.templateDataRead();
-  self.markdownGenerate();
+  self.referenceGenerate();
 }
+
+commandGenerateReference.commandProperties =
+{
+  inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
+  referencePath : 'Path to directory with jsdoc annotated source code. Default : "proto"',
+  outPath : 'Path where to generate reference. Default : out/doc',
+  v : 'Verbosity level. Default:1.'
+}
+
 
 //
 
@@ -102,6 +127,14 @@ function commandGenerateDocsify( e )
 
   self.form( e );
   self.docsifyAppBaseCopy();
+  self.installPackages();
+}
+
+commandGenerateDocsify.commandProperties =
+{
+  inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
+  outPath : 'Path where to save docsify app. Default : "out/doc"',
+  v : 'Verbosity level. Default:1.'
 }
 
 //
@@ -111,9 +144,21 @@ function commandGenerateTutorials( e )
   let self = this;
 
   self.form( e );
-  self.tutorialsPath = self.sourcesPath;
+  self.tutorialsPath = e.propertiesMap.tutorialsPath || e.argument;
+  if( !self.useWillForManuals )
   self.prepareDoc();
   self.prepareTutorials();
+}
+
+commandGenerateTutorials.commandProperties =
+{
+  docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
+  tutorialsPath : 'Path to tutorials index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
+  inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
+  outPath : 'Path where to save result of generation. Default : "out/doc"',
+  useWillForManuals : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  v : 'Verbosity level. Default:1.'
 }
 
 //
@@ -123,9 +168,21 @@ function commandGenerateConcepts( e )
   let self = this;
 
   self.form( e );
-  self.conceptsPath = self.sourcesPath;
+  self.conceptsPath = e.propertiesMap.conceptsPath || e.argument;
+  if( !self.useWillForManuals )
   self.prepareDoc();
   self.prepareConcepts();
+}
+
+commandGenerateConcepts.commandProperties =
+{
+  docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
+  conceptsPath : 'Path to concepts index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
+  inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
+  outPath : 'Path where to save result of generation. Default : "out/doc"',
+  useWillForManuals : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  v : 'Verbosity level. Default:1.'
 }
 
 //
@@ -143,7 +200,7 @@ function commandsMake()
     'help' :                    { e : _.routineJoin( self, self.commandHelp ),                h : 'Get help.' },
     'generate' :                { e : _.routineJoin( self, self.commandGenerate ),            h : 'Generates markdown files and docsify.' },
     'generate docsify' :        { e : _.routineJoin( self, self.commandGenerateDocsify ),     h : 'Copies built docsify app into root of `outPath` directory.' },
-    'generate reference' :      { e : _.routineJoin( self, self.commandGenerateMarkdown ),    h : 'Generates *.md files from jsdoc annotated js files.' },
+    'generate reference' :      { e : _.routineJoin( self, self.commandGenerateReference ),    h : 'Generates *.md files from jsdoc annotated js files.' },
     'generate tutorials' :      { e : _.routineJoin( self, self.commandGenerateTutorials ),   h : 'Aggregates tutorials and creates index file.' },
     'generate concepts' :       { e : _.routineJoin( self, self.commandGenerateConcepts ),    h : 'Aggregates concepts and creates index file.' },
   }
@@ -206,7 +263,7 @@ let Extend =
   commandHelp : commandHelp,
 
   commandGenerate : commandGenerate,
-  commandGenerateMarkdown : commandGenerateMarkdown,
+  commandGenerateReference : commandGenerateReference,
   commandGenerateDocsify: commandGenerateDocsify,
   commandGenerateTutorials: commandGenerateTutorials,
   commandGenerateConcepts: commandGenerateConcepts,
