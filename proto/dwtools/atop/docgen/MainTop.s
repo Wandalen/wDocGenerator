@@ -187,6 +187,32 @@ commandGenerateConcepts.commandProperties =
 
 //
 
+function commandView( e )
+{
+  let self = this;
+  let provider = self.provider;
+  let path = provider.path;
+  
+  self.form( e );
+  
+  if( e.argument && !e.propertiesMap.outPath )
+  self.outPath = e.argument;
+  
+  let serverScriptPath = path.join( self.outPath, 'staticserver.ss' );
+  
+  _.sure( provider.fileExists( serverScriptPath ), 'Server script does not exist at:', serverScriptPath );
+  
+  _.shellNode( serverScriptPath );
+  
+}
+
+commandView.commandProperties =
+{
+  outPath : 'Path where to save result of generation. Default : "out/doc"',
+}
+
+//
+
 function commandsMake()
 {
   let self = this;
@@ -203,6 +229,7 @@ function commandsMake()
     'generate reference' :      { e : _.routineJoin( self, self.commandGenerateReference ),    h : 'Generates *.md files from jsdoc annotated js files.' },
     'generate tutorials' :      { e : _.routineJoin( self, self.commandGenerateTutorials ),   h : 'Aggregates tutorials and creates index file.' },
     'generate concepts' :       { e : _.routineJoin( self, self.commandGenerateConcepts ),    h : 'Aggregates concepts and creates index file.' },
+    'view' :                    { e : _.routineJoin( self, self.commandView ),    h : 'Launches the doc.' },
   }
 
   let ca = _.CommandsAggregator
@@ -267,6 +294,7 @@ let Extend =
   commandGenerateDocsify: commandGenerateDocsify,
   commandGenerateTutorials: commandGenerateTutorials,
   commandGenerateConcepts: commandGenerateConcepts,
+  commandView : commandView,
 
   commandsMake : commandsMake,
 
