@@ -111,13 +111,13 @@ function form( e )
     propertiesMap : appArgs.map
   });
 
-  // _.sure( _.strDefined( appArgs.subject ), '{-sourcesPath-} needs value, please pass a subject' );
+  // _.sure( _.strDefined( appArgs.subject ), '{-referencePath-} needs value, please pass a subject' );
 
-  self.sourcesPath = appArgs.subject;
+  self.referencePath = appArgs.subject;
 
   self.pathsResolve();
 
-  // _.assert( self.provider.fileExists( self.sourcesPath ), 'Provided sourcesPath doesn`t exist:', self.sourcesPath );
+  // _.assert( self.provider.fileExists( self.referencePath ), 'Provided referencePath doesn`t exist:', self.referencePath );
 
   if( self.includeAny )
   self.includeAny = new RegExp( self.includeAny );
@@ -137,21 +137,21 @@ function pathsResolve()
   let self = this;
   let path = self.provider.path;
 
-  if( self.sourcesPath )
-  self.sourcesPath = path.resolve( path.current(),self.sourcesPath );
-  self.conceptsPath = path.resolve( path.current(),self.conceptsPath );
-  self.tutorialsPath = path.resolve( path.current(),self.tutorialsPath );
-  self.outPath = path.resolve( path.current(),self.outPath );
+  if( self.referencePath )
+  self.referencePath = path.resolve( path.current(), self.inPath, self.referencePath );
+  self.conceptsPath = path.resolve( path.current(), self.inPath, self.conceptsPath );
+  self.tutorialsPath = path.resolve( path.current(), self.inPath, self.tutorialsPath );
+  self.outPath = path.resolve( path.current(), self.inPath, self.outPath );
 
-  self.willModulePath = path.resolve( path.current(),self.willModulePath );
+  self.willModulePath = path.resolve( path.current(), self.inPath, self.willModulePath );
 
   if( !self.env )
   self.env = _.TemplateTreeEnvironment({ tree : self });
   self.env.pathsNormalize();
 
-  self.outReferencePath = path.resolve( path.current(),self.outReferencePath );
-  self.outConceptsPath = path.resolve( path.current(),self.outConceptsPath );
-  self.outTutorialsPath = path.resolve( path.current(),self.outTutorialsPath );
+  self.outReferencePath = path.resolve( path.current(), self.inPath, self.outReferencePath );
+  self.outConceptsPath = path.resolve( path.current(), self.inPath, self.outConceptsPath );
+  self.outTutorialsPath = path.resolve( path.current(), self.inPath, self.outTutorialsPath );
 
 }
 
@@ -165,12 +165,12 @@ function templateDataRead()
   let logger = self.logger;
   let path = self.provider.path;
 
-  _.sure( _.strDefined( self.sourcesPath ), '{-sourcesPath-} needs value, please pass a subject' );
-  _.assert( self.provider.fileExists( self.sourcesPath ), 'Provided sourcesPath doesn`t exist:', self.sourcesPath );
+  _.sure( _.strDefined( self.referencePath ), '{-referencePath-} needs value, please pass a subject' );
+  _.assert( self.provider.fileExists( self.referencePath ), 'Provided referencePath doesn`t exist:', self.referencePath );
 
   let files = self.provider.filesFind
   ({
-    filePath : self.sourcesPath,
+    filePath : self.referencePath,
     filter :
     {
       ends : [ '.s','.ss','.js' ],
@@ -186,7 +186,7 @@ function templateDataRead()
     recursive : 2,
   });
 
-  _.assert( files.length, 'No files found at sourcesPath:', self.sourcesPath )
+  _.assert( files.length, 'No files found at referencePath:', self.referencePath )
 
   let configPathNative = path.nativize( path.join( __dirname,  'conf/doc.json' ) );
 
@@ -563,7 +563,7 @@ function _prepareManualsUsingWill( o )
     return;
 
     index += '\n';
-    index += `* [${ name }](${ path.name( outDirPath ) + '/' + provider.path.relative( outDirPath, srcIndexPath )})`
+    index += `* [${ name }](${ provider.path.name( o.outDirPath ) + '/' + provider.path.relative( o.outDirPath, srcIndexPath )})`
     index += '\n';
 
   })
@@ -649,12 +649,13 @@ let Composes =
 
   verbosity : 1,
 
-  sourcesPath : 'proto',
+  referencePath : 'proto',
   conceptsPath : 'doc/concepts',
   tutorialsPath : 'doc/tutorial',
 
   willModulePath : '.',
 
+  inPath : '.',
   outPath : 'out/doc',
 
   includeAny : ".+\\.(js|ss|s)(doc)?$",
