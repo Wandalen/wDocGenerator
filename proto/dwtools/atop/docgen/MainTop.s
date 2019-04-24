@@ -196,7 +196,7 @@ function commandView( e )
   self.form( e );
   
   if( e.argument && !e.propertiesMap.outPath )
-  self.outPath = e.argument;
+  self.outPath = path.resolve( path.current(), self.inPath, e.argument );
   
   let serverScriptPath = path.join( self.outPath, 'staticserver.ss' );
   
