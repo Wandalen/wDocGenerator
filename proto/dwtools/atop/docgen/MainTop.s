@@ -71,6 +71,9 @@ function commandGenerate( e )
 
   self.markdownGenerate();
 
+  if( self.includingConcepts || self.includingTutorials )
+  self.prepareDoc();
+
   if( self.includingConcepts )
   self.prepareConcepts();
 
@@ -107,6 +110,7 @@ function commandGenerateTutorials( e )
 
   self.form( e );
   self.tutorialsPath = self.sourcesPath;
+  self.prepareDoc();
   self.prepareTutorials();
 }
 
@@ -118,6 +122,7 @@ function commandGenerateConcepts( e )
 
   self.form( e );
   self.conceptsPath = self.sourcesPath;
+  self.prepareDoc();
   self.prepareConcepts();
 }
 

@@ -97,12 +97,14 @@ function form( e )
       verbosity : 'verbosity',
       v : 'verbosity',
       outPath : 'outPath',
+      docPath : 'docPath',
+      doc : 'docPath',
       out : 'outPath',
       docsify : 'docsify',
       includingConcepts : 'includingConcepts',
       includingTutorials : 'includingTutorials',
       conceptsPath : 'conceptsPath',
-      manuals: 'conceptsPath',
+      concepts: 'conceptsPath',
       tutorialsPath : 'tutorialsPath',
       tutorials : 'tutorialsPath',
       useWillForManuals : 'useWillForManuals',
@@ -137,11 +139,14 @@ function pathsResolve()
   let self = this;
   let path = self.provider.path;
 
+  self.inPath = path.resolve( path.current(), self.inPath );
+
   if( self.referencePath )
   self.referencePath = path.resolve( path.current(), self.inPath, self.referencePath );
   self.conceptsPath = path.resolve( path.current(), self.inPath, self.conceptsPath );
   self.tutorialsPath = path.resolve( path.current(), self.inPath, self.tutorialsPath );
   self.outPath = path.resolve( path.current(), self.inPath, self.outPath );
+  self.docPath = path.resolve( path.current(), self.inPath, self.docPath );
 
   self.willModulePath = path.resolve( path.current(), self.inPath, self.willModulePath );
 
@@ -150,9 +155,7 @@ function pathsResolve()
   self.env.pathsNormalize();
 
   self.outReferencePath = path.resolve( path.current(), self.inPath, self.outReferencePath );
-  self.outConceptsPath = path.resolve( path.current(), self.inPath, self.outConceptsPath );
-  self.outTutorialsPath = path.resolve( path.current(), self.inPath, self.outTutorialsPath );
-
+  self.outDocPath = path.resolve( path.current(), self.inPath, self.outDocPath );
 }
 
 //
@@ -449,15 +452,10 @@ function prepareConcepts()
   }
   else
   {
-    provider.filesReflect
-    ({
-      reflectMap : { [ self.conceptsPath ] : self.outConceptsPath },
-    });
-
-    if( !provider.fileExists( self.outConceptsPath ) )
+    if( !provider.fileExists( self.conceptsPath ) )
     return;
 
-    index =  self.indexGenerate( self.outConceptsPath, 'Concepts', 'README.md' );
+    index = self.indexGenerate( self.conceptsPath, 'Concepts', 'README.md' );
   }
 
   let indexPath = path.join( self.outPath, 'Concepts.md' )
@@ -487,19 +485,27 @@ function prepareTutorials()
   }
   else
   {
-    provider.filesReflect
-    ({
-      reflectMap : { [ self.tutorialsPath ] : self.outTutorialsPath },
-    });
-
-    if( !provider.fileExists( self.outTutorialsPath ) )
+    if( !provider.fileExists( self.tutorialsPath ) )
     return;
 
-    index = self.indexGenerate( self.outTutorialsPath, 'Tutorials', 'README.md' );
+    index = self.indexGenerate( self.tutorialsPath, 'Tutorials', 'README.md' );
   }
 
   let indexPath = path.join( self.outPath, 'Tutorials.md' )
   self.provider.fileWrite( indexPath, index );
+}
+
+//
+
+function prepareDoc()
+{
+  let self = this;
+  let provider =  self.provider;
+
+  provider.filesReflect
+  ({
+    reflectMap : { [ self.docPath ] : self.outDocPath },
+  });
 }
 
 //
@@ -574,7 +580,7 @@ function _prepareManualsUsingWill( o )
 
 //
 
-function indexGenerate( srcPath, title, targetFileName )
+function indexGenerate( srcPath, title )
 {
   let self = this;
   let provider = self.provider;
@@ -582,47 +588,44 @@ function indexGenerate( srcPath, title, targetFileName )
 
   let results = {};
 
-  let dirs = provider.filesFind
-  ({
-    filePath : srcPath,
-    recursive : 1,
-    includingTerminals : 0,
-    includingDirs : 1,
-    includingStem : 0,
-  })
-
-  dirs.forEach( ( f ) =>
+  if( provider.isTerminal( srcPath ) )
   {
-    let dirRelative = path.relative( srcPath, f.absolute );
-    dirRelative = _.strAppendOnce( dirRelative, '/' )
-    let moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
+    let moduleName = path.name( self.inPath );
+    results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), path.relative( self.docPath, srcPath ) );
+  }
+  else
+  {
+    _.assert( provider.isDir( srcPath ) );
 
-    let files = provider.filesFind
+    let dirs = provider.filesFind
     ({
-      filePath : f.absolute,
+      filePath : srcPath,
       recursive : 1,
-      includingTerminals : 1,
-      includingDirs : 0,
+      includingTerminals : 0,
+      includingDirs : 1,
       includingStem : 0,
-      filter : { ends : 'md' },
-    })
+    });
 
-    if( !files.length )
-    return;
+    let indexPath = selectIndex( srcPath );
 
-    var relative = _.select( files, '*/relative' );
-
-    if( _.arrayHas( relative, `./${targetFileName}` ) )
+    if( indexPath )
     {
-      let filePath = path.join( f.absolute, targetFileName );
-      results[ moduleName ] = path.relative( srcPath, filePath );
+      let moduleName = path.name( self.inPath );
+      results[ moduleName ] = indexPath;
     }
-    else if( _.arrayHas( relative, `./README.md` ) )
+    else
     {
-      let filePath = path.join( f.absolute, `./README.md` );
-      results[ moduleName ] = path.relative( srcPath, filePath );
+      dirs.forEach( ( f ) =>
+      {
+        let dirRelative = path.relative( srcPath, f.absolute );
+        dirRelative = _.strAppendOnce( dirRelative, '/' )
+        let moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
+        let indexPath = selectIndex( f.absolute );
+        if( indexPath )
+        results[ moduleName ] = indexPath;
+      })
     }
-  })
+  }
 
   /*  */
 
@@ -633,11 +636,29 @@ function indexGenerate( srcPath, title, targetFileName )
     let name = m;
 
     index += '\n';
-    index += `* [${ name }](${ path.name( srcPath ) + '/' + results[ m ]})`
+    index += `* [${ name }](${results[ m ]})`
     index += '\n';
   }
 
   return index;
+
+  /*  */
+
+  function selectIndex( srcPath )
+  {
+    let indexPath = path.join( srcPath, title + '.md' );
+    let ReadmePath = path.join( srcPath, 'README.md' );
+    let prefixPath = path.join( '/', path.name( self.outDocPath ) );
+
+    if( provider.fileExists( indexPath ) )
+    {
+      return path.join( prefixPath, path.relative( self.outDocPath, indexPath ) );
+    }
+    else if( provider.fileExists( ReadmePath ) )
+    {
+      return path.join( prefixPath, path.relative( self.outDocPath, ReadmePath ) );
+    }
+  }
 }
 
 // --
@@ -650,12 +671,13 @@ let Composes =
   verbosity : 1,
 
   referencePath : 'proto',
-  conceptsPath : 'doc/concepts',
-  tutorialsPath : 'doc/tutorial',
+  conceptsPath : 'out/doc/Doc',
+  tutorialsPath : 'out/doc/Doc',
 
   willModulePath : '.',
 
   inPath : '.',
+  docPath : 'doc',
   outPath : 'out/doc',
 
   includeAny : ".+\\.(js|ss|s)(doc)?$",
@@ -682,8 +704,7 @@ let Restricts =
   templateData : _.define.own( [] ),
 
   outReferencePath : '{{outPath}}/Reference',
-  outConceptsPath : '{{outPath}}/Concepts',
-  outTutorialsPath : '{{outPath}}/Tutorials',
+  outDocPath : '{{outPath}}/Doc',
 
   will : null
 }
@@ -724,6 +745,8 @@ let Extend =
 
   prepareConcepts : prepareConcepts,
   prepareTutorials : prepareTutorials,
+
+  prepareDoc : prepareDoc,
 
   indexGenerate : indexGenerate,
   _prepareManualsUsingWill : _prepareManualsUsingWill,
