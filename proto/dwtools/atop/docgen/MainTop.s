@@ -79,6 +79,8 @@ function commandGenerate( e )
 
   if( self.includingTutorials )
   self.prepareTutorials();
+
+  self.installPackages();
 }
 
 //

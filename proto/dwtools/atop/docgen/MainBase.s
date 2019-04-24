@@ -661,6 +661,21 @@ function indexGenerate( srcPath, title )
   }
 }
 
+//
+
+function installPackages()
+{
+  let self = this;
+
+  return _.shell
+  ({
+    execPath : 'npm i',
+    currentPath : self.outPath,
+    sync : 1,
+    deasync : 1
+  })
+}
+
 // --
 // relations
 // --
@@ -750,6 +765,8 @@ let Extend =
 
   indexGenerate : indexGenerate,
   _prepareManualsUsingWill : _prepareManualsUsingWill,
+
+  installPackages : installPackages,
 
   // relations
 
