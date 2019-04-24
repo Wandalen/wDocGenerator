@@ -89,6 +89,9 @@ function form( e )
     }
   }
 
+  if( appArgs.subject && !appArgs.map.referencePath )
+  self.referencePath = appArgs.subject;
+
   _.appArgsReadTo
   ({
     dst : self,
@@ -115,8 +118,6 @@ function form( e )
   });
 
   // _.sure( _.strDefined( appArgs.subject ), '{-referencePath-} needs value, please pass a subject' );
-
-  self.referencePath = appArgs.map.referencePath || appArgs.subject;
 
   self.pathsResolve();
 
