@@ -4,7 +4,7 @@
 
 /**
  * Utility to generate documentation from jsdoc annotated source code.
-  @module Tools/wDocGenerator
+  @module Tools/top/DocGenerator
 */
 
 /**
@@ -111,7 +111,7 @@ function form( e )
       concepts: 'conceptsPath',
       tutorialsPath : 'tutorialsPath',
       tutorials : 'tutorialsPath',
-      useWillForManuals : 'useWillForManuals',
+      usingWillForManuals: 'useWillForManuals',
       willModulePath : 'willModulePath',
     },
     propertiesMap : appArgs.map
@@ -128,7 +128,7 @@ function form( e )
   if( self.excludeAny )
   self.excludeAny = new RegExp( self.excludeAny );
 
-  if( self.useWillForManuals )
+  if( self.usingWillForManuals)
   {
     self.will = new _.Will({ verbosity : self.verbosity });
   }
@@ -441,7 +441,7 @@ function prepareConcepts()
 
   let index;
 
-  if( self.useWillForManuals )
+  if( self.usingWillForManuals)
   {
     let o =
     {
@@ -474,7 +474,7 @@ function prepareTutorials()
 
   let index;
 
-  if( self.useWillForManuals )
+  if( self.usingWillForManuals)
   {
     let o =
     {
@@ -665,7 +665,7 @@ function indexGenerate( srcPath, title )
 
 //
 
-function installPackages()
+function modulesInstall()
 {
   let self = this;
 
@@ -705,7 +705,7 @@ let Composes =
   includingConcepts : 1,
   includingTutorials : 1,
 
-  useWillForManuals : 0
+  usingWillForManuals: 0
 
 }
 
@@ -768,7 +768,7 @@ let Extend =
   indexGenerate : indexGenerate,
   _prepareManualsUsingWill : _prepareManualsUsingWill,
 
-  installPackages : installPackages,
+  modulesInstall : modulesInstall,
 
   // relations
 
