@@ -1,7 +1,8 @@
 {
     "enabled": 0,
     "dependencies": {
-      "express": ""
+      "express": "",
+      "wFiles": ""
     },
     "devDependencies": {}
   }
