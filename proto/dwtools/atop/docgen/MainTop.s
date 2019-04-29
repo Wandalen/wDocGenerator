@@ -142,9 +142,13 @@ commandGenerateDocsify.commandProperties =
 function commandGenerateTutorials( e )
 {
   let self = this;
+  let path = self.provider.path;
 
   self.form( e );
-  self.tutorialsPath = e.propertiesMap.tutorialsPath || e.argument;
+  
+  if( e.argument && !e.propertiesMap.tutorialsPath )
+  self.tutorialsPath = path.resolve( path.current(), self.inPath, e.argument );
+  
   if( !self.usingWillForManuals)
   self.prepareDoc();
   self.prepareTutorials();
@@ -166,9 +170,13 @@ commandGenerateTutorials.commandProperties =
 function commandGenerateConcepts( e )
 {
   let self = this;
+  let path = self.provider.path;
 
   self.form( e );
-  self.conceptsPath = e.propertiesMap.conceptsPath || e.argument;
+  
+  if( e.argument && !e.propertiesMap.conceptsPath )
+  self.conceptsPath = path.resolve( path.current(), self.inPath, e.argument );
+  
   if( !self.usingWillForManuals)
   self.prepareDoc();
   self.prepareConcepts();
@@ -196,7 +204,7 @@ function commandView( e )
   self.form( e );
   
   if( e.argument && !e.propertiesMap.outPath )
-  self.outPath = e.argument;
+  self.outPath = path.resolve( path.current(), self.inPath, e.argument );
   
   let serverScriptPath = path.join( self.outPath, 'staticserver.ss' );
   
