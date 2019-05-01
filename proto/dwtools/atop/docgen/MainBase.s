@@ -73,7 +73,79 @@ function form( e )
   let self = this;
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
+  
+  self.will = new _.Will({ verbosity : self.verbosity });
+    
+  self._optionsFromWillRead();
+  self._optionsFromArgsRead( e );
+  self._pathsResolve();
 
+  // _.assert( self.provider.fileExists( self.referencePath ), 'Provided referencePath doesn`t exist:', self.referencePath );
+
+  if( self.includeAny )
+  self.includeAny = new RegExp( self.includeAny );
+  if( self.excludeAny )
+  self.excludeAny = new RegExp( self.excludeAny );
+}
+
+//
+
+function _optionsFromWillRead()
+{
+  let self = this;
+  let provider = self.provider;
+  let path = provider.path;
+  
+  try
+  {
+    self.module = self.will.moduleMake({ dirPath : path.current() });
+    self.module.ready.deasync();
+    self.submodules = self.module.submodulesResolve({ selector : '*' });
+  }
+  catch( err )
+  {
+    if( self.verbosity )
+    _.errLogOnce( err );
+  }
+  
+  if( !self.module )
+  return;
+  
+  let optionSelectorMap = 
+  { 
+    inPath : 'path::in',
+    referencePath : 'path::reference',
+    outPath : 'path::out.doc',
+    docPath : 'path::doc',
+    conceptsPath : 'path::concepts',
+    tutorialsPath : 'path::tutorials'
+  }
+  
+  let readOptions = Object.create( null );
+  
+  for( let option in optionSelectorMap )
+  {
+    try
+    {
+      readOptions[ option ] = self.module.resolve( optionSelectorMap[ option ] );
+    }
+    catch( err )
+    {
+      // if( self.verbosity )
+      // _.errLogOnce( err );
+    }
+  }
+  
+  _.mapExtend( self, readOptions );
+  
+}
+
+//
+
+function _optionsFromArgsRead( e )
+{ 
+  let self = this;
+  
   let appArgs;
 
   if( !e )
@@ -88,7 +160,7 @@ function form( e )
       map : e.propertiesMap
     }
   }
-
+  
   if( appArgs.subject && !appArgs.map.referencePath )
   self.referencePath = appArgs.subject;
 
@@ -107,36 +179,21 @@ function form( e )
       docsify : 'docsify',
       includingConcepts : 'includingConcepts',
       includingTutorials : 'includingTutorials',
+      includingSubmodules : 'includingSubmodules',
       conceptsPath : 'conceptsPath',
       concepts: 'conceptsPath',
       tutorialsPath : 'tutorialsPath',
-      tutorials : 'tutorialsPath',
-      usingWillForManuals: 'useWillForManuals',
-      willModulePath : 'willModulePath',
+      tutorials : 'tutorialsPath'
     },
     propertiesMap : appArgs.map
   });
 
   // _.sure( _.strDefined( appArgs.subject ), '{-referencePath-} needs value, please pass a subject' );
-
-  self.pathsResolve();
-
-  // _.assert( self.provider.fileExists( self.referencePath ), 'Provided referencePath doesn`t exist:', self.referencePath );
-
-  if( self.includeAny )
-  self.includeAny = new RegExp( self.includeAny );
-  if( self.excludeAny )
-  self.excludeAny = new RegExp( self.excludeAny );
-
-  if( self.usingWillForManuals)
-  {
-    self.will = new _.Will({ verbosity : self.verbosity });
-  }
 }
 
 //
 
-function pathsResolve()
+function _pathsResolve()
 {
   let self = this;
   let path = self.provider.path;
@@ -145,12 +202,21 @@ function pathsResolve()
 
   if( self.referencePath )
   self.referencePath = path.resolve( path.current(), self.inPath, self.referencePath );
-  self.conceptsPath = path.resolve( path.current(), self.inPath, self.conceptsPath );
-  self.tutorialsPath = path.resolve( path.current(), self.inPath, self.tutorialsPath );
+  
   self.outPath = path.resolve( path.current(), self.inPath, self.outPath );
   self.docPath = path.resolve( path.current(), self.inPath, self.docPath );
+  
+  if( self.conceptsPath )
+  self.conceptsPath = path.resolve( path.current(), self.inPath, self.conceptsPath );
+  else
+  self.conceptsPath = path.resolve( self.docPath, 'README.md' );
+  
+  if( self.tutorialsPath )
+  self.tutorialsPath = path.resolve( path.current(), self.inPath, self.tutorialsPath );
+  else
+  self.tutorialsPath = path.resolve( self.docPath, 'README.md' );
 
-  self.willModulePath = path.resolve( path.current(), self.inPath, self.willModulePath );
+  // self.willModulePath = path.resolve( path.current(), self.inPath, self.willModulePath );
 
   if( !self.env )
   self.env = _.TemplateTreeEnvironment({ tree : self });
@@ -433,238 +499,324 @@ function referenceGenerate()
 
 //
 
-function prepareConcepts()
+function performConcepts()
 {
   let self = this;
   let provider =  self.provider;
   let path = provider.path;
 
-  let index;
+  let index = `### Concepts\n`;
 
-  if( self.usingWillForManuals)
-  {
-    let o =
-    {
-      docPathSelector : 'path::doc.concepts',
-      outDirPath : self.outConceptsPath,
-      indexTitle : 'Concepts',
-      indexPathSelector : 'path::doc.concepts.index'
-    }
-    index = self._prepareManualsUsingWill( o );
-  }
-  else
-  {
-    if( !provider.fileExists( self.conceptsPath ) )
-    return;
-
-    index = self.indexGenerate( self.conceptsPath, 'Concepts', 'README.md' );
-  }
-
+  /* current */
+  
+  index += self._indexForModule( self.docPath, self.inPath, self.conceptsPath );
+  
+  /* submodules */
+  
+  if( self.includingSubmodules )
+  index += self._indexForSubmodules( 'path::concepts' );
+  
+  /* write index */
+  
   let indexPath = path.join( self.outPath, 'Concepts.md' )
-  self.provider.fileWrite( indexPath, index );
+  provider.fileWrite( indexPath, index );
 }
 
 //
 
-function prepareTutorials()
+function performTutorials()
 {
   let self = this;
   let provider =  self.provider;
   let path = provider.path;
 
-  let index;
+  let index = `### Tutorials\n`;
 
-  if( self.usingWillForManuals)
-  {
-    let o =
-    {
-      docPathSelector : 'path::doc.tutorials',
-      outDirPath : self.outTutorialsPath,
-      indexTitle : 'Tutorials',
-      indexPathSelector : 'path::doc.tutorials.index'
-    }
-    index = self._prepareManualsUsingWill( o );
-  }
-  else
-  {
-    if( !provider.fileExists( self.tutorialsPath ) )
-    return;
-
-    index = self.indexGenerate( self.tutorialsPath, 'Tutorials', 'README.md' );
-  }
-
+  /* current */
+  
+  index += self._indexForModule( self.docPath, self.inPath, self.tutorialsPath );
+  
+  /* submodules */
+  
+  if( self.includingSubmodules )
+  index += self._indexForSubmodules( 'path::tutorials' );
+  
+  /* write index */
+  
   let indexPath = path.join( self.outPath, 'Tutorials.md' )
-  self.provider.fileWrite( indexPath, index );
+  provider.fileWrite( indexPath, index );
 }
 
 //
 
-function prepareDoc()
+function performDoc()
 {
   let self = this;
   let provider =  self.provider;
+  let path = provider.path;
+  
+  let dstPath = path.join( self.outDocPath, path.name( self.inPath ) );
 
   provider.filesReflect
   ({
-    reflectMap : { [ self.docPath ] : self.outDocPath },
+    reflectMap : { [ self.docPath ] : dstPath },
   });
-}
-
-//
-
-function _prepareManualsUsingWill( o )
-{
-  let self = this;
-  let provider = self.provider;
-  let module = self.will.moduleMake({ dirPath : self.willModulePath });
-
-  module.ready.deasync();
-
-  let submodules = module.submodulesResolve({ selector : '*' });
-
-  let index = `### ${o.indexTitle}\n`;
-
-  submodules.forEach( ( sub ) =>
+  
+  if( !self.includingSubmodules )
+  return;
+  
+  if( !self.submodules )
+  return;
+  
+  self.submodules.forEach( ( sub ) =>
   {
-    let srcPath;
-    let moduleDirPath = sub.loadedModule.resolve( 'path::in' );
-
-    try
-    {
-      srcPath = sub.loadedModule.resolve( o.docPathSelector );
-    }
-    catch( err )
-    {
-      srcPath = provider.path.join( moduleDirPath, 'doc' );
-    }
-
-    if( !provider.fileExists( srcPath ) )
-    return;
-
-    let name = sub.loadedModule.resolve( 'about::name' );
-    let dstPath = provider.path.join( o.outDirPath, name );
-
-    let files = provider.filesReflect
+    let inPath = sub.resolve( 'path::in' );
+    let srcPath = resolveTry.call( sub, 'path::doc', 'doc' );
+    srcPath = path.resolve( inPath, srcPath );
+    let dstPath = path.join( self.outDocPath, path.name( inPath ) );
+    
+    provider.filesReflect
     ({
       reflectMap : { [ srcPath ] : dstPath },
-      srcFilter :
-      {
-        ends : 'md'
-      }
     });
-
-    if( !files.length )
-    return;
-
-    let srcIndexPath;
-
+  })
+  
+  /* */
+  
+  function resolveTry( selector, def )
+  {
     try
     {
-      srcIndexPath = sub.loadedModule.resolve( o.indexPathSelector );
+      return this.resolve( selector );
     }
     catch( err )
     {
-      srcIndexPath = provider.path.join( srcPath, 'README.md' );
+      return def;  
     }
-
-    if( !provider.fileExists( srcIndexPath ) )
-    return;
-
-    index += '\n';
-    index += `* [${ name }](${ provider.path.name( o.outDirPath ) + '/' + provider.path.relative( o.outDirPath, srcIndexPath )})`
-    index += '\n';
-
-  })
-
-  return index;
-
+  }
 }
 
 //
 
-function indexGenerate( srcPath, title )
+function _indexForModule( moduleDocPathSrc, modulePath, indexPath )
+{ 
+  let self = this;
+  let provider = self.provider;
+  let path = provider.path;
+  
+  let moduleName = path.name( modulePath );
+  let moduleDocPathDst = path.join( self.outDocPath, moduleName )
+  if( !provider.fileExists( indexPath ) )
+  indexPath = path.join( moduleDocPathSrc, 'README.md' );
+  
+  if( !provider.fileExists( indexPath ) )
+  return '';
+  
+  indexPath = path.relative( moduleDocPathSrc, indexPath );
+  let relativeDocPath = path.relative( self.outDocPath, moduleDocPathDst );
+  indexPath = path.join( path.name( self.outDocPath ), relativeDocPath, indexPath );
+  
+  let result = '\n' + `* [${ moduleName }](${indexPath})` + '\n';
+  
+  return result;
+}
+
+//
+
+function _indexForSubmodules( indexPathSelector )
 {
   let self = this;
   let provider = self.provider;
   let path = provider.path;
-
-  let results = {};
-
-  if( provider.isTerminal( srcPath ) )
-  {
-    let moduleName = path.name( self.inPath );
-    results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), path.relative( self.docPath, srcPath ) );
-  }
-  else
-  {
-    _.assert( provider.isDir( srcPath ) );
-
-    let dirs = provider.filesFind
-    ({
-      filePath : srcPath,
-      recursive : 1,
-      includingTerminals : 0,
-      includingDirs : 1,
-      includingStem : 0,
-    });
-
-    let indexPath = selectIndex( srcPath );
-
-    if( indexPath )
-    {
-      let moduleName = path.name( self.inPath );
-      results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), path.relative( srcPath, indexPath ) );
-    }
-    else
-    {
-      dirs.forEach( ( f ) =>
-      {
-        let dirRelative = path.relative( srcPath, f.absolute );
-        dirRelative = _.strAppendOnce( dirRelative, '/' )
-        let moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
-        let indexPath = selectIndex( f.absolute );
-        if( indexPath )
-        { 
-          let relative = path.relative( self.docPath, indexPath );
-          results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), relative );
-        }
-      })
-    }
-  }
-
-  /*  */
-
-  let index = `### ${title}\n`;
-
-  for( let m in results )
-  {
-    let name = m;
-
-    index += '\n';
-    index += `* [${ name }](${results[ m ]})`
-    index += '\n';
-  }
-
+  let index = '';
+  
+  if( !self.submodules )
   return index;
-
-  /*  */
-
-  function selectIndex( srcPath )
+  
+  self.submodules.forEach( ( sub ) =>
   {
-    let indexPath = path.join( srcPath, title + '.md' );
-    let ReadmePath = path.join( srcPath, 'README.md' );
-    let prefixPath = path.join( '/', path.name( self.outDocPath ) );
-
-    if( provider.fileExists( indexPath ) )
+    let inPath = resolveTry.call( sub, 'path::in' );
+    let docPath = resolveTry.call( sub, 'path::doc', 'doc' );
+    let indexPath = resolveTry.call( sub, indexPathSelector, 'doc/README.md' );
+    
+    docPath = path.resolve( inPath, docPath );
+    indexPath = path.resolve( inPath, indexPath );
+    
+    index += self._indexForModule( docPath, inPath, indexPath );
+  })
+  
+  return index;
+  
+  /* */
+  
+  function resolveTry( selector, def )
+  {
+    try
     {
-      return indexPath;
+      return this.resolve( selector );
     }
-    else if( provider.fileExists( ReadmePath ) )
+    catch( err )
     {
-      return ReadmePath;
+      return def;  
     }
   }
 }
+  
+//
+
+// function _prepareManualsUsingWill( o )
+// {
+//   let self = this;
+//   let provider = self.provider;
+//   let module = self.will.moduleMake({ dirPath : self.willModulePath });
+
+//   module.ready.deasync();
+
+//   let submodules = module.submodulesResolve({ selector : '*' });
+
+//   let index = `### ${o.indexTitle}\n`;
+
+//   submodules.forEach( ( sub ) =>
+//   {
+//     let srcPath;
+//     let moduleDirPath = sub.loadedModule.resolve( 'path::in' );
+
+//     try
+//     {
+//       srcPath = sub.loadedModule.resolve( o.docPathSelector );
+//     }
+//     catch( err )
+//     {
+//       srcPath = provider.path.join( moduleDirPath, 'doc' );
+//     }
+
+//     if( !provider.fileExists( srcPath ) )
+//     return;
+
+//     let name = sub.loadedModule.resolve( 'about::name' );
+//     let dstPath = provider.path.join( o.outDirPath, name );
+
+//     let files = provider.filesReflect
+//     ({
+//       reflectMap : { [ srcPath ] : dstPath },
+//       srcFilter :
+//       {
+//         ends : 'md'
+//       }
+//     });
+
+//     if( !files.length )
+//     return;
+
+//     let srcIndexPath;
+
+//     try
+//     {
+//       srcIndexPath = sub.loadedModule.resolve( o.indexPathSelector );
+//     }
+//     catch( err )
+//     {
+//       srcIndexPath = provider.path.join( srcPath, 'README.md' );
+//     }
+
+//     if( !provider.fileExists( srcIndexPath ) )
+//     return;
+
+//     index += '\n';
+//     index += `* [${ name }](${ provider.path.name( o.outDirPath ) + '/' + provider.path.relative( o.outDirPath, srcIndexPath )})`
+//     index += '\n';
+
+//   })
+
+//   return index;
+
+// }
+
+//
+
+// function indexGenerate( srcPath, title )
+// {
+//   let self = this;
+//   let provider = self.provider;
+//   let path = provider.path;
+
+//   let results = {};
+
+//   if( provider.isTerminal( srcPath ) )
+//   {
+//     let moduleName = path.name( self.inPath );
+//     results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), path.relative( self.docPath, srcPath ) );
+//   }
+//   else
+//   {
+//     _.assert( provider.isDir( srcPath ) );
+
+//     let dirs = provider.filesFind
+//     ({
+//       filePath : srcPath,
+//       recursive : 1,
+//       includingTerminals : 0,
+//       includingDirs : 1,
+//       includingStem : 0,
+//     });
+
+//     let indexPath = selectIndex( srcPath );
+
+//     if( indexPath )
+//     {
+//       let moduleName = path.name( self.inPath );
+//       results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), path.relative( srcPath, indexPath ) );
+//     }
+//     else
+//     {
+//       dirs.forEach( ( f ) =>
+//       {
+//         let dirRelative = path.relative( srcPath, f.absolute );
+//         dirRelative = _.strAppendOnce( dirRelative, '/' )
+//         let moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
+//         let indexPath = selectIndex( f.absolute );
+//         if( indexPath )
+//         { 
+//           let relative = path.relative( self.docPath, indexPath );
+//           results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), relative );
+//         }
+//       })
+//     }
+//   }
+
+//   /*  */
+
+//   let index = `### ${title}\n`;
+
+//   for( let m in results )
+//   {
+//     let name = m;
+
+//     index += '\n';
+//     index += `* [${ name }](${results[ m ]})`
+//     index += '\n';
+//   }
+
+//   return index;
+
+//   /*  */
+
+//   function selectIndex( srcPath )
+//   {
+//     let indexPath = path.join( srcPath, title + '.md' );
+//     let ReadmePath = path.join( srcPath, 'README.md' );
+//     let prefixPath = path.join( '/', path.name( self.outDocPath ) );
+
+//     if( provider.fileExists( indexPath ) )
+//     {
+//       return indexPath;
+//     }
+//     else if( provider.fileExists( ReadmePath ) )
+//     {
+//       return ReadmePath;
+//     }
+//   }
+// }
 
 //
 
@@ -692,10 +844,10 @@ let Composes =
 
   referencePath : 'proto',
   docPath : 'doc',
-  conceptsPath : 'out/doc/Doc',
-  tutorialsPath : 'out/doc/Doc',
+  conceptsPath : null,
+  tutorialsPath : null,
 
-  willModulePath : '.',
+  // willModulePath : '.',
 
   inPath : '.',
   outPath : 'out/doc',
@@ -704,12 +856,11 @@ let Composes =
   excludeAny : "(^|\\/|\\.)(-|node_modules|3rd|external|test)",
 
   docsify : 1,
-
+  
   includingConcepts : 1,
   includingTutorials : 1,
-
-  usingWillForManuals: 0
-
+  
+  includingSubmodules : 0,
 }
 
 let Associates =
@@ -726,7 +877,9 @@ let Restricts =
   outReferencePath : '{{outPath}}/Reference',
   outDocPath : '{{outPath}}/Doc',
 
-  will : null
+  will : null,
+  module: null,
+  submodules : null,
 }
 
 let Medials =
@@ -756,20 +909,24 @@ let Extend =
   finit : finit,
 
   form : form,
-
-  pathsResolve : pathsResolve,
+  
+  _optionsFromWillRead : _optionsFromWillRead,
+  _optionsFromArgsRead : _optionsFromArgsRead,
+  _pathsResolve : _pathsResolve,
 
   templateDataRead : templateDataRead,
   docsifyAppBaseCopy : docsifyAppBaseCopy,
   referenceGenerate : referenceGenerate,
 
-  prepareConcepts : prepareConcepts,
-  prepareTutorials : prepareTutorials,
+  performConcepts : performConcepts,
+  performTutorials : performTutorials,
 
-  prepareDoc : prepareDoc,
+  performDoc : performDoc,
 
-  indexGenerate : indexGenerate,
-  _prepareManualsUsingWill : _prepareManualsUsingWill,
+  // indexGenerate : indexGenerate,
+  _indexForModule : _indexForModule,
+  _indexForSubmodules : _indexForSubmodules,
+  // _prepareManualsUsingWill : _prepareManualsUsingWill,
 
   modulesInstall : modulesInstall,
 

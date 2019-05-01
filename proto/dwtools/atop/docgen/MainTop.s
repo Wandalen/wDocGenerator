@@ -72,14 +72,13 @@ function commandGenerate( e )
   self.referenceGenerate();
 
   if( self.includingConcepts || self.includingTutorials )
-  if( !self.usingWillForManuals)
-  self.prepareDoc();
+  self.performDoc();
 
   if( self.includingConcepts )
-  self.prepareConcepts();
+  self.performConcepts();
 
   if( self.includingTutorials )
-  self.prepareTutorials();
+  self.performTutorials();
 
   self.modulesInstall();
 }
@@ -149,9 +148,8 @@ function commandGenerateTutorials( e )
   if( e.argument && !e.propertiesMap.tutorialsPath )
   self.tutorialsPath = path.resolve( path.current(), self.inPath, e.argument );
   
-  if( !self.usingWillForManuals)
-  self.prepareDoc();
-  self.prepareTutorials();
+  self.performDoc();
+  self.performTutorials();
 }
 
 commandGenerateTutorials.commandProperties =
@@ -177,9 +175,8 @@ function commandGenerateConcepts( e )
   if( e.argument && !e.propertiesMap.conceptsPath )
   self.conceptsPath = path.resolve( path.current(), self.inPath, e.argument );
   
-  if( !self.usingWillForManuals)
-  self.prepareDoc();
-  self.prepareConcepts();
+  self.performDoc();
+  self.performConcepts();
 }
 
 commandGenerateConcepts.commandProperties =
