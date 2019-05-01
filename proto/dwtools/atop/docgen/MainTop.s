@@ -90,8 +90,8 @@ commandGenerate.commandProperties =
   conceptsPath : 'Path to concepts index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
-  usingWillForManuals: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
-  willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   includingConcepts : 'Generates concepts and index file if enabled. Default : 1.',
   includingTutorials : 'Generates tutorials and index file if enabled. Default : 1.',
   docsify : 'Prepares docsify app if enabled. Default : 1',
@@ -158,8 +158,8 @@ commandGenerateTutorials.commandProperties =
   tutorialsPath : 'Path to tutorials index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
-  usingWillForManuals: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
-  willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   v : 'Verbosity level. Default:1.'
 }
 
@@ -185,8 +185,8 @@ commandGenerateConcepts.commandProperties =
   conceptsPath : 'Path to concepts index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
-  usingWillForManuals: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
-  willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   v : 'Verbosity level. Default:1.'
 }
 
