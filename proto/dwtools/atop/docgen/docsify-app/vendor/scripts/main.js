@@ -140,53 +140,51 @@ function accordion( hook )
 
 function sidebarIndex( hook )
 {
-  hook.afterEach(function(html, next) {
+  hook.doneEach(function() {
 
     let target = $( '.ui.index.list' );
 
-    let obj = $( html );
-    let found = obj.find( '.anchor-special' );
-
-    found = found.slice();
-
-    if( found.length )
-    {
-      target.empty();
-
-      found.each( ( index ,value ) =>
+    let obj = $( '.markdown-section' );
+    
+    target.empty();
+    
+    obj.find('h1, h2, h3, h4, h5, h6 a').each( function( index, value )
+    { 
+      let self = $(value);
+      
+      let anchor = self.find('a');
+      
+      if( !anchor.length )
+      return;
+      
+      anchor = $(anchor);
+      
+      if( anchor.hasClass( 'anchor-special' ) )
       {
-        let self = $(value);
-        // let innerText = value.innerText;
-        // let match = innerText.match( /(?=.*)[.~].*(?=[(:])/ );
-        // if( !match )
-        // match = innerText.match( /(?=.*)[.~].*$/ );
-        // innerText = match || innerText;
-        // var e = `<div class="item"><a href=${value.href}>${innerText}</a></div>`
-        let kind = self.attr( 'kind' );
-        let name = self.attr( 'name' );
-        let id = self.attr( 'id' );
-        let href = origin + self.attr( 'url' );
-        var e = `<div class="item sidebar-index-item"><code>${kind}</code><a data-key=${id} href=${href}> ${name}</a></div>`
+        let kind = anchor.attr( 'kind' );
+        let name = anchor.attr( 'name' );
+        let id = anchor.attr( 'id' );
+        let href = origin + anchor.attr( 'url' );
+        
+        let colorAttribute = self.attr( 'data-color' );
+        let astyle = colorAttribute ? `color:${colorAttribute}` : ''
+        let a = `<a data-key=${id} href=${href} style=${astyle}> ${name}</a>`
+        var e = `<div class="item sidebar-index-item"><code>${kind}</code>${a}</div>`
 
         target.append( e )
-      })
-    }
-    else
-    {
-      found = obj.find( '.anchor' );
-
-      target.empty();
-
-      found.each( ( index ,value ) =>
+      }
+      else
       {
-        let self = $(value);
-        let innerText = value.innerText || $(value).attr( 'data-id' );
+        let innerText = anchor[0].innerText || anchor.attr( 'data-id' );
         innerText = innerText.replace( /^(-)/, '' );
-        let href = decodeURI( self.attr( 'href' ) );
-        var e = `<div class="item sidebar-index-item"><a href=${href}>${innerText}</a></div>`
+        let href = decodeURI( anchor.attr( 'href' ) );
+        let colorAttribute = self.attr( 'data-color' );
+        let astyle = colorAttribute ? `color:${colorAttribute}` : ''
+        let a = `<a href=${href} style=${astyle}>${innerText}</a>`
+        var e = `<div class="item sidebar-index-item">${a}</div>`
         target.append( e )
-      })
-    }
+      }
+    });
 
     $('.sidebar-index-item').on( 'click', function ()
     {
@@ -200,7 +198,6 @@ function sidebarIndex( hook )
 
     })
 
-    next(html);
   });
 
 }
