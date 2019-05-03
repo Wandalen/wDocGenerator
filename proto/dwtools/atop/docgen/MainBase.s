@@ -781,6 +781,9 @@ function _indexForDirectory( inPath, docPath, dirPath )
   
   let index = '';
   
+  if( !provider.fileExists( dirPath ) )
+  return index;
+  
   let files = provider.filesFind
   ({
     filePath : dirPath,
