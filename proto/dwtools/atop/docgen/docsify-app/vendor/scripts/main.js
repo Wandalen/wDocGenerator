@@ -89,6 +89,29 @@ $( document ).ready( () =>
   })
 
   /*  */
+  
+  $('.ui.dropdown')
+  .dropdown();
+  
+  let currentPath = location.href;
+  let menuItems = $('.ui.dropdown').find( '.item' );
+  
+  menuItems.each( ( index, value ) => 
+  { 
+    if( currentPath.lastIndexOf( value.href, 0 ) === 0 )
+    {
+      $(value).addClass( 'active' );
+      $('.menu-current-item')[0].innerText = value.innerText;
+    }
+  })
+  
+  menuItems.on( 'click', ( e ) => 
+  { 
+    $('.menu-current-item')[0].innerText = e.currentTarget.innerText;
+  })
+  
+  
+  /*  */
 
 
   $( window ).scroll( function()
