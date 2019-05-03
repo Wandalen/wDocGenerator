@@ -118,7 +118,9 @@ function _optionsFromWillRead()
     outPath : 'path::out.doc',
     docPath : 'path::doc',
     conceptsPath : 'path::concepts',
-    tutorialsPath : 'path::tutorials'
+    tutorialsPath : 'path::tutorials',
+    lintPath : 'path::lint',
+    testingPath : 'path::testing'
   }
   
   let readOptions = Object.create( null );
@@ -179,11 +181,15 @@ function _optionsFromArgsRead( e )
       docsify : 'docsify',
       includingConcepts : 'includingConcepts',
       includingTutorials : 'includingTutorials',
+      includingLintReports : 'includingLintReports',
+      includingTestingReports : 'includingTestingReports',
       includingSubmodules : 'includingSubmodules',
       conceptsPath : 'conceptsPath',
       concepts: 'conceptsPath',
       tutorialsPath : 'tutorialsPath',
-      tutorials : 'tutorialsPath'
+      tutorials : 'tutorialsPath',
+      lintPath : 'lintPath',
+      testingPath : 'testingPath'
     },
     propertiesMap : appArgs.map
   });
@@ -215,6 +221,16 @@ function _pathsResolve()
   self.tutorialsPath = path.resolve( path.current(), self.inPath, self.tutorialsPath );
   else
   self.tutorialsPath = path.resolve( self.docPath, 'README.md' );
+  
+  if( self.lintPath )
+  self.lintPath = path.resolve( path.current(), self.inPath, self.lintPath );
+  else
+  self.lintPath = path.resolve( self.docPath, 'lint' );
+  
+  if( self.testingPath )
+  self.testingPath = path.resolve( path.current(), self.inPath, self.testingPath );
+  else
+  self.testingPath = path.resolve( self.docPath, 'testing' );
 
   // self.willModulePath = path.resolve( path.current(), self.inPath, self.willModulePath );
 
@@ -549,6 +565,58 @@ function performTutorials()
 
 //
 
+function performLintReports()
+{
+  let self = this;
+  let provider =  self.provider;
+  let path = provider.path;
+
+  let index = `### Lint\n`;
+
+  /* current */
+  
+  index += self._indexForDirectory( self.inPath, self.docPath, self.lintPath )
+  
+  /* submodules */
+  
+  if( self.includingSubmodules )
+  index += self._reportsIndexForSubmodules( 'path::lint', 'doc/lint' );
+  
+  /* write index */
+  
+  let indexPath = path.join( self.outPath, 'Lint.md' )
+  provider.fileWrite( indexPath, index );
+
+}
+
+//
+
+function performTestingReports()
+{
+  let self = this;
+  let provider =  self.provider;
+  let path = provider.path;
+
+  let index = `### Testing\n`;
+
+  /* current */
+  
+  index += self._indexForDirectory( self.inPath, self.docPath, self.testingPath )
+  
+  /* submodules */
+  
+  if( self.includingSubmodules )
+  index += self._reportsIndexForSubmodules( 'path::testing', 'doc/testing' );
+  
+  /* write index */
+  
+  let indexPath = path.join( self.outPath, 'Testing.md' )
+  provider.fileWrite( indexPath, index );
+
+}
+
+//
+
 function performDoc()
 {
   let self = this;
@@ -660,6 +728,84 @@ function _indexForSubmodules( indexPathSelector )
       return def;  
     }
   }
+}
+
+//
+
+function _reportsIndexForSubmodules( reportsPathSelector, defaultReportsPath )
+{
+  let self = this;
+  let provider = self.provider;
+  let path = provider.path;
+  let index = '';
+  
+  if( !self.submodules )
+  return index;
+  
+  self.submodules.forEach( ( sub ) =>
+  {
+    let inPath = resolveTry.call( sub, 'path::in' );
+    let docPath = resolveTry.call( sub, 'path::doc', 'doc' );
+    let reportsPath = resolveTry.call( sub, reportsPathSelector, defaultReportsPath );
+    
+    docPath = path.resolve( inPath, docPath );
+    reportsPath = path.resolve( inPath, reportsPath );
+    
+    index += self._indexForDirectory( inPath, docPath, reportsPath );
+  })
+  
+  return index;
+  
+  /* */
+  
+  function resolveTry( selector, def )
+  {
+    try
+    {
+      return this.resolve( selector );
+    }
+    catch( err )
+    {
+      return def;  
+    }
+  }
+}
+
+//
+
+function _indexForDirectory( inPath, docPath, dirPath )
+{ 
+  let self = this;
+  let provider = self.provider;
+  let path = provider.path;
+  
+  let index = '';
+  
+  let files = provider.filesFind
+  ({
+    filePath : dirPath,
+    recursive : 1,
+    includingTerminals : 1,
+    includingDirs : 0,
+    includingStem : 0,
+  });
+  
+  if( !files.length )
+  return index;
+  
+  let moduleName = path.name( inPath );
+  let dirPathRelative = path.relative( docPath, dirPath );
+
+  index += `\n#### ${moduleName}`;
+  
+  files.forEach( ( r ) => 
+  {
+    index += '\n';
+    index += `* [${ r.name }](${ path.name( self.outDocPath ) + '/' + path.join( moduleName, dirPathRelative, r.relative )})`
+    index += '\n';
+  })
+  
+  return index;
 }
   
 //
@@ -846,6 +992,8 @@ let Composes =
   docPath : 'doc',
   conceptsPath : null,
   tutorialsPath : null,
+  lintPath : null,
+  testingPath : null,
 
   // willModulePath : '.',
 
@@ -859,6 +1007,8 @@ let Composes =
   
   includingConcepts : 1,
   includingTutorials : 1,
+  includingLintReports : 1,
+  includingTestingReports : 1,
   
   includingSubmodules : 0,
 }
@@ -920,12 +1070,16 @@ let Extend =
 
   performConcepts : performConcepts,
   performTutorials : performTutorials,
+  performLintReports : performLintReports,
+  performTestingReports : performTestingReports,
 
   performDoc : performDoc,
 
   // indexGenerate : indexGenerate,
   _indexForModule : _indexForModule,
   _indexForSubmodules : _indexForSubmodules,
+  _reportsIndexForSubmodules : _reportsIndexForSubmodules,
+  _indexForDirectory : _indexForDirectory,
   // _prepareManualsUsingWill : _prepareManualsUsingWill,
 
   modulesInstall : modulesInstall,

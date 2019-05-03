@@ -79,6 +79,12 @@ function commandGenerate( e )
 
   if( self.includingTutorials )
   self.performTutorials();
+  
+  if( self.includingLintReports )
+  self.performLintReports();
+  
+  if( self.includingTestingReports )
+  self.performTestingReports();
 
   self.modulesInstall();
 }
@@ -190,6 +196,54 @@ commandGenerateConcepts.commandProperties =
   v : 'Verbosity level. Default:1.'
 }
 
+function commandGenerateLintReports( e )
+{
+  let self = this;
+  let path = self.provider.path;
+
+  self.form( e );
+  
+  if( e.argument && !e.propertiesMap.lintPath )
+  self.lintPath = path.resolve( path.current(), self.inPath, e.argument );
+  
+  self.performLintReports();
+}
+
+commandGenerateLintReports.commandProperties =
+{
+  docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
+  lintPath : 'Path to directory with eslint reports. Default: "doc/lint"',
+  inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
+  outPath : 'Path where to save result of generation. Default : "out/doc"',
+  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  v : 'Verbosity level. Default:1.'
+}
+
+function commandGenerateTestingReports( e )
+{
+  let self = this;
+  let path = self.provider.path;
+
+  self.form( e );
+  
+  if( e.argument && !e.propertiesMap.testingPath )
+  self.testingPath = path.resolve( path.current(), self.inPath, e.argument );
+  
+  self.performTestingReportsReports();
+}
+
+commandGenerateLintReports.commandProperties =
+{
+  docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
+  testingPath : 'Path to directory with testing reports. Default: "doc/testing"',
+  inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
+  outPath : 'Path where to save result of generation. Default : "out/doc"',
+  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  v : 'Verbosity level. Default:1.'
+}
+
 //
 
 function commandView( e )
@@ -234,6 +288,8 @@ function commandsMake()
     'generate reference' :      { e : _.routineJoin( self, self.commandGenerateReference ),    h : 'Generates *.md files from jsdoc annotated js files.' },
     'generate tutorials' :      { e : _.routineJoin( self, self.commandGenerateTutorials ),   h : 'Aggregates tutorials and creates index file.' },
     'generate concepts' :       { e : _.routineJoin( self, self.commandGenerateConcepts ),    h : 'Aggregates concepts and creates index file.' },
+    'generate lint' :       { e : _.routineJoin( self, self.commandGenerateLintReports ),    h : 'Aggregates eslint reports and creates index file.' },
+    'generate testing' :       { e : _.routineJoin( self, self.commandGenerateTestingReports ),    h : 'Aggregates testing reports and creates index file.' },
     'view' :                    { e : _.routineJoin( self, self.commandView ),    h : 'Launches the doc.' },
   }
 
@@ -299,6 +355,8 @@ let Extend =
   commandGenerateDocsify: commandGenerateDocsify,
   commandGenerateTutorials: commandGenerateTutorials,
   commandGenerateConcepts: commandGenerateConcepts,
+  commandGenerateLintReports: commandGenerateLintReports,
+  commandGenerateTestingReports: commandGenerateTestingReports,
   commandView : commandView,
 
   commandsMake : commandsMake,
