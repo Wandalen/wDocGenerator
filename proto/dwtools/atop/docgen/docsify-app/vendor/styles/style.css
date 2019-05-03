@@ -109,6 +109,20 @@
   color: #4183c4 !important;
 }
 
+.custom-menu
+{
+  border-right: none !important;
+  border-left: none !important;
+  border-radius: 0px !important;
+  margin: 0px !important;
+  box-shadow: none !important;
+}
+
+.ui .divider
+{
+  margin-top: 0px !important;
+}
+
 /*  */
 
 section.content
