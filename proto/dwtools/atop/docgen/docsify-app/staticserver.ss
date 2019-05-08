@@ -21,10 +21,15 @@ function serverStart()
 
   let cachedResults = Object.create( null );
   let searchIndexPath = path.join( __dirname, 'searchIndex.json' );
-  let index = provider.fileRead({ filePath : searchIndexPath, encoding : 'json' });
+  
+  let index;
+  
+  if( provider.fileExists( searchIndexPath ) )
+  index = provider.fileRead({ filePath : searchIndexPath, encoding : 'json' });
 
   app.use( express.static( __dirname ) );
-
+  
+  if( index )
   app.get( '/search', ( req, res ) =>
   {
     let result;
