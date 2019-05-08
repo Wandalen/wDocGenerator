@@ -205,7 +205,8 @@ function commandGenerateLintReports( e )
   
   if( e.argument && !e.propertiesMap.lintPath )
   self.lintPath = path.resolve( path.current(), self.inPath, e.argument );
-  
+   
+  self.performDoc();
   self.performLintReports();
 }
 
@@ -230,7 +231,8 @@ function commandGenerateTestingReports( e )
   if( e.argument && !e.propertiesMap.testingPath )
   self.testingPath = path.resolve( path.current(), self.inPath, e.argument );
   
-  self.performTestingReportsReports();
+  self.performDoc();
+  self.performTestingReports();
 }
 
 commandGenerateLintReports.commandProperties =
