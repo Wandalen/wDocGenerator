@@ -531,6 +531,8 @@ function performConcepts()
   
   if( self.includingSubmodules )
   index += self._indexForSubmodules( 'path::concepts' );
+  else
+  index += self._indexForSubmodulesFilesBased( self.outDocPath,'Concepts.md' );
   
   /* write index */
   
@@ -556,6 +558,8 @@ function performTutorials()
   
   if( self.includingSubmodules )
   index += self._indexForSubmodules( 'path::tutorials' );
+  else
+  index += self._indexForSubmodulesFilesBased( self.outDocPath, 'Tutorials.md' );
   
   /* write index */
   
@@ -623,11 +627,11 @@ function performDoc()
   let provider =  self.provider;
   let path = provider.path;
   
-  let dstPath = path.join( self.outDocPath, path.name( self.inPath ) );
+  // let dstPath = path.join( self.outDocPath, path.name( self.inPath ) );
 
   provider.filesReflect
   ({
-    reflectMap : { [ self.docPath ] : dstPath },
+    reflectMap : { [ self.docPath ] : self.outDocPath },
   });
   
   if( !self.includingSubmodules )
@@ -798,17 +802,72 @@ function _indexForDirectory( inPath, docPath, dirPath )
   
   let moduleName = path.name( inPath );
   let dirPathRelative = path.relative( docPath, dirPath );
-
-  index += `\n#### ${moduleName}`;
+  
+  // index += `\n#### ${moduleName}`;
   
   files.forEach( ( r ) => 
   {
     index += '\n';
-    index += `* [${ r.name }](${ path.name( self.outDocPath ) + '/' + path.join( moduleName, dirPathRelative, r.relative )})`
+    index += `* [${ r.name }](${ path.name( self.outDocPath ) + '/' + path.join( /* moduleName, */ dirPathRelative, r.relative )})`
     index += '\n';
   })
   
   return index;
+}
+
+//
+
+function _indexForSubmodulesFilesBased( docPath, indexFile )
+{
+  let self = this;
+  let provider = self.provider;
+  let path = provider.path;
+  
+  let index = '';
+  
+  let dirs = provider.filesFind
+  ({
+    filePath : docPath,
+    recursive : 1,
+    includingTerminals : 0,
+    includingDirs : 1,
+    includingStem : 0,
+  });
+  
+  if( !dirs.length )
+  return index;
+  
+  dirs.forEach( ( r ) => 
+  { 
+    index += forModule( r );
+  })
+  
+  return index;
+  
+  /*  */
+  
+  function forModule( r )
+  {
+    let result = '';
+    
+    let moduleName = r.name;
+    let indexPath = path.join( r.absolute, indexFile );
+    if( !provider.fileExists( indexPath ) )
+    indexPath = path.join( r.absolute, 'README.md' );
+    
+    if( !provider.fileExists( indexPath ) )
+    return result;
+    
+    indexPath = path.relative( r.absolute, indexPath );
+    let relativeDocPath = path.relative( self.outDocPath, r.absolute );
+    indexPath = path.join( path.name( self.outDocPath ), relativeDocPath, indexPath );
+    
+    result = '\n' + `* [${ moduleName }](${indexPath})` + '\n';
+    
+    return result;
+  }
+  
+  
 }
   
 //
@@ -1082,6 +1141,7 @@ let Extend =
   _indexForModule : _indexForModule,
   _indexForSubmodules : _indexForSubmodules,
   _reportsIndexForSubmodules : _reportsIndexForSubmodules,
+  _indexForSubmodulesFilesBased : _indexForSubmodulesFilesBased,
   _indexForDirectory : _indexForDirectory,
   // _prepareManualsUsingWill : _prepareManualsUsingWill,
 
