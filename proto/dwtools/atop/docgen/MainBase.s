@@ -75,9 +75,10 @@ function form( e )
   _.assert( arguments.length === 0 || arguments.length === 1 );
   
   self.will = new _.Will({ verbosity : self.verbosity });
-    
+  
+  self._optionsFromArgsRead();
   self._optionsFromWillRead();
-  self._optionsFromArgsRead( e );
+  self._optionsFromArgsApply()
   self._pathsResolve();
 
   // _.assert( self.provider.fileExists( self.referencePath ), 'Provided referencePath doesn`t exist:', self.referencePath );
@@ -96,14 +97,19 @@ function _optionsFromWillRead()
   let provider = self.provider;
   let path = provider.path;
   
+  self.submodule = self.appArgs.map.submodule;
+  
   try
-  {
+  { 
     self.module = self.will.moduleMake({ dirPath : path.current() });
     self.module.ready.deasync();
+    if( self.submodule )
+    self.submodule = self.module.submodulesResolve({ selector : self.submodule });
+    else
     self.submodules = self.module.submodulesResolve({ selector : '*' });
   }
   catch( err )
-  {
+  { 
     if( self.verbosity )
     _.errLogOnce( err );
   }
@@ -120,16 +126,18 @@ function _optionsFromWillRead()
     conceptsPath : 'path::concepts',
     tutorialsPath : 'path::tutorials',
     lintPath : 'path::lint',
-    testingPath : 'path::testing'
+    testingPath : 'path::testing',
+    readmePath : 'path::readme'
   }
   
   let readOptions = Object.create( null );
+  let module = _.objectIs( self.submodule ) ? self.submodule : self.module;
   
   for( let option in optionSelectorMap )
   {
     try
     {
-      readOptions[ option ] = self.module.resolve( optionSelectorMap[ option ] );
+      readOptions[ option ] = module.resolve( optionSelectorMap[ option ] );
     }
     catch( err )
     {
@@ -148,54 +156,39 @@ function _optionsFromArgsRead( e )
 { 
   let self = this;
   
-  let appArgs;
-
   if( !e )
   {
-    appArgs = _.appArgs();
+    self.appArgs = _.appArgs();
   }
   else
   {
-    appArgs =
+    self.appArgs =
     {
       subject : e.argument,
       map : e.propertiesMap
     }
   }
   
+  let appArgs = self.appArgs;
+  
   if( appArgs.subject && !appArgs.map.referencePath )
   self.referencePath = appArgs.subject;
+  
+  _.assertMapHasOnly( self.appArgs.map, optionsNamesMap );
+}
 
+//
+
+function _optionsFromArgsApply( e )
+{ 
+  let self = this;
+  
   _.appArgsReadTo
   ({
     dst : self,
-    namesMap :
-    {
-      verbosity : 'verbosity',
-      v : 'verbosity',
-      referencePath : 'referencePath',
-      outPath : 'outPath',
-      docPath : 'docPath',
-      doc : 'docPath',
-      out : 'outPath',
-      docsify : 'docsify',
-      includingConcepts : 'includingConcepts',
-      includingTutorials : 'includingTutorials',
-      includingLintReports : 'includingLintReports',
-      includingTestingReports : 'includingTestingReports',
-      includingSubmodules : 'includingSubmodules',
-      conceptsPath : 'conceptsPath',
-      concepts: 'conceptsPath',
-      tutorialsPath : 'tutorialsPath',
-      tutorials : 'tutorialsPath',
-      lintPath : 'lintPath',
-      testingPath : 'testingPath',
-      readmePath : 'readmePath'
-    },
-    propertiesMap : appArgs.map
+    namesMap : optionsNamesMap,
+    propertiesMap : self.appArgs.map
   });
-
-  // _.sure( _.strDefined( appArgs.subject ), '{-referencePath-} needs value, please pass a subject' );
 }
 
 //
@@ -204,13 +197,13 @@ function _pathsResolve()
 {
   let self = this;
   let path = self.provider.path;
-
+  
   self.inPath = path.resolve( path.current(), self.inPath );
 
   if( self.referencePath )
   self.referencePath = path.resolve( path.current(), self.inPath, self.referencePath );
   
-  self.outPath = path.resolve( path.current(), self.inPath, self.outPath );
+  self.outPath = path.resolve( path.current(), /* self.inPath, */ self.outPath );
   self.docPath = path.resolve( path.current(), self.inPath, self.docPath );
   
   if( self.conceptsPath )
@@ -242,8 +235,8 @@ function _pathsResolve()
   self.env = _.TemplateTreeEnvironment({ tree : self });
   self.env.pathsNormalize();
 
-  self.outReferencePath = path.resolve( path.current(), self.inPath, self.outReferencePath );
-  self.outDocPath = path.resolve( path.current(), self.inPath, self.outDocPath );
+  self.outReferencePath = path.resolve( path.current(), /* self.inPath, */ self.outReferencePath );
+  self.outDocPath = path.resolve( path.current(), /* self.inPath, */ self.outDocPath );
 }
 
 //
@@ -1054,6 +1047,39 @@ function modulesInstall()
   })
 }
 
+//
+
+let commonOptionsNames = 
+{
+  verbosity : 'verbosity',
+  v : 'verbosity',
+  docsify : 'docsify',
+  includingConcepts : 'includingConcepts',
+  includingTutorials : 'includingTutorials',
+  includingLintReports : 'includingLintReports',
+  includingTestingReports : 'includingTestingReports',
+  includingSubmodules : 'includingSubmodules',
+  submodule : 'submodule',
+}
+
+let pathOptionsNames = 
+{
+  referencePath : 'referencePath',
+  outPath : 'outPath',
+  docPath : 'docPath',
+  doc : 'docPath',
+  out : 'outPath',
+  conceptsPath : 'conceptsPath',
+  concepts: 'conceptsPath',
+  tutorialsPath : 'tutorialsPath',
+  tutorials : 'tutorialsPath',
+  lintPath : 'lintPath',
+  testingPath : 'testingPath',
+  readmePath : 'readmePath'
+}
+
+let optionsNamesMap = _.mapExtend( null, commonOptionsNames, pathOptionsNames );
+
 // --
 // relations
 // --
@@ -1087,6 +1113,7 @@ let Composes =
   includingTestingReports : 1,
   
   includingSubmodules : 0,
+  submodule : null
 }
 
 let Associates =
@@ -1098,6 +1125,8 @@ let Associates =
 let Restricts =
 {
   env : null,
+  appArgs : null,
+  optionsFromArgs : _.define.own({}),
   templateData : _.define.own( [] ),
 
   outReferencePath : '{{outPath}}/Reference',
@@ -1138,6 +1167,7 @@ let Extend =
   
   _optionsFromWillRead : _optionsFromWillRead,
   _optionsFromArgsRead : _optionsFromArgsRead,
+  _optionsFromArgsApply : _optionsFromArgsApply,
   _pathsResolve : _pathsResolve,
 
   templateDataRead : templateDataRead,
