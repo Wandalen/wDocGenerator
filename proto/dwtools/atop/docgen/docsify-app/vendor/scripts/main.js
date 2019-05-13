@@ -4,7 +4,7 @@ window.$docsify =
   repo: '',
   loadNavbar : false,
   loadSidebar : false,
-  homepage : 'Reference.md',
+  homepage : 'README.md',
   markdown:
   {
     renderer:

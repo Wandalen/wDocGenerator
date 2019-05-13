@@ -189,7 +189,8 @@ function _optionsFromArgsRead( e )
       tutorialsPath : 'tutorialsPath',
       tutorials : 'tutorialsPath',
       lintPath : 'lintPath',
-      testingPath : 'testingPath'
+      testingPath : 'testingPath',
+      readmePath : 'readmePath'
     },
     propertiesMap : appArgs.map
   });
@@ -231,6 +232,9 @@ function _pathsResolve()
   self.testingPath = path.resolve( path.current(), self.inPath, self.testingPath );
   else
   self.testingPath = path.resolve( self.docPath, 'testing' );
+  
+  if( self.readmePath )
+  self.readmePath = path.resolve( path.current(), self.inPath, self.readmePath );
 
   // self.willModulePath = path.resolve( path.current(), self.inPath, self.willModulePath );
 
@@ -314,7 +318,7 @@ function templateDataRead()
 
 //
 
-function docsifyAppBaseCopy()
+function performDocsifyApp()
 {
   let self = this;
   let path = self.provider.path;
@@ -326,6 +330,12 @@ function docsifyAppBaseCopy()
   _.sure( self.provider.fileExists( docsifyAppPath ) );
 
   self.provider.filesReflect({ reflectMap : { [ docsifyAppPath ] : self.outPath } });
+  
+  if( self.readmePath )
+  {
+    _.sure( path.ext( self.readmePath ) === 'md' );
+    self.provider.fileCopy({ srcPath : self.readmePath, dstPath : path.join( self.outPath, 'README.md' ) })
+  }
 
   return true;
 }
@@ -825,6 +835,9 @@ function _indexForSubmodulesFilesBased( docPath, indexFile )
   
   let index = '';
   
+  if( !provider.fileExists( docPath ) )
+  return index;
+  
   let dirs = provider.filesFind
   ({
     filePath : docPath,
@@ -1056,6 +1069,7 @@ let Composes =
   tutorialsPath : null,
   lintPath : null,
   testingPath : null,
+  readmePath : null,
 
   // willModulePath : '.',
 
@@ -1127,7 +1141,7 @@ let Extend =
   _pathsResolve : _pathsResolve,
 
   templateDataRead : templateDataRead,
-  docsifyAppBaseCopy : docsifyAppBaseCopy,
+  performDocsifyApp : performDocsifyApp,
   referenceGenerate : referenceGenerate,
 
   performConcepts : performConcepts,

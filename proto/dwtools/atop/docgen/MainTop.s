@@ -67,7 +67,7 @@ function commandGenerate( e )
   self.templateDataRead();
 
   if( self.docsify )
-  self.docsifyAppBaseCopy();
+  self.performDocsifyApp();
 
   self.referenceGenerate();
 
@@ -96,6 +96,7 @@ commandGenerate.commandProperties =
   conceptsPath : 'Path to concepts index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
+  readmePath : 'Path to README.md file that will used as homepage.',
   includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
   // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   includingConcepts : 'Generates concepts and index file if enabled. Default : 1.',
@@ -131,7 +132,7 @@ function commandGenerateDocsify( e )
   let self = this;
 
   self.form( e );
-  self.docsifyAppBaseCopy();
+  self.performDocsifyApp();
   self.modulesInstall();
 }
 
@@ -139,6 +140,7 @@ commandGenerateDocsify.commandProperties =
 {
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save docsify app. Default : "out/doc"',
+  readmePath : 'Path to README.md file that will used as homepage.',
   v : 'Verbosity level. Default:1.'
 }
 
@@ -162,6 +164,7 @@ commandGenerateTutorials.commandProperties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
   tutorialsPath : 'Path to tutorials index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
+  readmePath : 'Path to README.md file that will used as homepage.',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
   includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
@@ -189,6 +192,7 @@ commandGenerateConcepts.commandProperties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
   conceptsPath : 'Path to concepts index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
+  readmePath : 'Path to README.md file that will used as homepage.',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
   includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
@@ -213,6 +217,7 @@ function commandGenerateLintReports( e )
 commandGenerateLintReports.commandProperties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
+  readmePath : 'Path to README.md file that will used as homepage.',
   lintPath : 'Path to directory with eslint reports. Default: "doc/lint"',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
@@ -239,6 +244,7 @@ commandGenerateLintReports.commandProperties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
   testingPath : 'Path to directory with testing reports. Default: "doc/testing"',
+  readmePath : 'Path to README.md file that will used as homepage.',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
   includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
@@ -269,7 +275,7 @@ function commandView( e )
 
 commandView.commandProperties =
 {
-  outPath : 'Path where to save result of generation. Default : "out/doc"',
+  outPath : 'Path to directory with generated documentation. Default : "out/doc"',
 }
 
 //
