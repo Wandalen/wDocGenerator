@@ -171,8 +171,8 @@ function _optionsFromArgsRead( e )
   
   let appArgs = self.appArgs;
   
-  if( appArgs.subject && !appArgs.map.referencePath )
-  self.referencePath = appArgs.subject;
+  if( appArgs.scriptArgs[ 1 ] && !appArgs.map.referencePath )
+  self.referencePath = appArgs.scriptArgs[ 1 ];
   
   _.assertMapHasOnly( self.appArgs.map, optionsNamesMap );
 }
