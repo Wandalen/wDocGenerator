@@ -1,9 +1,9 @@
 submodule :
 
-  Tools : git+https:///github.com/Wandalen/wTools.git/out/wTools#master
-  Consequence : git+https:///github.com/Wandalen/wConsequence.git/out/wConsequence#master
-  PathFundamentals : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
-  Will : git+https:///github.com/Wandalen/Willbe.git/out/Willbe#master
+  # Tools : git+https:///github.com/Wandalen/wTools.git/out/wTools#master
+  # Consequence : git+https:///github.com/Wandalen/wConsequence.git/out/wConsequence#master
+  # PathFundamentals : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+  # Will : git+https:///github.com/Wandalen/Willbe.git/out/Willbe#master
 
 path :
 
