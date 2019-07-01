@@ -101,7 +101,7 @@ function _optionsFromWillRead()
   
   try
   { 
-    self.module = self.will.moduleMake({ dirPath : path.current() });
+    self.module = self.will.moduleMake({ willfilesPath : path.current() });
     self.module.ready.deasync();
     if( self.submodule )
     self.submodule = self.module.submodulesResolve({ selector : self.submodule });
