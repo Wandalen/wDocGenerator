@@ -52,7 +52,7 @@ function init( o )
   if( !self.provider )
   self.provider = _.FileProvider.HardDrive();
 
-  _.instanceInit( self );
+  _.workpiece.initFields( self );
   Object.preventExtensions( self );
 
   if( o )
