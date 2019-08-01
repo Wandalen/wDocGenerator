@@ -1,19 +1,31 @@
-
 {
   "name": "wdocgenerator",
-  "version": "0.3.0",
-  "description": "___",
-  "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
+  "version": "0.1.32",
+  "description": "Utility to generate documentation from jsdoc annotated source code",
   "license": "MIT",
-  "main": "proto/dwtools/amid/___",
+  "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
+  "contributors": [
+    {
+      "name": "Kostiantyn Wandalen",
+      "email": "wanalen@willbe.so"
+    },
+    {
+      "name": "Volodymyr M.",
+      "email": "volodymyr.migdal@gmail.com"
+    }
+  ],
+  "main": "proto/dwtools/atop/docgen/MainTop.s",
   "files": [
-    "proto/dwtools/amid",
+    "proto/dwtools/atop/docgen",
     "proto/dwtools/Tools.s",
     "production"
   ],
+  "bin": {
+    "wdoc": "proto/dwtools/atop/docgen/Exec2"
+  },
   "scripts": {
     "test": "wtest .run proto/**",
-    "docgen": "wdocgen proto"
+    "wdoc": "node proto/dwtools/atop/docgen/Exec2"
   },
   "repository": {
     "type": "git",
@@ -23,12 +35,22 @@
     "url": "https://github.com/Wandalen/wDocGenerator/issues"
   },
   "dependencies": {
-    "wTools": ""
+    "wFiles": "",
+    "wtemplatetreeenvironment": "",
+    "wtemplatetreeresolver": "",
+    "wselector": "",
+    "wselectorextra": "",
+    "wcommandsaggregator": "",
+    "wcommandsconfig": "",
+    "willbe": "",
+    "jsdoc-to-markdown": "",
+    "express": ""
   },
-  "devDependencies": {
-    "wTesting": ""
-  },
+  "devDependencies": {},
   "keywords": [
-    "wTools"
+    "wTools",
+    "Documentation",
+    "jsdoc",
+    "jsdoc2md"
   ]
 }
