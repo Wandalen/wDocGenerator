@@ -31,7 +31,7 @@ let _ = _global_.wTools;
 let Parent = null;
 let Self = function wDocGenerator( o )
 {
-  return _.instanceConstructor( Self, this, arguments );
+  return _.workpiece.construct( Self, this, arguments );
 }
 
 Self.shortName = 'DocGenerator';
@@ -73,9 +73,9 @@ function form( e )
   let self = this;
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  
+
   self.will = new _.Will({ verbosity : self.verbosity });
-  
+
   self._optionsFromArgsRead();
   self._optionsFromWillRead();
   self._optionsFromArgsApply()
@@ -96,11 +96,11 @@ function _optionsFromWillRead()
   let self = this;
   let provider = self.provider;
   let path = provider.path;
-  
+
   self.submodule = self.appArgs.map.submodule;
-  
+
   try
-  { 
+  {
     self.module = self.will.moduleMake({ willfilesPath : path.current() });
     self.module.ready.deasync();
     if( self.submodule )
@@ -109,16 +109,16 @@ function _optionsFromWillRead()
     self.submodules = self.module.submodulesResolve({ selector : '*' });
   }
   catch( err )
-  { 
+  {
     if( self.verbosity )
     _.errLogOnce( err );
   }
-  
+
   if( !self.module )
   return;
-  
-  let optionSelectorMap = 
-  { 
+
+  let optionSelectorMap =
+  {
     inPath : 'path::in',
     referencePath : 'path::reference',
     outPath : 'path::out.doc',
@@ -129,10 +129,10 @@ function _optionsFromWillRead()
     testingPath : 'path::testing',
     readmePath : 'path::readme'
   }
-  
+
   let readOptions = Object.create( null );
   let module = _.objectIs( self.submodule ) ? self.submodule : self.module;
-  
+
   for( let option in optionSelectorMap )
   {
     try
@@ -145,17 +145,17 @@ function _optionsFromWillRead()
       // _.errLogOnce( err );
     }
   }
-  
+
   _.mapExtend( self, readOptions );
-  
+
 }
 
 //
 
 function _optionsFromArgsRead( e )
-{ 
+{
   let self = this;
-  
+
   if( !e )
   {
     self.appArgs = _.appArgs();
@@ -168,21 +168,21 @@ function _optionsFromArgsRead( e )
       map : e.propertiesMap
     }
   }
-  
+
   let appArgs = self.appArgs;
-  
+
   if( appArgs.scriptArgs[ 1 ] && !appArgs.map.referencePath )
   self.referencePath = appArgs.scriptArgs[ 1 ];
-  
+
   _.assertMapHasOnly( self.appArgs.map, optionsNamesMap );
 }
 
 //
 
 function _optionsFromArgsApply( e )
-{ 
+{
   let self = this;
-  
+
   _.appArgsReadTo
   ({
     dst : self,
@@ -197,35 +197,35 @@ function _pathsResolve()
 {
   let self = this;
   let path = self.provider.path;
-  
+
   self.inPath = path.resolve( path.current(), self.inPath );
 
   if( self.referencePath )
   self.referencePath = path.resolve( path.current(), self.inPath, self.referencePath );
-  
+
   self.outPath = path.resolve( path.current(), /* self.inPath, */ self.outPath );
   self.docPath = path.resolve( path.current(), self.inPath, self.docPath );
-  
+
   if( self.conceptsPath )
   self.conceptsPath = path.resolve( path.current(), self.inPath, self.conceptsPath );
   else
   self.conceptsPath = path.resolve( self.docPath, 'README.md' );
-  
+
   if( self.tutorialsPath )
   self.tutorialsPath = path.resolve( path.current(), self.inPath, self.tutorialsPath );
   else
   self.tutorialsPath = path.resolve( self.docPath, 'README.md' );
-  
+
   if( self.lintPath )
   self.lintPath = path.resolve( path.current(), self.inPath, self.lintPath );
   else
   self.lintPath = path.resolve( self.docPath, 'lint' );
-  
+
   if( self.testingPath )
   self.testingPath = path.resolve( path.current(), self.inPath, self.testingPath );
   else
   self.testingPath = path.resolve( self.docPath, 'testing' );
-  
+
   if( self.readmePath )
   self.readmePath = path.resolve( path.current(), self.inPath, self.readmePath );
 
@@ -323,7 +323,7 @@ function performDocsifyApp()
   _.sure( self.provider.fileExists( docsifyAppPath ) );
 
   self.provider.filesReflect({ reflectMap : { [ docsifyAppPath ] : self.outPath } });
-  
+
   if( self.readmePath )
   {
     _.sure( path.ext( self.readmePath ) === 'md' );
@@ -527,18 +527,18 @@ function performConcepts()
   let index = `### Concepts\n`;
 
   /* current */
-  
+
   index += self._indexForModule( self.docPath, self.inPath, self.conceptsPath );
-  
+
   /* submodules */
-  
+
   if( self.includingSubmodules )
   index += self._indexForSubmodules( 'path::concepts' );
   else
   index += self._indexForSubmodulesFilesBased( self.outDocPath,'Concepts.md' );
-  
+
   /* write index */
-  
+
   let indexPath = path.join( self.outPath, 'Concepts.md' )
   provider.fileWrite( indexPath, index );
 }
@@ -554,18 +554,18 @@ function performTutorials()
   let index = `### Tutorials\n`;
 
   /* current */
-  
+
   index += self._indexForModule( self.docPath, self.inPath, self.tutorialsPath );
-  
+
   /* submodules */
-  
+
   if( self.includingSubmodules )
   index += self._indexForSubmodules( 'path::tutorials' );
   else
   index += self._indexForSubmodulesFilesBased( self.outDocPath, 'Tutorials.md' );
-  
+
   /* write index */
-  
+
   let indexPath = path.join( self.outPath, 'Tutorials.md' )
   provider.fileWrite( indexPath, index );
 }
@@ -581,16 +581,16 @@ function performLintReports()
   let index = `### Lint\n`;
 
   /* current */
-  
+
   index += self._indexForDirectory( self.inPath, self.docPath, self.lintPath )
-  
+
   /* submodules */
-  
+
   if( self.includingSubmodules )
   index += self._reportsIndexForSubmodules( 'path::lint', 'doc/lint' );
-  
+
   /* write index */
-  
+
   let indexPath = path.join( self.outPath, 'Lint.md' )
   provider.fileWrite( indexPath, index );
 
@@ -607,16 +607,16 @@ function performTestingReports()
   let index = `### Testing\n`;
 
   /* current */
-  
+
   index += self._indexForDirectory( self.inPath, self.docPath, self.testingPath )
-  
+
   /* submodules */
-  
+
   if( self.includingSubmodules )
   index += self._reportsIndexForSubmodules( 'path::testing', 'doc/testing' );
-  
+
   /* write index */
-  
+
   let indexPath = path.join( self.outPath, 'Testing.md' )
   provider.fileWrite( indexPath, index );
 
@@ -629,35 +629,35 @@ function performDoc()
   let self = this;
   let provider =  self.provider;
   let path = provider.path;
-  
+
   // let dstPath = path.join( self.outDocPath, path.name( self.inPath ) );
 
   provider.filesReflect
   ({
     reflectMap : { [ self.docPath ] : self.outDocPath },
   });
-  
+
   if( !self.includingSubmodules )
   return;
-  
+
   if( !self.submodules )
   return;
-  
+
   self.submodules.forEach( ( sub ) =>
   {
     let inPath = sub.resolve( 'path::in' );
     let srcPath = resolveTry.call( sub, 'path::doc', 'doc' );
     srcPath = path.resolve( inPath, srcPath );
     let dstPath = path.join( self.outDocPath, path.name( inPath ) );
-    
+
     provider.filesReflect
     ({
       reflectMap : { [ srcPath ] : dstPath },
     });
   })
-  
+
   /* */
-  
+
   function resolveTry( selector, def )
   {
     try
@@ -666,7 +666,7 @@ function performDoc()
     }
     catch( err )
     {
-      return def;  
+      return def;
     }
   }
 }
@@ -674,25 +674,25 @@ function performDoc()
 //
 
 function _indexForModule( moduleDocPathSrc, modulePath, indexPath )
-{ 
+{
   let self = this;
   let provider = self.provider;
   let path = provider.path;
-  
+
   let moduleName = path.name( modulePath );
   let moduleDocPathDst = path.join( self.outDocPath, moduleName )
   if( !provider.fileExists( indexPath ) )
   indexPath = path.join( moduleDocPathSrc, 'README.md' );
-  
+
   if( !provider.fileExists( indexPath ) )
   return '';
-  
+
   indexPath = path.relative( moduleDocPathSrc, indexPath );
   let relativeDocPath = path.relative( self.outDocPath, moduleDocPathDst );
   indexPath = path.join( path.name( self.outDocPath ), relativeDocPath, indexPath );
-  
+
   let result = '\n' + `* [${ moduleName }](${indexPath})` + '\n';
-  
+
   return result;
 }
 
@@ -704,26 +704,26 @@ function _indexForSubmodules( indexPathSelector )
   let provider = self.provider;
   let path = provider.path;
   let index = '';
-  
+
   if( !self.submodules )
   return index;
-  
+
   self.submodules.forEach( ( sub ) =>
   {
     let inPath = resolveTry.call( sub, 'path::in' );
     let docPath = resolveTry.call( sub, 'path::doc', 'doc' );
     let indexPath = resolveTry.call( sub, indexPathSelector, 'doc/README.md' );
-    
+
     docPath = path.resolve( inPath, docPath );
     indexPath = path.resolve( inPath, indexPath );
-    
+
     index += self._indexForModule( docPath, inPath, indexPath );
   })
-  
+
   return index;
-  
+
   /* */
-  
+
   function resolveTry( selector, def )
   {
     try
@@ -732,7 +732,7 @@ function _indexForSubmodules( indexPathSelector )
     }
     catch( err )
     {
-      return def;  
+      return def;
     }
   }
 }
@@ -745,26 +745,26 @@ function _reportsIndexForSubmodules( reportsPathSelector, defaultReportsPath )
   let provider = self.provider;
   let path = provider.path;
   let index = '';
-  
+
   if( !self.submodules )
   return index;
-  
+
   self.submodules.forEach( ( sub ) =>
   {
     let inPath = resolveTry.call( sub, 'path::in' );
     let docPath = resolveTry.call( sub, 'path::doc', 'doc' );
     let reportsPath = resolveTry.call( sub, reportsPathSelector, defaultReportsPath );
-    
+
     docPath = path.resolve( inPath, docPath );
     reportsPath = path.resolve( inPath, reportsPath );
-    
+
     index += self._indexForDirectory( inPath, docPath, reportsPath );
   })
-  
+
   return index;
-  
+
   /* */
-  
+
   function resolveTry( selector, def )
   {
     try
@@ -773,7 +773,7 @@ function _reportsIndexForSubmodules( reportsPathSelector, defaultReportsPath )
     }
     catch( err )
     {
-      return def;  
+      return def;
     }
   }
 }
@@ -781,16 +781,16 @@ function _reportsIndexForSubmodules( reportsPathSelector, defaultReportsPath )
 //
 
 function _indexForDirectory( inPath, docPath, dirPath )
-{ 
+{
   let self = this;
   let provider = self.provider;
   let path = provider.path;
-  
+
   let index = '';
-  
+
   if( !provider.fileExists( dirPath ) )
   return index;
-  
+
   let files = provider.filesFind
   ({
     filePath : dirPath,
@@ -799,22 +799,22 @@ function _indexForDirectory( inPath, docPath, dirPath )
     includingDirs : 0,
     includingStem : 0,
   });
-  
+
   if( !files.length )
   return index;
-  
+
   let moduleName = path.name( inPath );
   let dirPathRelative = path.relative( docPath, dirPath );
-  
+
   // index += `\n#### ${moduleName}`;
-  
-  files.forEach( ( r ) => 
+
+  files.forEach( ( r ) =>
   {
     index += '\n';
     index += `* [${ r.name }](${ path.name( self.outDocPath ) + '/' + path.join( /* moduleName, */ dirPathRelative, r.relative )})`
     index += '\n';
   })
-  
+
   return index;
 }
 
@@ -825,12 +825,12 @@ function _indexForSubmodulesFilesBased( docPath, indexFile )
   let self = this;
   let provider = self.provider;
   let path = provider.path;
-  
+
   let index = '';
-  
+
   if( !provider.fileExists( docPath ) )
   return index;
-  
+
   let dirs = provider.filesFind
   ({
     filePath : docPath,
@@ -839,43 +839,43 @@ function _indexForSubmodulesFilesBased( docPath, indexFile )
     includingDirs : 1,
     includingStem : 0,
   });
-  
+
   if( !dirs.length )
   return index;
-  
-  dirs.forEach( ( r ) => 
-  { 
+
+  dirs.forEach( ( r ) =>
+  {
     index += forModule( r );
   })
-  
+
   return index;
-  
+
   /*  */
-  
+
   function forModule( r )
   {
     let result = '';
-    
+
     let moduleName = r.name;
     let indexPath = path.join( r.absolute, indexFile );
     if( !provider.fileExists( indexPath ) )
     indexPath = path.join( r.absolute, 'README.md' );
-    
+
     if( !provider.fileExists( indexPath ) )
     return result;
-    
+
     indexPath = path.relative( r.absolute, indexPath );
     let relativeDocPath = path.relative( self.outDocPath, r.absolute );
     indexPath = path.join( path.name( self.outDocPath ), relativeDocPath, indexPath );
-    
+
     result = '\n' + `* [${ moduleName }](${indexPath})` + '\n';
-    
+
     return result;
   }
-  
-  
+
+
 }
-  
+
 //
 
 // function _prepareManualsUsingWill( o )
@@ -990,7 +990,7 @@ function _indexForSubmodulesFilesBased( docPath, indexFile )
 //         let moduleName = _.strIsolateLeftOrNone( path.undot( dirRelative ), '/' )[ 0 ];
 //         let indexPath = selectIndex( f.absolute );
 //         if( indexPath )
-//         { 
+//         {
 //           let relative = path.relative( self.docPath, indexPath );
 //           results[ moduleName ] = path.join( '/', path.name( self.outDocPath ), relative );
 //         }
@@ -1049,7 +1049,7 @@ function modulesInstall()
 
 //
 
-let commonOptionsNames = 
+let commonOptionsNames =
 {
   verbosity : 'verbosity',
   v : 'verbosity',
@@ -1062,7 +1062,7 @@ let commonOptionsNames =
   submodule : 'submodule',
 }
 
-let pathOptionsNames = 
+let pathOptionsNames =
 {
   referencePath : 'referencePath',
   outPath : 'outPath',
@@ -1106,12 +1106,12 @@ let Composes =
   excludeAny : "(^|\\/|\\.)(-|node_modules|3rd|external|test)",
 
   docsify : 1,
-  
+
   includingConcepts : 1,
   includingTutorials : 1,
   includingLintReports : 1,
   includingTestingReports : 1,
-  
+
   includingSubmodules : 0,
   submodule : null
 }
@@ -1164,7 +1164,7 @@ let Extend =
   finit : finit,
 
   form : form,
-  
+
   _optionsFromWillRead : _optionsFromWillRead,
   _optionsFromArgsRead : _optionsFromArgsRead,
   _optionsFromArgsApply : _optionsFromArgsApply,
