@@ -24,7 +24,7 @@
     "wdoc": "proto/dwtools/atop/docgen/Exec2"
   },
   "scripts": {
-    "test": "wtest proto",
+    "test": "wtest .run proto/**",
     "wdoc": "node proto/dwtools/atop/docgen/Exec2"
   },
   "repository": {
