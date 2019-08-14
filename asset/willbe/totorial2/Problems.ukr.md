@@ -7,9 +7,9 @@ dmytry@dmytry:~/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/p
 Request ".submodules.upgrade"
    . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.will.yml
  . Read 1 will-files in 0.061s
- ! Failed to read submodule::PathFundamentals, try to download it with .submodules.download or even clean it before downloading
-   . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathFundamentals/out/wPathBasic.out.will.yml
-   + module::PathFundamentals was upgraded in 6.133s
+ ! Failed to read submodule::PathBasic, try to download it with .submodules.download or even clean it before downloading
+   . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathBasic/out/wPathBasic.out.will.yml
+   + module::PathBasic was upgraded in 6.133s
  + 1/1 submodule(s) of module::first were upgraded in 6.138s
 
 ```
@@ -21,10 +21,10 @@ dmytry@dmytry:~/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/p
 Request ".submodules.upgrade"
    . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.will.yml
  . Read 1 will-files in 0.072s
- . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathFundamentals/out/wPathBasic.out.will.yml
+ . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathBasic/out/wPathBasic.out.will.yml
  * Message
 Failed to upgrade submodules of module::first
-Failed to upgrade module::PathFundamentals
+Failed to upgrade module::PathBasic
 Dead lock!
 
 

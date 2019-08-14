@@ -127,7 +127,7 @@ submodule::Tools
 ```
 [user@user ~]$ will .submodules.upgrade
 ...
-. Read : /path_to_file/.module/PathFundamentals/out/wTools.out.will.yml
+. Read : /path_to_file/.module/PathBasic/out/wTools.out.will.yml
 + module::Tools was upgraded in 15.133s
 + 1/1 submodule(s) of module::first were upgraded in 15.138s
 

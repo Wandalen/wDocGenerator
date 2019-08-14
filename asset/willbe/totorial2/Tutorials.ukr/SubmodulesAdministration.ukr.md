@@ -9,7 +9,7 @@
 submodule :
 
     Tools : git+https:///github.com/Wandalen/wTools.git/out/wTools#master  
-    PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
+    PathBasic : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
 
 ```
 
@@ -23,7 +23,7 @@ submodule :
     Tools :
        path : git+https:///github.com/Wandalen/wTools.git/out/wTools#master
        description : 'Import willbe tools'  
-    PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
+    PathBasic : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
 
 ```
 
@@ -37,7 +37,7 @@ submodule::Tools
   description : Import willbe tools
   isDownloaded : true
   Exported builds : [ 'proto.export' ]
-submodule::PathFundamentals
+submodule::PathBasic
   path : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
   isDownloaded : false
   Exported builds : []
@@ -60,7 +60,7 @@ submodule::PathFundamentals
 .
 ├── .module
 │   ├──Tools
-│   └──PathFundamentals
+│   └──PathBasic
 └── .will.yml
 
 ```
@@ -70,7 +70,7 @@ submodule::PathFundamentals
 ```
 [user@user ~]$ ls -al .module/
 ...
-drwxr-xr-x 6 user user 4096 Мар 12 07:20 PathFundamentals
+drwxr-xr-x 6 user user 4096 Мар 12 07:20 PathBasic
 drwxr-xr-x 9 user user 4096 Мар 12 07:20 Tools
 
 ```
@@ -84,8 +84,8 @@ drwxr-xr-x 9 user user 4096 Мар 12 07:20 Tools
 ...
    . Read : /path_to_file/.module/Tools/out/wTools.out.will.yml
    + module::Tools was upgraded in 13.568s
-   . Read : /path_to_file/.module/PathFundamentals/out/wPathBasic.out.will.yml
-   + module::PathFundamentals was upgraded in 3.340s
+   . Read : /path_to_file/.module/PathBasic/out/wPathBasic.out.will.yml
+   + module::PathBasic was upgraded in 3.340s
  + 2/2 submodule(s) of module::first were upgraded in 16.917s
 
 ```

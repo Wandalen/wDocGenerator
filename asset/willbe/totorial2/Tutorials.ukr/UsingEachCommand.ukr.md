@@ -18,7 +18,7 @@ about :
 path :
 
   fileToDelete :
-      path : './.module/PathFundamentals'
+      path : './.module/PathBasic'
 
 step  :
 
@@ -51,7 +51,7 @@ about :
 
 submodule :
 
-    PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
+    PathBasic : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
 
 build :
 
@@ -80,15 +80,15 @@ build :
 [user@user ~]$ will .each . .build
 ...
 Building download
-   . Read : /path_to_file/.module/PathFundamentals/out/wPathBasic.out.will.yml
-   + module::PathFundamentals was downloaded in 4.220s
+   . Read : /path_to_file/.module/PathBasic/out/wPathBasic.out.will.yml
+   + module::PathBasic was downloaded in 4.220s
  + 1/1 submodule(s) of module::namedWillFile were downloaded in 4.227s
 Built download in 4.271s
 
 ...
 
 Building delete.submodule
- - filesDelete 92 files at /path_to_file/.module/PathFundamentals in 0.266s
+ - filesDelete 92 files at /path_to_file/.module/PathBasic in 0.266s
 Built delete.submodule in 0.346s
 
 ```

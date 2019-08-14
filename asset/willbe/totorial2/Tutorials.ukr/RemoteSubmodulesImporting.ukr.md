@@ -41,7 +41,7 @@ drwxr-xr-x 4 user user 4096 Мар 12 07:20 .module
 
 ```yaml
 
-PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
+PathBasic : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
 
 ```
 
@@ -52,14 +52,14 @@ submodule::Tools
   path : git+https:///github.com/Wandalen/wTools.git/out/wTools#master
   isDownloaded : true
   Exported builds : [ 'proto.export' ]
-submodule::PathFundamentals
+submodule::PathBasic
   path : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
   isDownloaded : false
   Exported builds : []
 
 ```
 
-<a name="resource-inheritation"> Зверніть увагу на рядки, які позначають окремі підмодулі - _'submodule::Tools'_ i _'submodule::PathFundamentals'_. В порівнянні з виводом інформації секції `about` (фраза `will .about.list`).
+<a name="resource-inheritation"> Зверніть увагу на рядки, які позначають окремі підмодулі - _'submodule::Tools'_ i _'submodule::PathBasic'_. В порівнянні з виводом інформації секції `about` (фраза `will .about.list`).
 
 ```
 [user@user ~]$ will .about.list
