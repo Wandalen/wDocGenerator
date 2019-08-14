@@ -8,7 +8,7 @@ Request ".submodules.upgrade"
    . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.will.yml
  . Read 1 will-files in 0.061s
  ! Failed to read submodule::PathFundamentals, try to download it with .submodules.download or even clean it before downloading
-   . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathFundamentals/out/wPathFundamentals.out.will.yml
+   . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathFundamentals/out/wPathBasic.out.will.yml
    + module::PathFundamentals was upgraded in 6.133s
  + 1/1 submodule(s) of module::first were upgraded in 6.138s
 
@@ -21,7 +21,7 @@ dmytry@dmytry:~/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/p
 Request ".submodules.upgrade"
    . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.will.yml
  . Read 1 will-files in 0.072s
- . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathFundamentals/out/wPathFundamentals.out.will.yml
+ . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathFundamentals/out/wPathBasic.out.will.yml
  * Message
 Failed to upgrade submodules of module::first
 Failed to upgrade module::PathFundamentals
@@ -32,9 +32,9 @@ Dead lock!
     at wConsequence.assertNoDeadLockWith (/usr/lib/node_modules/willbe/node_modules/wConsequence/proto/dwtools/abase/l9/consequence/Consequence.s:2830:5)
     at wConsequence._and (/usr/lib/node_modules/willbe/node_modules/wConsequence/proto/dwtools/abase/l9/consequence/Consequence.s:1533:11)
     at wConsequence.andKeep (/usr/lib/node_modules/willbe/node_modules/wTools/proto/dwtools/abase/l0/fRoutine.s:771:21)
-    at multiple (/usr/lib/node_modules/willbe/node_modules/wexternalfundamentals/proto/dwtools/abase/l4/External.s:121:6)
-    at Object.shell (/usr/lib/node_modules/willbe/node_modules/wexternalfundamentals/proto/dwtools/abase/l4/External.s:62:10)
-    at er (/usr/lib/node_modules/willbe/node_modules/wexternalfundamentals/proto/dwtools/abase/l4/External.s:708:14)
+    at multiple (/usr/lib/node_modules/willbe/node_modules/wappbasic/proto/dwtools/abase/l4/External.s:121:6)
+    at Object.shell (/usr/lib/node_modules/willbe/node_modules/wappbasic/proto/dwtools/abase/l4/External.s:62:10)
+    at er (/usr/lib/node_modules/willbe/node_modules/wappbasic/proto/dwtools/abase/l4/External.s:708:14)
     at wFileProviderGit.isUpToDate (/usr/lib/node_modules/willbe/node_modules/wFiles/proto/dwtools/amid/files/l5_provider/Git.ss:411:3)
     at wWillModule.remoteIsUpToDate (/usr/lib/node_modules/willbe/proto/dwtools/atop/will/l3/Module.s:1723:30)
     at wConsequence.con.keep (/usr/lib/node_modules/willbe/proto/dwtools/atop/will/l3/Module.s:1849:23)
@@ -66,7 +66,7 @@ Dead lock!
     2830 :   _.assert( !result, msg );
     2831 :
 
-at multiple (/usr/lib/node_modules/willbe/node_modules/wexternalfundamentals/proto/dwtools/abase/l4/External.s:121:6) - and # 125
+at multiple (/usr/lib/node_modules/willbe/node_modules/wappbasic/proto/dwtools/abase/l4/External.s:121:6) - and # 125
 Waiting for 1 procedure(s) ...
 Waiting for 1 procedure(s) ...
 Waiting for 1 procedure(s) ...

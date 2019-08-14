@@ -41,7 +41,7 @@ drwxr-xr-x 4 user user 4096 Мар 12 07:20 .module
 
 ```yaml
 
-PathFundamentals : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
 
 ```
 
@@ -53,7 +53,7 @@ submodule::Tools
   isDownloaded : true
   Exported builds : [ 'proto.export' ]
 submodule::PathFundamentals
-  path : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+  path : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
   isDownloaded : false
   Exported builds : []
 

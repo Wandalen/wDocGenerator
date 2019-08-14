@@ -9,7 +9,7 @@
 submodule :
 
     Tools : git+https:///github.com/Wandalen/wTools.git/out/wTools#master  
-    PathFundamentals : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+    PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
 
 ```
 
@@ -23,7 +23,7 @@ submodule :
     Tools :
        path : git+https:///github.com/Wandalen/wTools.git/out/wTools#master
        description : 'Import willbe tools'  
-    PathFundamentals : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+    PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
 
 ```
 
@@ -38,7 +38,7 @@ submodule::Tools
   isDownloaded : true
   Exported builds : [ 'proto.export' ]
 submodule::PathFundamentals
-  path : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+  path : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
   isDownloaded : false
   Exported builds : []
 
@@ -84,7 +84,7 @@ drwxr-xr-x 9 user user 4096 Мар 12 07:20 Tools
 ...
    . Read : /path_to_file/.module/Tools/out/wTools.out.will.yml
    + module::Tools was upgraded in 13.568s
-   . Read : /path_to_file/.module/PathFundamentals/out/wPathFundamentals.out.will.yml
+   . Read : /path_to_file/.module/PathFundamentals/out/wPathBasic.out.will.yml
    + module::PathFundamentals was upgraded in 3.340s
  + 2/2 submodule(s) of module::first were upgraded in 16.917s
 

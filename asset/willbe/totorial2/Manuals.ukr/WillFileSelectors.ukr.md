@@ -20,7 +20,7 @@
 about :
 
   interpreters :
-  - nodejs >= 6.0.0    --> селектор
+  - nodejs >= 8.0.0    --> селектор
   - chrome >= 60.0.0   --> селектор
 
 ```

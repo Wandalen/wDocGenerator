@@ -4,7 +4,7 @@ if( typeof module !== 'undefined' )
 {
   let _ = require( '../../Tools.s' );
   _.include( 'wFiles' );
-  _.include( 'wExternalFundamentals' );
+  _.include( 'wAppBasic' );
 }
 
 let _ = wTools;

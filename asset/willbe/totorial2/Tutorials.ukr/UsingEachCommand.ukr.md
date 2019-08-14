@@ -51,7 +51,7 @@ about :
 
 submodule :
 
-    PathFundamentals : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+    PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
 
 build :
 
@@ -80,7 +80,7 @@ build :
 [user@user ~]$ will .each . .build
 ...
 Building download
-   . Read : /path_to_file/.module/PathFundamentals/out/wPathFundamentals.out.will.yml
+   . Read : /path_to_file/.module/PathFundamentals/out/wPathBasic.out.will.yml
    + module::PathFundamentals was downloaded in 4.220s
  + 1/1 submodule(s) of module::namedWillFile were downloaded in 4.227s
 Built download in 4.271s

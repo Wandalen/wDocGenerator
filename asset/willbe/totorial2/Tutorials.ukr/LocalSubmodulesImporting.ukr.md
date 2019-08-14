@@ -29,7 +29,7 @@ about :
 
 submodule :
 
-  PathFundamentals : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+  PathFundamentals : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
   localOne : ./local.modules/localOne/
   localTwo : ./local.modules/localTwo/out/local
 
@@ -78,7 +78,7 @@ build :
 [user@user ~]$ will .submodules.list
 ...
 submodule::PathFundamentals
-  path : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+  path : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
   isDownloaded : false
   Exported builds : []
 submodule::localOne
@@ -118,7 +118,7 @@ drwxr-xr-x 4 user user 4096 Мар 12 13:27 .module
 [user@user ~]$ will .submodules.list
 ...
 submodule::PathFundamentals
-  path : git+https:///github.com/Wandalen/wPathFundamentals.git/out/wPathFundamentals#master
+  path : git+https:///github.com/Wandalen/wPathBasic.git/out/wPathBasic#master
   isDownloaded : true
   Exported builds : [ 'proto.export' ]
 submodule::localOne
