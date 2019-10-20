@@ -19,6 +19,7 @@ path :
     criterion :
       debug : 0
   proto : './proto'
+  export : '{path::proto}/**'
 
 reflector :
 
