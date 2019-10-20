@@ -18,7 +18,7 @@
   "files": [
     "proto/dwtools/atop/docgen",
     "proto/dwtools/Tools.s",
-    "production"
+    "out"
   ],
   "bin": {
     "wdoc": "proto/dwtools/atop/docgen/Exec2"
