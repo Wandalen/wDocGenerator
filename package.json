@@ -24,14 +24,14 @@
   }, 
   "dependencies" : 
   {
-    "wFiles" : "", 
-    "wtemplatetreeenvironment" : "", 
-    "wtemplatetreeresolver" : "", 
-    "wselector" : "", 
-    "wselectorextra" : "", 
-    "wcommandsaggregator" : "", 
-    "wcommandsconfig" : "", 
-    "willbe" : "", 
+    "wFiles" : "beta", 
+    "wtemplatetreeenvironment" : "beta", 
+    "wtemplatetreeresolver" : "beta", 
+    "wselector" : "beta", 
+    "wselectorextra" : "beta", 
+    "wcommandsaggregator" : "beta", 
+    "wcommandsconfig" : "beta", 
+    "willbe" : "beta", 
     "jsdoc-to-markdown" : "", 
     "express" : ""
   }, 
