@@ -1,0 +1,980 @@
+format: outwillfile-2.0
+root:
+  - doc.generator.out
+consistency:
+  doc.generator.out.will.yml: &ref_0
+    hash: c5589b04cbd843f25fbec4c1edbf11e8
+    size: 37469
+  ../.ex.will.yml: &ref_1
+    hash: 08f83bf05622832300ab20d0aaf7e576
+    size: 620
+  ../.im.will.yml: &ref_2
+    hash: 588010ee76ab5184ebf8220a696fa087
+    size: 1494
+module:
+  doc.generator.out:
+    about:
+      name: doc.generator
+      description: Utility to generate documentation from jsdoc annotated source code
+      enabled: 1
+      version: 0.1.0
+      interpreters:
+        - nodejs >= 8.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
+      keywords:
+        - wTools
+    path:
+      module.willfiles:
+        criterion:
+          predefined: 1
+        path: doc.generator.out.will.yml
+      module.common:
+        criterion:
+          predefined: 1
+        path: doc.generator.out
+      module.original.willfiles:
+        criterion:
+          predefined: 1
+        path:
+          - ../.ex.will.yml
+          - ../.im.will.yml
+      module.peer.willfiles:
+        criterion:
+          predefined: 1
+        path:
+          - ../.ex.will.yml
+          - ../.im.will.yml
+      module.peer.in:
+        criterion:
+          predefined: 1
+        path: ..
+      download:
+        criterion:
+          predefined: 1
+      remote:
+        criterion:
+          predefined: 1
+      in:
+        criterion:
+          predefined: 0
+        path: .
+      temp:
+        path: .
+      out:
+        criterion:
+          predefined: 0
+        path: .
+      out.debug:
+        criterion:
+          debug: 1
+        path: debug
+      out.release:
+        criterion:
+          debug: 0
+        path: release
+      proto:
+        path: ../proto
+      export:
+        path: '{path::proto}/**'
+      exported.dir.proto.export:
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+        path: ../proto
+      exported.files.proto.export:
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+        path:
+          - ../proto
+          - ../proto/dwtools
+          - ../proto/dwtools/Tools.s
+          - ../proto/dwtools/abase
+          - ../proto/dwtools/amid
+          - ../proto/dwtools/atop
+          - ../proto/dwtools/atop/docgen
+          - ../proto/dwtools/atop/docgen/Exec
+          - ../proto/dwtools/atop/docgen/Exec2
+          - ../proto/dwtools/atop/docgen/IncludeBase.s
+          - ../proto/dwtools/atop/docgen/MainBase.s
+          - ../proto/dwtools/atop/docgen/MainTop.s
+          - ../proto/dwtools/atop/docgen/conf
+          - ../proto/dwtools/atop/docgen/conf/doc.json
+          - ../proto/dwtools/atop/docgen/docsify-app
+          - ../proto/dwtools/atop/docgen/docsify-app/index.html
+          - ../proto/dwtools/atop/docgen/docsify-app/package.json
+          - ../proto/dwtools/atop/docgen/docsify-app/README.md
+          - ../proto/dwtools/atop/docgen/docsify-app/staticserver.ss
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/clipboard.min.js
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/docsify.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/jquery-3.3.1.min.js
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/main.js
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/search.js
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/uri.js
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/semantic.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/semantic.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/semantic.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/semantic.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/accordion.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/accordion.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/accordion.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/accordion.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/ad.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/ad.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/api.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/api.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/breadcrumb.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/breadcrumb.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/button.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/button.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/card.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/card.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/checkbox.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/checkbox.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/checkbox.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/checkbox.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/comment.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/comment.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/container.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/container.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dimmer.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dimmer.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dimmer.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dimmer.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/divider.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/divider.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dropdown.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dropdown.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dropdown.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dropdown.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/embed.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/embed.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/embed.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/embed.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/feed.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/feed.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/flag.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/flag.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/form.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/form.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/form.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/form.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/grid.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/grid.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/header.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/header.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/icon.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/icon.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/image.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/image.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/input.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/input.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/item.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/item.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/label.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/label.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/list.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/list.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/loader.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/loader.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/menu.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/menu.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/message.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/message.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/modal.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/modal.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/modal.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/modal.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/nag.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/nag.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/nag.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/nag.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/placeholder.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/placeholder.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/popup.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/popup.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/popup.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/popup.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/progress.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/progress.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/progress.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/progress.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rail.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rail.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rating.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rating.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rating.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rating.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/reset.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/reset.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/reveal.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/reveal.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/search.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/search.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/search.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/search.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/segment.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/segment.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/shape.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/shape.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/shape.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/shape.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sidebar.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sidebar.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sidebar.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sidebar.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/site.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/site.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/site.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/site.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/statistic.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/statistic.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/step.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/step.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sticky.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sticky.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sticky.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sticky.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/tab.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/tab.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/tab.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/tab.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/table.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/table.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/transition.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/transition.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/transition.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/transition.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/video.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/video.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/video.min.css
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/video.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/visibility.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/visibility.min.js
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.eot
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.svg
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.eot
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.svg
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.woff2
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.eot
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.otf
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.svg
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.woff2
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.eot
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.svg
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.woff2
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/images
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/images/flags.png
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons-local.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.svg
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.eot
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.svg
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.woff2
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/styles
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/styles/search.css
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/styles/style.css
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/themes
+          - ../proto/dwtools/atop/docgen/docsify-app/vendor/themes/vue.css
+          - ../proto/dwtools/atop/docgen/helpers
+          - ../proto/dwtools/atop/docgen/helpers/helper.js
+          - ../proto/dwtools/atop/docgen/templates
+          - ../proto/dwtools/atop/docgen/templates/index
+          - ../proto/dwtools/atop/docgen/templates/index/classes.hbs
+          - ../proto/dwtools/atop/docgen/templates/index/index.hbs
+          - ../proto/dwtools/atop/docgen/templates/index/link.hbs
+          - ../proto/dwtools/atop/docgen/templates/index/modules.hbs
+          - ../proto/dwtools/atop/docgen/templates/index/namespaces.hbs
+          - ../proto/dwtools/atop/docgen/templates/main
+          - ../proto/dwtools/atop/docgen/templates/main/main.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/body
+          - ../proto/dwtools/atop/docgen/templates/main/body/body.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/body/link.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/body/summary.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/header
+          - ../proto/dwtools/atop/docgen/templates/main/header/heading-id.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/header/heading-name.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/header/heading-url.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/header/heading.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/kinds
+          - ../proto/dwtools/atop/docgen/templates/main/kinds/class
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/class/class-heading-url.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/class/class-heading.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/kinds/class/class.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/kinds/entity
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/entity/entity-members.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/kinds/entity/entity.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/kinds/module
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/module/module-member-heading-url.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/module/module-member-heading.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/module/module-member-name.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/module/module-members.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/kinds/module/module.hbs
+          - ../proto/dwtools/atop/docgen/templates/main/kinds/namespace
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/namespace/namespace-heading-url.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/namespace/namespace-heading.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/templates/main/kinds/namespace/namespace.hbs
+    submodule: {}
+    reflector:
+      reflect.proto.:
+        src:
+          filePath:
+            'path::proto': 'path::out.*=1'
+          prefixPath: ''
+        dst:
+          prefixPath: ''
+        mandatory: 1
+        criterion:
+          debug: 0
+        inherit:
+          - predefined.*
+      reflect.proto.debug:
+        src:
+          filePath:
+            'path::proto': 'path::out.*=1'
+          prefixPath: ''
+        dst:
+          prefixPath: ''
+        mandatory: 1
+        criterion:
+          debug: 1
+        inherit:
+          - predefined.*
+      reflect.submodules:
+        src:
+          filePath:
+            'submodule::*/exported::*=1/path::exportedDir*=1': 'path::out.*=1'
+          prefixPath: ''
+        dst:
+          prefixPath: ''
+        mandatory: 1
+        criterion:
+          debug: 1
+        inherit:
+          - predefined.*
+      exported.proto.export:
+        src:
+          filePath:
+            '**': ''
+          prefixPath: ../proto
+        mandatory: 1
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+      exported.files.proto.export:
+        src:
+          filePath:
+            'path::exported.files.proto.export': ''
+          basePath: .
+          prefixPath: 'path::exported.dir.proto.export'
+          recursive: 0
+        recursive: 0
+        mandatory: 1
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+    step:
+      export.proto:
+        opts:
+          export: 'path::export'
+          tar: 0
+        criterion:
+          debug: 1
+          proto: 1
+          doc: 0
+        inherit:
+          - module.export
+      clean.out.:
+        opts:
+          filePath: 'path::out.debug'
+        criterion:
+          debug: 0
+        inherit:
+          - files.delete
+      clean.out.debug:
+        opts:
+          filePath: 'path::out.debug'
+        criterion:
+          debug: 1
+        inherit:
+          - files.delete
+      reflect.proto.:
+        opts:
+          reflector: 'reflector::reflect.proto.*=1'
+        criterion:
+          debug: 0
+          raw: 0
+        inherit:
+          - files.reflect
+      reflect.proto.debug:
+        opts:
+          reflector: 'reflector::reflect.proto.*=1'
+        criterion:
+          debug: 1
+          raw: 0
+        inherit:
+          - files.reflect
+      reflect.proto.raw:
+        opts:
+          reflector: 'reflector::reflect.proto.*=1'
+        criterion:
+          debug: 0
+          raw: 1
+        inherit:
+          - files.reflect
+      reflect.proto.debug.raw:
+        opts:
+          reflector: 'reflector::reflect.proto.*=1'
+        criterion:
+          debug: 1
+          raw: 1
+        inherit:
+          - files.reflect
+      reflect.submodules.:
+        opts:
+          reflector: 'reflector::reflect.submodules*=1'
+        criterion:
+          debug: 1
+          raw: 0
+        inherit:
+          - files.reflect
+      reflect.submodules.raw:
+        opts:
+          reflector: 'reflector::reflect.submodules*=1'
+        criterion:
+          debug: 1
+          raw: 1
+        inherit:
+          - files.reflect
+      reflect.submodules:
+        opts:
+          reflector: 'reflector::reflect.submodules*'
+        criterion:
+          debug: 1
+        inherit:
+          - files.reflect
+      exported.proto.export:
+        opts:
+          reflector: 'reflector::exported.proto.export*'
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+        inherit:
+          - files.reflect
+      exported.files.proto.export:
+        opts:
+          reflector: 'reflector::exported.files.proto.export*'
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+        inherit:
+          - files.reflect
+    build:
+      proto.export:
+        steps:
+          - 'step::export.proto'
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+      debug.raw:
+        steps:
+          - 'step::clean.out*=1'
+          - 'step::reflect.submodules*=1'
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+    exported:
+      proto.export:
+        version: 0.1.0
+        recursive: 0
+        withIntegrated: 2
+        tar: 0
+        exportedReflector: 'reflector::exported.proto.export'
+        exportedFilesReflector: 'reflector::exported.files.proto.export'
+        exportedDirPath: 'path::exported.dir.proto.export'
+        exportedFilesPath: 'path::exported.files.proto.export'
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+    consistency:
+      doc.generator.out.will.yml: *ref_0
+      ../.ex.will.yml: *ref_1
+      ../.im.will.yml: *ref_2
+  ../:
+    about:
+      name: doc.generator
+      description: Utility to generate documentation from jsdoc annotated source code
+      enabled: 1
+      version: 0.1.0
+      interpreters:
+        - nodejs >= 8.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
+      keywords:
+        - wTools
+    path:
+      module.willfiles:
+        criterion:
+          predefined: 1
+        path:
+          - .ex.will.yml
+          - .im.will.yml
+      module.original.willfiles:
+        criterion:
+          predefined: 1
+        path:
+          - .ex.will.yml
+          - .im.will.yml
+      module.peer.willfiles:
+        criterion:
+          predefined: 1
+        path: out/doc.generator.out.will.yml
+      module.peer.in:
+        criterion:
+          predefined: 1
+        path: out
+      module.common:
+        criterion:
+          predefined: 1
+        path: ./
+      download:
+        criterion:
+          predefined: 1
+      remote:
+        criterion:
+          predefined: 1
+      in:
+        criterion:
+          predefined: 0
+        path: .
+      temp:
+        path: out
+      out:
+        criterion:
+          predefined: 0
+        path: out
+      out.debug:
+        criterion:
+          debug: 1
+        path: ./out/debug
+      out.release:
+        criterion:
+          debug: 0
+        path: ./out/release
+      proto:
+        path: ./proto
+      export:
+        path: '{path::proto}/**'
+    submodule: {}
+    reflector:
+      reflect.proto.:
+        src:
+          filePath:
+            'path::proto': 'path::out.*=1'
+        mandatory: 1
+        criterion:
+          debug: 0
+        inherit:
+          - predefined.*
+      reflect.proto.debug:
+        src:
+          filePath:
+            'path::proto': 'path::out.*=1'
+        mandatory: 1
+        criterion:
+          debug: 1
+        inherit:
+          - predefined.*
+      reflect.submodules:
+        src:
+          filePath:
+            'submodule::*/exported::*=1/path::exportedDir*=1': 'path::out.*=1'
+        mandatory: 1
+        criterion:
+          debug: 1
+        inherit:
+          - predefined.*
+    step:
+      export.proto:
+        opts:
+          export: 'path::export'
+          tar: 0
+        criterion:
+          debug: 1
+          proto: 1
+          doc: 0
+        inherit:
+          - module.export
+      clean.out.:
+        opts:
+          filePath: 'path::out.debug'
+        criterion:
+          debug: 0
+        inherit:
+          - files.delete
+      clean.out.debug:
+        opts:
+          filePath: 'path::out.debug'
+        criterion:
+          debug: 1
+        inherit:
+          - files.delete
+      reflect.proto.:
+        opts:
+          reflector: 'reflector::reflect.proto.*=1'
+        criterion:
+          debug: 0
+          raw: 0
+        inherit:
+          - files.reflect
+      reflect.proto.debug:
+        opts:
+          reflector: 'reflector::reflect.proto.*=1'
+        criterion:
+          debug: 1
+          raw: 0
+        inherit:
+          - files.reflect
+      reflect.proto.raw:
+        opts:
+          reflector: 'reflector::reflect.proto.*=1'
+        criterion:
+          debug: 0
+          raw: 1
+        inherit:
+          - files.reflect
+      reflect.proto.debug.raw:
+        opts:
+          reflector: 'reflector::reflect.proto.*=1'
+        criterion:
+          debug: 1
+          raw: 1
+        inherit:
+          - files.reflect
+      reflect.submodules.:
+        opts:
+          reflector: 'reflector::reflect.submodules*=1'
+        criterion:
+          debug: 1
+          raw: 0
+        inherit:
+          - files.reflect
+      reflect.submodules.raw:
+        opts:
+          reflector: 'reflector::reflect.submodules*=1'
+        criterion:
+          debug: 1
+          raw: 1
+        inherit:
+          - files.reflect
+      reflect.submodules:
+        opts:
+          reflector: 'reflector::reflect.submodules*'
+        criterion:
+          debug: 1
+        inherit:
+          - files.reflect
+    build:
+      proto.export:
+        steps:
+          - 'step::export.proto'
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+          proto: 1
+          doc: 0
+          export: 1
+          tar: 1
+          public: 1
+      debug.raw:
+        steps:
+          - 'step::clean.out*=1'
+          - 'step::reflect.submodules*=1'
+        criterion:
+          default: 1
+          debug: 1
+          raw: 1
+    consistency:
+      ../.ex.will.yml:
+        hash: 08f83bf05622832300ab20d0aaf7e576
+        size: 620
+      ../.im.will.yml:
+        hash: 588010ee76ab5184ebf8220a696fa087
+        size: 1494
+      doc.generator.out.will.yml: *ref_0
