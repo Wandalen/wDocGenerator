@@ -3,8 +3,8 @@ root:
   - doc.generator.out
 consistency:
   doc.generator.out.will.yml: &ref_0
-    hash: c5589b04cbd843f25fbec4c1edbf11e8
-    size: 37469
+    hash: 85456a9402590ede82ece887f1555216
+    size: 37303
   ../.ex.will.yml: &ref_1
     hash: 08f83bf05622832300ab20d0aaf7e576
     size: 620
@@ -15,6 +15,7 @@ module:
   doc.generator.out:
     about:
       name: doc.generator
+      org: noorg
       description: Utility to generate documentation from jsdoc annotated source code
       enabled: 1
       version: 0.1.0
@@ -52,18 +53,11 @@ module:
       download:
         criterion:
           predefined: 1
-      remote:
-        criterion:
-          predefined: 1
       in:
-        criterion:
-          predefined: 0
         path: .
       temp:
         path: .
       out:
-        criterion:
-          predefined: 0
         path: .
       out.debug:
         criterion:
@@ -79,6 +73,7 @@ module:
         path: '{path::proto}/**'
       exported.dir.proto.export:
         criterion:
+          generated: 1
           default: 1
           debug: 1
           raw: 1
@@ -90,6 +85,7 @@ module:
         path: ../proto
       exported.files.proto.export:
         criterion:
+          generated: 1
           default: 1
           debug: 1
           raw: 1
@@ -597,6 +593,7 @@ module:
           prefixPath: ../proto
         mandatory: 1
         criterion:
+          generated: 1
           default: 1
           debug: 1
           raw: 1
@@ -615,6 +612,7 @@ module:
         recursive: 0
         mandatory: 1
         criterion:
+          generated: 1
           default: 1
           debug: 1
           raw: 1
@@ -707,6 +705,7 @@ module:
         opts:
           reflector: 'reflector::exported.proto.export*'
         criterion:
+          generated: 1
           default: 1
           debug: 1
           raw: 1
@@ -721,6 +720,7 @@ module:
         opts:
           reflector: 'reflector::exported.files.proto.export*'
         criterion:
+          generated: 1
           default: 1
           debug: 1
           raw: 1
@@ -778,6 +778,7 @@ module:
   ../:
     about:
       name: doc.generator
+      org: noorg
       description: Utility to generate documentation from jsdoc annotated source code
       enabled: 1
       version: 0.1.0
@@ -815,29 +816,22 @@ module:
       download:
         criterion:
           predefined: 1
-      remote:
-        criterion:
-          predefined: 1
       in:
-        criterion:
-          predefined: 0
         path: .
       temp:
         path: out
       out:
-        criterion:
-          predefined: 0
         path: out
       out.debug:
         criterion:
           debug: 1
-        path: ./out/debug
+        path: out/debug
       out.release:
         criterion:
           debug: 0
-        path: ./out/release
+        path: out/release
       proto:
-        path: ./proto
+        path: proto
       export:
         path: '{path::proto}/**'
     submodule: {}

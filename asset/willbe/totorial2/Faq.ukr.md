@@ -12,7 +12,7 @@ if( typeof module !== 'undefined' )
   // let _ = require( '../../Tools.s' );
   // require( './light/StarterMaker.s' );
 
-  let _ = wTools;
+  let _ = _global_.wTools;
 
   _.include( 'wCopyable' );
   _.include( 'wVerbal' );
@@ -30,7 +30,7 @@ if( typeof module !== 'undefined' )
  * @memberof module:Tools/mid/Starter
 */
 
-let _ = wTools;
+let _ = _global_.wTools;
 let Parent = null;
 let Self = function wStarterMaker( o )
 {
@@ -304,7 +304,7 @@ function fixesFor( o )
   var exts = _.path.exts( o.filePath );
 
   if( o.running === null )
-  o.running = _.arrayHasAny( [ 'run' ], exts );
+  o.running = _.longHasAny( [ 'run' ], exts );
 
   if( o.dirPath === null )
   o.dirPath = _.path.dir( o.filePath );
@@ -497,7 +497,7 @@ function filesMapMake()
     let resolvedPath = system.pathResolveLinkFull( file.absoluteGlobal ).filePath;
     let prefixToRemove = /^#\!\s*\/.+/;
 
-    if( self.offline && _.arrayHas( [ 's','js','ss' ], file.ext ) )
+    if( self.offline && _.longHas( [ 's','js','ss' ], file.ext ) )
     {
 
       let fixes = self.fixesFor

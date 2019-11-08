@@ -1,6 +1,6 @@
 {
   "name" : "wdocgenerator", 
-  "version" : "0.1.39", 
+  "version" : "0.1.40", 
   "description" : "Utility to generate documentation from jsdoc annotated source code", 
   "license" : "MIT", 
   "author" : "Kostiantyn Wandalen <wanalen@willbe.so>", 
@@ -32,8 +32,8 @@
     "wcommandsaggregator" : "beta", 
     "wcommandsconfig" : "beta", 
     "willbe" : "beta", 
-    "jsdoc-to-markdown" : "", 
-    "express" : ""
+    "jsdoc-to-markdown" : "5.0.2", 
+    "express" : "4.17.1"
   }, 
   "devDependencies" : {}, 
   "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
