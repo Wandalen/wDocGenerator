@@ -24,16 +24,16 @@
   }, 
   "dependencies" : 
   {
-    "wFiles" : "beta", 
-    "wtemplatetreeenvironment" : "beta", 
-    "wtemplatetreeresolver" : "beta", 
-    "wselector" : "beta", 
-    "wselectorextra" : "beta", 
-    "wcommandsaggregator" : "beta", 
-    "wcommandsconfig" : "beta", 
-    "willbe" : "beta", 
-    "jsdoc-to-markdown" : "5.0.2", 
-    "express" : "4.17.1"
+    "wFiles" : "", 
+    "wtemplatetreeenvironment" : "", 
+    "wtemplatetreeresolver" : "", 
+    "wselector" : "", 
+    "wselectorextra" : "", 
+    "wcommandsaggregator" : "", 
+    "wcommandsconfig" : "", 
+    "willbe" : "", 
+    "jsdoc-to-markdown" : "", 
+    "express" : ""
   }, 
   "devDependencies" : {}, 
   "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
