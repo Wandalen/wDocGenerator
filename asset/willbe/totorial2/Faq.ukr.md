@@ -69,7 +69,7 @@ function init( o )
 function exec()
 {
 
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
 
   let o = {};
   let appArgs = _.appArgs();
@@ -91,7 +91,7 @@ function form()
   let self = this;
   let logger = self.logger;
 
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
   _.assert( !self.formed );
   _.assert( !!self.system );
 
@@ -160,7 +160,7 @@ function fileProviderForm()
 {
   let self = this;
 
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
 
   let srcFileProvider = new _.FileProvider.Extract({ protocol : 'src'  });
   let dstFileProvider = new _.FileProvider.Extract({ protocol : 'dst'  });
@@ -398,7 +398,7 @@ function filesMapMake()
   // let dstFileProvider = system.providersWithProtocolMap.dst;
 
   _.assert( _.strIs( self.appName ) );
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
 
   logger.rbegin({ verbosity : -2 });
   logger.log( 'Making files map..' );
@@ -548,7 +548,7 @@ function starterMake()
   logger.log( 'Making starter..' );
   logger.rend({ verbosity : -2 });
 
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
 
   let find = self.system.filesFinder
   ({
