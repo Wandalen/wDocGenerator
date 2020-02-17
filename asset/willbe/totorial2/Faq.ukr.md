@@ -69,7 +69,7 @@ function init( o )
 function exec()
 {
 
-  _.assert( arguments.length === 0, 'Expects no arguments' );
+  _.assert( arguments.length === 0 );
 
   let o = {};
   let appArgs = _.appArgs();
@@ -91,7 +91,7 @@ function form()
   let self = this;
   let logger = self.logger;
 
-  _.assert( arguments.length === 0, 'Expects no arguments' );
+  _.assert( arguments.length === 0 );
   _.assert( !self.formed );
   _.assert( !!self.system );
 
@@ -160,7 +160,7 @@ function fileProviderForm()
 {
   let self = this;
 
-  _.assert( arguments.length === 0, 'Expects no arguments' );
+  _.assert( arguments.length === 0 );
 
   let srcFileProvider = new _.FileProvider.Extract({ protocol : 'src'  });
   let dstFileProvider = new _.FileProvider.Extract({ protocol : 'dst'  });
@@ -398,7 +398,7 @@ function filesMapMake()
   // let dstFileProvider = system.providersWithProtocolMap.dst;
 
   _.assert( _.strIs( self.appName ) );
-  _.assert( arguments.length === 0, 'Expects no arguments' );
+  _.assert( arguments.length === 0 );
 
   logger.rbegin({ verbosity : -2 });
   logger.log( 'Making files map..' );
@@ -431,12 +431,12 @@ function filesMapMake()
     dst :
     {
       prefixPath : _.uri.join( self.inPath, 'fmap://' ),
-      basePath : _.uri.join( self.inPath, 'fmap://' )
+      // basePath : _.uri.join( self.inPath, 'fmap://' )
     },
     src :
     {
       prefixPath : _.uri.join(  self.inPath, 'src://', ),
-      basePath : _.uri.join(  self.inPath, 'src://', ),
+      // basePath : _.uri.join(  self.inPath, 'src://', ),
       recursive : 2,
     },
     linking : 'fileCopy',
@@ -459,8 +459,8 @@ function filesMapMake()
         filePath : 'fmap:///',
         recursive : 2,
       },
-      includingTerminals : 1,
-      includingTransient : 0,
+      withTerminals : 1,
+      withTransient : 0,
       resolvingSoftLink : 0,
       onUp : onUp,
     });
@@ -548,17 +548,21 @@ function starterMake()
   logger.log( 'Making starter..' );
   logger.rend({ verbosity : -2 });
 
-  _.assert( arguments.length === 0, 'Expects no arguments' );
+  _.assert( arguments.length === 0 );
+
+  debugger
 
   let find = self.system.filesFinder
   ({
-    includingTerminals : 1,
-    includingTransient : 0,
+    withTerminals : 1,
+    withTransient : 0,
+    withDirs : 0,
     mandatory : 1,
+    maskPreset : 0,
     onUp : onUpInliningToStarter,
     filter :
     {
-      filePath : _.uri.join( 'src://', self.toolsPath ),
+      basePath : _.uri.join( 'src://', self.toolsPath ),
       recursive : 2,
       ends : [ '.js','.s' ],
     }
@@ -568,11 +572,13 @@ function starterMake()
   find( 'abase/l0' );
   find( 'abase/l1' );
   find( 'abase/l2' );
+  find( 'abase/l2_blueprint' );
   find( 'abase/l3' );
+  find( 'abase/l3_proto' );
   find( 'abase/l4' );
   find( 'abase/l5' );
   find( 'abase/l6' );
-  find( 'abase/l7' );
+  // find( 'abase/l7' );
   find( 'abase/l7_mixin' );
   find( 'abase/l8' );
   find( 'abase/l9/consequence' );
@@ -583,6 +589,7 @@ function starterMake()
   find( 'amid/bclass/RegexpObject.s' );
 
   find( 'amid/files/UseBase.s' );
+  find( 'amid/files/l0' );
   find( 'amid/files/l1' );
   find( 'amid/files/l2' );
   find( 'amid/files/l3' );
@@ -657,6 +664,9 @@ Config.offline = ${_.toStr( !!self.offline )};
 
   function onUpInliningToStarter( file )
   {
+    if( !file.isActual )
+    return file;
+
     _.assert( file.isActual );
 
     if( self.verbosity >= 3 )
