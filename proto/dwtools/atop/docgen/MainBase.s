@@ -101,12 +101,12 @@ function _optionsFromWillRead()
 
   try
   {
-    self.module = self.will.moduleMake({ willfilesPath : path.current() });
-    self.module.ready.deasync();
+    self.module = self.will.moduleMake({ willfilesPath : _.strAppendOnce( path.current(), '/' ) });
+    self.module.openedModule.ready.deasync();
     if( self.submodule )
-    self.submodule = self.module.submodulesResolve({ selector : self.submodule });
+    self.submodule = self.module.openedModule.submodulesResolve({ selector : self.submodule });
     else
-    self.submodules = self.module.submodulesResolve({ selector : '*' });
+    self.submodules = self.module.openedModule.submodulesResolve({ selector : '*' });
   }
   catch( err )
   {
