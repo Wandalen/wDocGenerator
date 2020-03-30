@@ -9,7 +9,7 @@
 // if( typeof module !== 'undefined' )
 // {
 
-//   // let _ = require( '../../Tools.s' );
+//   // let _ = require( '../../../dwtools/Tools.s' );
 //   // require( './light/StarterMaker.s' );
 
 //   let _ = _global_.wTools;
