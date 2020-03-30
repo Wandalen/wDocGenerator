@@ -281,19 +281,22 @@ function templateDataRead()
       let currentFileData = jsdoc2md.getTemplateDataSync
       ({
         files : [ path.nativize( file ) ],
-        configure : configPathNative
+        configure : configPathNative,
+        // 'no-cache' : true,
       });
 
-      _.arrayAppendArray( self.templateData,currentFileData  )
+      self._templateDataTransform( currentFileData );
+
+      _.arrayAppendArray( self.templateData, currentFileData  )
     }
     catch( err )
     {
       if( self.verbosity > 1 )
-      _.errLogOnce( _.err( 'jsdoc2md: Error during parse:', file, err ) );
+      _.errLogOnce( _.err( 'Error during parse:', file, err ) );
     }
   })
 
-  //
+  /*  */
 
   self.templateData.forEach( ( e ) =>
   {
@@ -303,11 +306,103 @@ function templateDataRead()
     if( e.memberof )
     e.name = _.strRemoveBegin( e.longname, e.memberof );
     e.name = _.strRemoveBegin( e.name, '.' );
-
   })
 
-  // logger.log( _.toStr( self.parsedTemplateData, { jsLike : 1 } ) )
+  /*  */
+
+
 }
+
+//
+
+function _templateDataTransform( currentFileData )
+{
+  /* transfrom entities with custom tags */
+
+  for( let i = currentFileData.length - 1; i >= 0; i-- )
+  {
+    let entity = currentFileData[ i ];
+
+    if( !entity.customTags )
+    continue;
+
+    let customTags = customTagsToMap( entity.customTags );
+
+    if( customTags.namespaces !== undefined )
+    {
+      /* transform entity with namespaces tag into two separate entities with jsdoc tag namespace */
+      let newEntities = entitiesPopulate( customTags, 'namespaces', ( namespace ) =>
+      {
+        let newNamespace = _.mapExtend( null, entity );
+        newNamespace.longname = _.strReplace( newNamespace.longname, newNamespace.name, namespace );
+        newNamespace.id = _.strReplace( newNamespace.id, newNamespace.name, namespace );
+        newNamespace.name = namespace;
+        newNamespace.kind = 'namespace';
+        return newNamespace;
+      });
+      newEntities.unshift( i, 1 )
+      currentFileData.splice.apply( currentFileData, newEntities );
+    }
+    else if( customTags.memberofs !== undefined )
+    {
+      /* transform entity with memberofs tag into two separate entities with jsdoc tag memberof */
+      let newEntities = entitiesPopulate( customTags, 'memberofs', ( memberof ) =>
+      {
+        let newEntity = _.mapExtend( null, entity );
+        newEntity.memberof = memberof;
+        return newEntity;
+      });
+      newEntities.unshift( i, 1 )
+      currentFileData.splice.apply( currentFileData, newEntities );
+    }
+
+  }
+
+  /* update entities order prop */
+
+  for( let i = currentFileData.length - 1; i >= 0; i-- )
+  currentFileData[ i ].order = i;
+
+  /* */
+
+  function customTagsToMap( customTags )
+  {
+    let result = Object.create( null );
+    customTags.forEach( ( t, i ) =>
+    {
+      result[ t.tag ] = { index : i, value : t.value }
+    })
+    return result;
+  }
+
+  //
+
+  function entitiesPopulate( customTags, customTagName, onEntity )
+  {
+    let currentTag = customTags[ customTagName ];
+    let parsedEntities = _.strSplitNonPreserving({ src : currentTag.value, delimeter : ',' });
+
+    _.assert( parsedEntities.length >= 2 );
+
+    let result = parsedEntities.map( ( entityName, i ) =>
+    {
+      if( _.strBeginOf( entityName, '"' ) && _.strEndOf( entityName, '"' ) )
+      entityName = _.strInsideOf( entityName, '"', '"' );
+
+      let newEntity = onEntity( entityName );
+
+      newEntity.order += i;
+      newEntity.customTags.splice( currentTag.index, 1 );
+
+      return newEntity;
+    })
+
+    return result;
+  }
+
+}
+
+
 
 //
 
@@ -1160,46 +1255,47 @@ let Forbids =
 let Extend =
 {
 
-  init : init,
-  finit : finit,
+  init,
+  finit,
 
-  form : form,
+  form,
 
-  _optionsFromWillRead : _optionsFromWillRead,
-  _optionsFromArgsRead : _optionsFromArgsRead,
-  _optionsFromArgsApply : _optionsFromArgsApply,
-  _pathsResolve : _pathsResolve,
+  _optionsFromWillRead,
+  _optionsFromArgsRead,
+  _optionsFromArgsApply,
+  _pathsResolve,
 
-  templateDataRead : templateDataRead,
-  performDocsifyApp : performDocsifyApp,
-  referenceGenerate : referenceGenerate,
+  templateDataRead,
+  _templateDataTransform,
+  performDocsifyApp,
+  referenceGenerate,
 
-  performConcepts : performConcepts,
-  performTutorials : performTutorials,
-  performLintReports : performLintReports,
-  performTestingReports : performTestingReports,
+  performConcepts,
+  performTutorials,
+  performLintReports,
+  performTestingReports,
 
-  performDoc : performDoc,
+  performDoc,
 
-  // indexGenerate : indexGenerate,
-  _indexForModule : _indexForModule,
-  _indexForSubmodules : _indexForSubmodules,
-  _reportsIndexForSubmodules : _reportsIndexForSubmodules,
-  _indexForSubmodulesFilesBased : _indexForSubmodulesFilesBased,
-  _indexForDirectory : _indexForDirectory,
-  // _prepareManualsUsingWill : _prepareManualsUsingWill,
+  // indexGenerate
+  _indexForModule,
+  _indexForSubmodules,
+  _reportsIndexForSubmodules,
+  _indexForSubmodulesFilesBased,
+  _indexForDirectory,
+  // _prepareManualsUsingWill
 
-  modulesInstall : modulesInstall,
+  modulesInstall,
 
   // relations
 
-  Composes : Composes,
-  Associates : Associates,
-  Restricts : Restricts,
-  Medials : Medials,
-  Statics : Statics,
-  Events : Events,
-  Forbids : Forbids,
+  Composes,
+  Associates,
+  Restricts,
+  Medials,
+  Statics,
+  Events,
+  Forbids,
 
 }
 
