@@ -168,7 +168,6 @@ module:
           - ../proto/dwtools/atop/docgen/docsify-app
           - ../proto/dwtools/atop/docgen/docsify-app/index.html
           - ../proto/dwtools/atop/docgen/docsify-app/package.json
-          - ../proto/dwtools/atop/docgen/docsify-app/README.md
           - ../proto/dwtools/atop/docgen/docsify-app/staticserver.ss
           - ../proto/dwtools/atop/docgen/docsify-app/vendor
           - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts
@@ -1995,6 +1994,4 @@ module:
       ../.im.will.yml:
         hash: 8ac68ae58e8a5634bebb7b6bd7e862a5
         size: 5496
-      wDocGenerator.out.will.yml:
-        hash: 0271989c9ae2518837ca6fb4918c36a9
-        size: 65427
+      wDocGenerator.out.will.yml: *ref_0
