@@ -21,14 +21,14 @@ function serverStart()
 
   let cachedResults = Object.create( null );
   let searchIndexPath = path.join( __dirname, 'searchIndex.json' );
-  
+
   let index;
-  
+
   if( provider.fileExists( searchIndexPath ) )
   index = provider.fileRead({ filePath : searchIndexPath, encoding : 'json' });
 
   app.use( express.static( __dirname ) );
-  
+
   if( index )
   app.get( '/search', ( req, res ) =>
   {
@@ -74,8 +74,8 @@ function serverStart()
     res.send( result );
   })
 
-  app.listen( 3000 );
-  console.log('Listening at http://localhost:3000');
+  app.listen( 3333 );
+  console.log('Listening at http://localhost:3333');
 }
 
 /* */
