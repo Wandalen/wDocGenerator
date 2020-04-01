@@ -282,7 +282,7 @@ function templateDataRead()
       ({
         files : [ path.nativize( file ) ],
         configure : configPathNative,
-        // 'no-cache' : true,
+        'no-cache' : true,
       });
 
       self._templateDataTransform( currentFileData );
@@ -298,14 +298,32 @@ function templateDataRead()
 
   /*  */
 
+  let namespacesByName = Object.create( null );
+
   self.templateData.forEach( ( e ) =>
   {
     if( e.kind != 'namespace' )
     return;
 
+    namespacesByName[ e.name ] = e;
+
     if( e.memberof )
     e.name = _.strRemoveBegin( e.longname, e.memberof );
     e.name = _.strRemoveBegin( e.name, '.' );
+  })
+
+  /* namespace:* short-cut */
+
+  self.templateData.forEach( ( e ) =>
+  {
+    if( !e.memberof )
+    return;
+    if( !_.strBeginOf( e.memberof, 'namespace:' ) )
+    return;
+    e.memberof = _.strRemoveBegin( e.memberof, 'namespace:' );
+    let namespace = namespacesByName[ e.memberof ];
+    if( namespace )
+    e.memberof = namespace.longname;
   })
 
   /*  */
@@ -382,7 +400,7 @@ function _templateDataTransform( currentFileData )
     let currentTag = customTags[ customTagName ];
     let parsedEntities = _.strSplitNonPreserving({ src : currentTag.value, delimeter : ',' });
 
-    _.assert( parsedEntities.length >= 2 );
+    _.assert( parsedEntities.length >= 1 );
 
     let result = parsedEntities.map( ( entityName, i ) =>
     {
