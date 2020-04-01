@@ -277,14 +277,18 @@ function templateDataRead()
   files.forEach( ( file ) =>
   {
     try
-    {
-      let currentFileData = jsdoc2md.getTemplateDataSync
-      ({
+    {  
+      let o =
+      {
         files : [ path.nativize( file ) ],
         configure : configPathNative,
-        // 'no-cache' : true,
-      });
-
+        'no-cache' : true,
+      }
+      
+      let ready = _.Consequence.From( jsdoc2md.getTemplateData( o ) )
+      
+      let currentFileData = ready.deasync();
+      
       self._templateDataTransform( currentFileData );
 
       _.arrayAppendArray( self.templateData, currentFileData  )
@@ -298,14 +302,32 @@ function templateDataRead()
 
   /*  */
 
+  let namespacesByName = Object.create( null );
+
   self.templateData.forEach( ( e ) =>
   {
     if( e.kind != 'namespace' )
     return;
 
+    namespacesByName[ e.name ] = e;
+
     if( e.memberof )
     e.name = _.strRemoveBegin( e.longname, e.memberof );
     e.name = _.strRemoveBegin( e.name, '.' );
+  })
+
+  /* namespace:* short-cut */
+
+  self.templateData.forEach( ( e ) =>
+  {
+    if( !e.memberof )
+    return;
+    if( !_.strBeginOf( e.memberof, 'namespace:' ) )
+    return;
+    e.memberof = _.strRemoveBegin( e.memberof, 'namespace:' );
+    let namespace = namespacesByName[ e.memberof ];
+    if( namespace )
+    e.memberof = namespace.longname;
   })
 
   /*  */
@@ -382,7 +404,7 @@ function _templateDataTransform( currentFileData )
     let currentTag = customTags[ customTagName ];
     let parsedEntities = _.strSplitNonPreserving({ src : currentTag.value, delimeter : ',' });
 
-    _.assert( parsedEntities.length >= 2 );
+    _.assert( parsedEntities.length >= 1 );
 
     let result = parsedEntities.map( ( entityName, i ) =>
     {
@@ -1224,8 +1246,8 @@ let Restricts =
   optionsFromArgs : _.define.own({}),
   templateData : _.define.own( [] ),
 
-  outReferencePath : '{{outPath}}/Reference',
-  outDocPath : '{{outPath}}/Doc',
+  outReferencePath : '{{outPath}}/reference',
+  outDocPath : '{{outPath}}/doc',
 
   will : null,
   module: null,
