@@ -277,14 +277,18 @@ function templateDataRead()
   files.forEach( ( file ) =>
   {
     try
-    {
-      let currentFileData = jsdoc2md.getTemplateDataSync
-      ({
+    {  
+      let o =
+      {
         files : [ path.nativize( file ) ],
         configure : configPathNative,
         'no-cache' : true,
-      });
-
+      }
+      
+      let ready = _.Consequence.From( jsdoc2md.getTemplateData( o ) )
+      
+      let currentFileData = ready.deasync();
+      
       self._templateDataTransform( currentFileData );
 
       _.arrayAppendArray( self.templateData, currentFileData  )
@@ -1242,8 +1246,8 @@ let Restricts =
   optionsFromArgs : _.define.own({}),
   templateData : _.define.own( [] ),
 
-  outReferencePath : '{{outPath}}/Reference',
-  outDocPath : '{{outPath}}/Doc',
+  outReferencePath : '{{outPath}}/reference',
+  outDocPath : '{{outPath}}/doc',
 
   will : null,
   module: null,
