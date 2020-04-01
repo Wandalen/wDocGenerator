@@ -13,6 +13,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wTemplateTreeResolver' );
   _.include( 'wSelectorExtra' );
   _.include( 'wAppBasic' );
+  _.include( 'wConsequence' );
 
   _.include( 'wCommandsAggregator' );
   _.include( 'wCommandsConfig' );
