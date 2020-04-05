@@ -8,6 +8,7 @@
 *.tmp
 *.special
 *.out
+out/doc
 build
 builder
 html.build.coffee
