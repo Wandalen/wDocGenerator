@@ -1,9 +1,14 @@
+
+Module
+
 ```
 /**
  * @summary Description
  * @module Module1
  */
 ```
+
+Namespace as member of the module, explicit version
 
 ```
 /**
@@ -15,17 +20,21 @@
 
 ```
 /**
+ * @namespace wTools.math
+ * @module Module1
+ */
+```
+
+Namespace as member of the module, implicit version
+
+```
+/**
  * @summary Description
  * @namespace wTools.math
  */
 ```
 
-```
-/**
- * @namespace wTools.math
- * @module Module1
- */
-```
+Function as member of the module and namespace
 
 ```
 /**
@@ -35,6 +44,9 @@
  * @function fract
  */
 ```
+
+Same namespace defined in two modules - single namespace in the index, but both modules should have that namespace on the module page
+
 
 ```
 /**

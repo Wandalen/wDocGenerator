@@ -13,7 +13,7 @@ if( typeof module !== 'undefined' )
 
 let _ = wTools;
 let Parent = null;
-let Self = _.DocGenerator;
+let Self = _.docgen.DocGenerator;
 
 // --
 // exec
@@ -64,29 +64,34 @@ function commandGenerate( e )
 
   self.form( e );
 
-  self.templateDataRead();
+  let ready = new _.Consequence().take( null );
+
+  ready.then( () => self.sourceFilesParse() )
 
   if( self.docsify )
-  self.performDocsifyApp();
+  ready.then( () => self.performDocsifyApp() )
 
-  self.referenceGenerate();
+  ready.then( () => self.parsedTreeTransform() )
+  ready.then( () => self.markdownGenerate() )
 
   if( self.includingConcepts || self.includingTutorials )
-  self.performDoc();
+  ready.then( () => self.performDoc() )
 
   if( self.includingConcepts )
-  self.performConcepts();
+  ready.then( () => self.performConcepts() )
 
   if( self.includingTutorials )
-  self.performTutorials();
-  
-  if( self.includingLintReports )
-  self.performLintReports();
-  
-  if( self.includingTestingReports )
-  self.performTestingReports();
+  ready.then( () => self.performTutorials() )
 
-  self.modulesInstall();
+  if( self.includingLintReports )
+  ready.then( () => self.performLintReports() )
+
+  if( self.includingTestingReports )
+  ready.then( () => self.performTestingReports() )
+
+  ready.then( () => self.modulesInstall() )
+
+  return ready;
 }
 
 commandGenerate.commandProperties =
@@ -112,8 +117,14 @@ function commandGenerateReference( e )
   let self = this;
 
   self.form( e );
-  self.templateDataRead();
-  self.referenceGenerate();
+
+  let ready = new _.Consequence().take( null );
+
+  ready.then( () => self.sourceFilesParse() )
+  ready.then( () => self.parsedTreeTransform() )
+  ready.then( () => self.markdownGenerate() )
+
+  return ready;
 }
 
 commandGenerateReference.commandProperties =
@@ -132,8 +143,13 @@ function commandGenerateDocsify( e )
   let self = this;
 
   self.form( e );
-  self.performDocsifyApp();
-  self.modulesInstall();
+
+  let ready = new _.Consequence().take( null );
+
+  ready.then( () => self.performDocsifyApp() );
+  ready.then( () => self.modulesInstall() );
+
+  return ready;
 }
 
 commandGenerateDocsify.commandProperties =
@@ -152,12 +168,16 @@ function commandGenerateTutorials( e )
   let path = self.provider.path;
 
   self.form( e );
-  
+
   if( e.argument && !e.propertiesMap.tutorialsPath )
   self.tutorialsPath = path.resolve( path.current(), self.inPath, e.argument );
-  
-  self.performDoc();
-  self.performTutorials();
+
+  let ready = new _.Consequence().take( null );
+
+  ready.then( () => self.performDoc() );
+  ready.then( () => self.performTutorials() );
+
+  return ready;
 }
 
 commandGenerateTutorials.commandProperties =
@@ -180,12 +200,16 @@ function commandGenerateConcepts( e )
   let path = self.provider.path;
 
   self.form( e );
-  
+
   if( e.argument && !e.propertiesMap.conceptsPath )
   self.conceptsPath = path.resolve( path.current(), self.inPath, e.argument );
-  
-  self.performDoc();
-  self.performConcepts();
+
+  let ready = new _.Consequence().take( null );
+
+  ready.then( () => self.performDoc() );
+  ready.then( () => self.performConcepts() );
+
+  return ready;
 }
 
 commandGenerateConcepts.commandProperties =
@@ -206,12 +230,16 @@ function commandGenerateLintReports( e )
   let path = self.provider.path;
 
   self.form( e );
-  
+
   if( e.argument && !e.propertiesMap.lintPath )
   self.lintPath = path.resolve( path.current(), self.inPath, e.argument );
-   
-  self.performDoc();
-  self.performLintReports();
+
+  let ready = new _.Consequence().take( null );
+
+  ready.then( () => self.performDoc() );
+  ready.then( () => self.performLintReports() );
+
+  return ready;
 }
 
 commandGenerateLintReports.commandProperties =
@@ -232,12 +260,16 @@ function commandGenerateTestingReports( e )
   let path = self.provider.path;
 
   self.form( e );
-  
+
   if( e.argument && !e.propertiesMap.testingPath )
   self.testingPath = path.resolve( path.current(), self.inPath, e.argument );
-  
-  self.performDoc();
-  self.performTestingReports();
+
+  let ready = new _.Consequence().take( null );
+
+  ready.then( () => self.performDoc() );
+  ready.then( () => self.performTestingReports() );
+
+  return ready;
 }
 
 commandGenerateLintReports.commandProperties =
@@ -259,18 +291,18 @@ function commandView( e )
   let self = this;
   let provider = self.provider;
   let path = provider.path;
-  
+
   self.form( e );
-  
+
   if( e.argument && !e.propertiesMap.outPath )
   self.outPath = path.resolve( path.current(), self.inPath, e.argument );
-  
+
   let serverScriptPath = path.join( self.outPath, 'staticserver.ss' );
-  
+
   _.sure( provider.fileExists( serverScriptPath ), 'Server script does not exist at:', serverScriptPath );
-  
+
   _.shellNode( serverScriptPath );
-  
+
 }
 
 commandView.commandProperties =

@@ -9,6 +9,7 @@
 *.special
 *.out
 out/doc
+doc/Changes.md
 build
 builder
 html.build.coffee
