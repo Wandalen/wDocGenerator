@@ -169,3 +169,8 @@ section.content
   margin-left: -30px !important;
   color: black !important;
 }
+
+.markdown-section code
+{
+  margin: 0px 0px !important;
+}

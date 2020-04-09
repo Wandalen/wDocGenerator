@@ -55,7 +55,11 @@ function transform()
 
   self.transformStage0();
   self.transformStage1();
-  self.transformStage1();
+  self.transformStage2();
+  self.transformStage3();
+  self.transformStage4();
+
+  debugger
 
   ready.take( self.templateData );
 
@@ -70,26 +74,47 @@ function transformStage0()
 
   for( let file in self.parsedFiles )
   {
-    let currentFileData = self.parsedFiles[ file ];
-    self._currentFileDataTransform( currentFileData );
-    _.arrayAppendArray( self.templateData, currentFileData );
+    let currentFile = self.parsedFiles[ file ];
+
+    currentFile.forEach( ( e ) =>
+    {
+      if( e.undocumented )
+      return;
+      if( e.kind === 'package' || e.kind === 'file' )
+      return;
+
+      if( e.tags )
+      {
+        e.customTags = Object.create( null );
+        e.tags.forEach( ( t ) =>
+        {
+          if( _.strBeginOf( t.value, '"' ) && _.strEndOf( t.value, '"' ) )
+          t.value = _.strInsideOf( t.value, '"', '"' );
+          t.value = _removePrefix( t.value );
+          e.customTags[ t.title ] = t;
+        });
+        delete e.tags;
+      }
+      self.templateData.push( e );
+    })
   }
+
 }
 
 //
 
-function _currentFileDataTransform( currentFileData )
+function transformStage1()
 {
-  /* transfrom entities with custom tags */
+  let self = this;
 
-  for( let i = currentFileData.length - 1; i >= 0; i-- )
+  for( let i = self.templateData.length - 1; i >= 0; i-- )
   {
-    let entity = currentFileData[ i ];
+    let entity = self.templateData[ i ];
 
     if( !entity.customTags )
     continue;
 
-    let customTags = customTagsToMap( entity.customTags );
+    let customTags = entity.customTags;
 
     if( customTags.namespaces !== undefined )
     {
@@ -97,14 +122,12 @@ function _currentFileDataTransform( currentFileData )
       let newEntities = entitiesPopulate( customTags, 'namespaces', ( namespace ) =>
       {
         let newNamespace = _.mapExtend( null, entity );
-        newNamespace.longname = _.strReplace( newNamespace.longname, newNamespace.name, namespace );
-        newNamespace.id = _.strReplace( newNamespace.id, newNamespace.name, namespace );
-        newNamespace.name = namespace;
-        newNamespace.kind = 'namespace';
+        newNamespace.customTags = _.mapExtend( null, newNamespace.customTags );
+        newNamespace.customTags.namespace = { title : 'namespace', value : namespace }
         return newNamespace;
       });
       newEntities.unshift( i, 1 )
-      currentFileData.splice.apply( currentFileData, newEntities );
+      self.templateData.splice.apply( self.templateData, newEntities );
     }
     else if( customTags.memberofs !== undefined )
     {
@@ -112,38 +135,36 @@ function _currentFileDataTransform( currentFileData )
       let newEntities = entitiesPopulate( customTags, 'memberofs', ( memberof ) =>
       {
         let newEntity = _.mapExtend( null, entity );
-        newEntity.memberof = memberof;
+        newEntity.customTags = _.mapExtend( null, newEntity.customTags );
+
+        if( _.strBegins( memberof, 'module:' ) )
+        newEntity.customTags.module = { title : 'module', value : _.strRemoveBegin( memberof, 'module:' )}
+        else if( _.strBegins( memberof, 'namespace:' ) )
+        newEntity.customTags.namespace = { title : 'namespace', value : _.strRemoveBegin( memberof, 'namespace:' )}
+        else if( _.strBegins( memberof, 'class:' ) )
+        newEntity.customTags.class = { title : 'class', value : _.strRemoveBegin( memberof, 'class:' )}
+
         return newEntity;
       });
       newEntities.unshift( i, 1 )
-      currentFileData.splice.apply( currentFileData, newEntities );
+      self.templateData.splice.apply( self.templateData, newEntities );
     }
 
   }
 
   /* update entities order prop */
 
-  for( let i = currentFileData.length - 1; i >= 0; i-- )
-  currentFileData[ i ].order = i;
-
-  /* */
-
-  function customTagsToMap( customTags )
+  for( let i = self.templateData.length - 1; i >= 0; i-- )
   {
-    let result = Object.create( null );
-    customTags.forEach( ( t, i ) =>
-    {
-      result[ t.tag ] = { index : i, value : t.value }
-    })
-    return result;
+    self.templateData[ i ].order = i;
   }
 
-  //
+  /* */
 
   function entitiesPopulate( customTags, customTagName, onEntity )
   {
     let currentTag = customTags[ customTagName ];
-    let parsedEntities = _.strSplitNonPreserving({ src : currentTag.value, delimeter : ',' });
+    let parsedEntities = _.strSplitNonPreserving({ src : currentTag.text, delimeter : ',' });
 
     _.assert( parsedEntities.length >= 1 );
 
@@ -155,7 +176,7 @@ function _currentFileDataTransform( currentFileData )
       let newEntity = onEntity( entityName );
 
       newEntity.order += i;
-      newEntity.customTags.splice( currentTag.index, 1 );
+      delete newEntity.customTags[ currentTag.title ];
 
       return newEntity;
     })
@@ -163,41 +184,265 @@ function _currentFileDataTransform( currentFileData )
     return result;
   }
 
+
+
 }
 
 //
 
-function transformStage1()
+function transformStage2()
 {
   let self = this;
 
-  self.templateData.forEach( ( e ) =>
+  for( let i = self.templateData.length - 1; i >= 0; i-- )
   {
-    if( e.kind != 'namespace' )
+    let e = self.templateData[ i ];
+
+    if( e.customTags)
+    entityTagsModify( e );
+
+    if( e.kind )
+    entityWithKind( e );
+    else
+    entityNoKind( e );
+
+    entityRegister( e );
+  }
+
+  function isModule( e )
+  {
+    if( e.kind )
+    return false;
+    if( !e.customTags )
+    return false;
+    if( !e.customTags.module )
+    return false;
+    if( e.customTags.namespace || e.customTags.namespaces || e.customTags.class )
+    return false;
+    return true;
+  }
+
+  function isNamespace( e )
+  {
+    if( e.kind )
+    return false;
+    if( !e.customTags )
+    return false;
+    if( !e.customTags.namespace && !e.customTags.namespaces )
+    return false;
+    if( e.customTags.class )
+    return false;
+    return true;
+  }
+
+  function isClass( e )
+  {
+    if( e.kind )
+    return false;
+    if( !e.customTags )
+    return false;
+    if( !e.customTags.class )
+    return false;
+    return true;
+  }
+
+  function isMemberOfModule( e )
+  {
+    if( !e.kind )
+    return false;
+    if( !e.customTags )
+    return false;
+    if( !e.customTags.module )
+    return false;
+    if( e.customTags.class || e.customTags.namespace )
+    return false;
+    return true;
+  }
+
+  function isMemberOfNamespace( e )
+  {
+    if( !e.kind )
+    return false;
+    if( !e.customTags )
+    return false;
+    if( !e.customTags.namespace )
+    return false;
+    if( e.customTags.class )
+    return false;
+    return true;
+  }
+
+  function isMemberOfClass( e )
+  {
+    if( !e.kind )
+    return false;
+    if( !e.customTags )
+    return false;
+    if( !e.customTags.class )
+    return false;
+    return true;
+  }
+
+  function entityTagsModify( e )
+  {
+    for( let k in e.customTags )
+    {
+      let tag = e.customTags[ k ];
+      tag.value = _removePrefix( tag.value );
+    }
+  }
+
+  function entityWithKind( e )
+  {
+    let customTags = e.customTags;
+    if( !customTags )
     return;
 
-    self.namespacesByName[ e.name ] = e;
+    if( isMemberOfModule( e ) )
+    {
+      e.memberof = 'module:' + customTags.module.value;
+    }
+    else if( isMemberOfNamespace( e ) )
+    {
+      e.memberof = 'namespace:' + customTags.namespace.value;
+    }
+    else if( isMemberOfClass( e ) )
+    {
+      e.memberof = 'class:' + customTags.class.value;
+      if( e.scope !== 'static' )
+      e.scope = 'instance'
+    }
+  }
 
-    if( e.memberof )
-    e.name = _.strRemoveBegin( e.longname, e.memberof );
-    e.name = _.strRemoveBegin( e.name, '.' );
-  })
+  function entityNoKind( e )
+  {
+    let customTags = e.customTags;
 
-  /* namespace:* short-cut */
+    if( isModule( e ) )
+    {
+      e.name = customTags.module.value;
+      e.longname = 'module:' + e.name;
+      e.id = e.longname;
+      e.kind = 'module';
+      delete e.memberof;
+      delete e.scope;
+    }
+    else if( isNamespace( e ) )
+    {
+      if( e.customTags.namespace )
+      e.name = customTags.namespace.value;
+      e.longname = e.name;
+      e.id = e.longname;
+      e.kind = 'namespace';
+      if( customTags.module )
+      e.memberof = 'module:' + customTags.module.value;
+      e.scope = 'global'
+    }
+    else if( isClass( e ) )
+    {
+      e.name = customTags.class.value;
+      e.longname = e.name;
+      e.id = e.longname;
+      e.kind = 'class';
+      e.scope = 'static';
 
-  self.templateData.forEach( ( e ) =>
+      if( customTags.module )
+      e.memberof = 'module:' + customTags.module.value;
+
+    }
+  }
+
+  function entityRegister( e )
+  {
+    if( !e.name )
+    debugger
+
+    _.assert( _.strDefined( e.name ) );
+
+    if( e.kind === 'module' )
+    {
+      _.assert( !self.modules[ e.name ] );
+      self.modules[ e.name ] = e;
+    }
+    else if( e.kind === 'namespace' )
+    {
+      if( self.namespaces[ e.name ] )
+      return false;
+      self.namespaces[ e.name ] = e;
+    }
+    else if( e.kind === 'class' )
+    {
+      _.assert( !self.classes[ e.name ] );
+      self.classes[ e.name ] = e;
+    }
+
+    return e;
+  }
+
+}
+
+//
+
+function transformStage3()
+{
+  let self = this;
+  self.templateData.forEach( e =>
   {
     if( !e.memberof )
     return;
-    if( !_.strBeginOf( e.memberof, 'namespace:' ) )
-    return;
-    e.memberof = _.strRemoveBegin( e.memberof, 'namespace:' );
-    let namespace = self.namespacesByName[ e.memberof ];
-    if( namespace )
-    e.memberof = namespace.longname;
-  })
 
-  /*  */
+    if( _.strBegins( e.memberof, 'module:' ) )
+    {
+      e.longname = e.memberof + '.' + e.name;
+      e.id = e.longname;
+    }
+    else if( _.strBegins( e.memberof, 'namespace:' ) )
+    {
+      let namespaceName = _.strRemoveBegin( e.memberof, 'namespace:' );
+      let namespaceEntity = self.namespaces[ namespaceName ];
+      e.memberof = namespaceName;
+      e.longname = namespaceName + '.' + e.name;
+      if( namespaceEntity && namespaceEntity.memberof )
+      {
+        e.memberof = namespaceEntity.memberof + '.' + namespaceName;
+        e.longname = e.memberof + '.' + e.name;
+      }
+      e.id = e.longname;
+    }
+    else if( _.strBegins( e.memberof, 'class:' ) )
+    {
+      let className = _.strRemoveBegin( e.memberof, 'class:' );
+      let classEntity = self.classes[ className ];
+      e.memberof = className;
+      if( classEntity && classEntity.memberof )
+      {
+        e.memberof = classEntity.memberof + '.' + className;
+        e.longname = e.memberof + '.' + e.name;
+      }
+      e.id = e.longname;
+    }
+
+  })
+}
+
+//
+
+function transformStage4()
+{
+  let self = this;
+  // self.templateData.forEach( e =>
+  // {
+  // })
+}
+
+function _removePrefix( src )
+{
+  let firstIsSmall = /[a-z]/.test( src[ 0 ] );
+  let secondIsCapital = /[A-Z]/.test( src[ 1 ] );
+
+  if( firstIsSmall && secondIsCapital )
+  return src.slice( 1 );
+  return src;
 }
 
 // --
@@ -214,7 +459,12 @@ let Associates =
 
 let Restricts =
 {
-  namespacesByName : _.define.own( {} ),
+  // namespacesByName : _.define.own( {} ),
+  // classesByName : _.define.own( {} ),
+
+  modules : _.define.own( {} ),
+  namespaces : _.define.own( {} ),
+  classes : _.define.own( {} ),
 }
 
 let Medials =
@@ -249,9 +499,9 @@ let Extend =
 
   transformStage0,
   transformStage1,
-  transformStage1,
-
-  _currentFileDataTransform,
+  transformStage2,
+  transformStage3,
+  transformStage4,
 
   // relations
 

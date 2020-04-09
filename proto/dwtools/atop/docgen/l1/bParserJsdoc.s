@@ -8,6 +8,7 @@ if( typeof module !== 'undefined' )
   require( './aParser.s' )
 
   var jsdoc2md = require( 'jsdoc-to-markdown' );
+  var jsdocApi = require( 'jsdoc-api' )
 }
 
 //
@@ -66,7 +67,8 @@ function parseAct( file )
     'no-cache' : true,
   }
 
-  return _.Consequence.From( jsdoc2md.getTemplateData( o ) )
+  // return _.Consequence.From( jsdoc2md.getTemplateData( o ) )
+  return _.Consequence.From( jsdocApi.explain( o ) )
 }
 
 // --

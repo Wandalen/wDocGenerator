@@ -57,7 +57,16 @@ function strCapitalize( src )
 function namespacesGet( options )
 {
   options.hash.kind = 'namespace'
-  return handlebars.helpers.each( ddata._identifiers( options ), options );
+
+  let index = Object.create( null );
+  let identifiers = ddata._identifiers( options ).filter( e =>
+  {
+    if( index[ e.name ] )
+    return false;
+    index[ e.name ] = e;
+    return true;
+  })
+  return handlebars.helpers.each( identifiers, options );
 }
 
 // function modules2( options )
