@@ -34,7 +34,7 @@ function exec()
 
   let self = this;
 
-  let appArgs = _.appArgs();
+  let appArgs = _.process.args();
   let ca = self.commandsMake();
 
   return ca.appArgsPerform({ appArgs : appArgs });
@@ -66,12 +66,9 @@ function commandGenerate( e )
 
   let ready = new _.Consequence().take( null );
 
-  ready.then( () => self.sourceFilesParse() )
-
   if( self.docsify )
   ready.then( () => self.performDocsifyApp() )
 
-  ready.then( () => self.parsedTreeTransform() )
   ready.then( () => self.markdownGenerate() )
 
   if( self.includingConcepts || self.includingTutorials )
@@ -120,8 +117,6 @@ function commandGenerateReference( e )
 
   let ready = new _.Consequence().take( null );
 
-  ready.then( () => self.sourceFilesParse() )
-  ready.then( () => self.parsedTreeTransform() )
   ready.then( () => self.markdownGenerate() )
 
   return ready;

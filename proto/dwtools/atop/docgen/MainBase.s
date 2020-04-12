@@ -70,7 +70,7 @@ function form( e )
   self.will = new _.Will({ verbosity : self.verbosity });
 
   self._optionsFromArgsRead();
-  self._optionsFromWillRead();
+  // self._optionsFromWillRead();//xxx
   self._optionsFromArgsApply()
   self._pathsResolve();
 
@@ -151,7 +151,7 @@ function _optionsFromArgsRead( e )
 
   if( !e )
   {
-    self.appArgs = _.appArgs();
+    self.appArgs = _.process.args();
   }
   else
   {
@@ -176,7 +176,7 @@ function _optionsFromArgsApply( e )
 {
   let self = this;
 
-  _.appArgsReadTo
+  _.process.argsReadTo
   ({
     dst : self,
     namesMap : optionsNamesMap,
@@ -237,132 +237,7 @@ function _pathsResolve()
 function sourceFilesParse()
 {
   let self = this;
-  let ready = self.sourceFilesFind();
-
-  ready.then( () => self.sourceFilesJsParse() );
-
   return ready;
-}
-
-//
-
-function sourceFilesFind()
-{
-  let self = this;
-  let logger = self.logger;
-  let path = self.provider.path;
-  let ready = new _.Consequence().take( null )
-
-  _.sure( _.strDefined( self.referencePath ), '{-referencePath-} needs value, please pass a subject' );
-  _.assert( self.provider.fileExists( self.referencePath ), 'Provided referencePath doesn`t exist:', self.referencePath );
-
-  self.sourceFiles.totalCount = 0;
-
-  let jsFilesFindOptions =
-  {
-    filePath : self.referencePath,
-    filter :
-    {
-      ends : [ '.s','.ss','.js' ],
-      maskAll :
-      {
-        includeAny : self.includeAny,
-        excludeAny : self.excludeAny
-      }
-    },
-    sync : 0,
-    includingTransient : 0,
-	  includingDirs : 0,
-    outputFormat : 'absolute',
-    recursive : 2,
-  }
-
-  ready
-  .then( () => self.provider.filesFind( jsFilesFindOptions ) )
-  .then( ( jsFiles ) =>
-  {
-    self.sourceFiles.js = jsFiles;
-    self.sourceFiles.totalCount += jsFiles.length;
-    return null;
-  })
-  .then( () =>
-  {
-    if( !self.sourceFiles.totalCount )
-    throw _.errBrief( `Found no source files at: ${self.referencePath}` )
-
-    if( self.verbosity > 1 )
-    logger.log( `Found ${self.sourceFiles.totalCount} source file(s) at: ${self.referencePath}` );
-
-    return null;
-  })
-
-  return ready;
-}
-
-//
-
-function sourceFilesJsParse()
-{
-  let self = this;
-
-  let jsParser = new _.docgen.ParserJsdoc
-  ({
-    files : self.sourceFiles.js,
-    provider : self.provider,
-    logger : self.logger,
-    verbosity : self.verbosity
-  });
-
-  jsParser.form();
-
-  let ready = jsParser.parse();
-
-  ready.then( ( got ) =>
-  {
-    self.parsedFiles.js = got;
-    return null;
-  })
-
-  return ready;
-}
-
-//
-
-function parsedTreeTransform()
-{
-  let self = this;
-  let ready = new _.Consequence().take( null )
-
-  ready.then( () => self.parsedTreeJsTransform() );
-
-  return ready;
-}
-
-//
-
-function parsedTreeJsTransform()
-{
-  let self = this;
-
-  let jsTransformer = new _.docgen.TransformerJsdoc
-  ({
-    parsedFiles : self.parsedFiles.js,
-    logger : self.logger,
-    verbosity : self.verbosity
-  });
-
-  jsTransformer.form();
-
-  let ready = jsTransformer.transform();
-
-  ready.then( ( got ) =>
-  {
-    self.templateData.js = got;
-    return null;
-  })
-
-  return ready;
-
 }
 
 //
@@ -370,19 +245,35 @@ function parsedTreeJsTransform()
 function markdownGenerate()
 {
   let self = this;
-
-  let mdGenerator = new _.docgen.MarkdownGenerator
+  
+  let jsParser = new _.docgen.ParserJsdoc
   ({
-    templateData : self.templateData.js,
-    outPath : self.outPath,
-    outReferencePath : self.outReferencePath,
-    logger : self.logger,
-    provider : self.provider,
-    verbosity : self.verbosity
+    inPath : self.referencePath
+  })
+  
+  jsParser.form();
+  
+  let ready = jsParser.parse();
+  
+  ready.then( ( got ) => 
+  { 
+    self.product = got;
+    
+    let mdGenerator = new _.docgen.MarkdownGenerator
+    ({
+      product : self.product,
+      outPath : self.outPath,
+      outReferencePath : self.outReferencePath,
+      logger : self.logger,
+      provider : self.provider,
+      verbosity : self.verbosity
+    })
+    
+    mdGenerator.form();
+    return mdGenerator.render();
   })
 
-  mdGenerator.form();
-  return mdGenerator.render();
+  return ready;
 }
 
 //
@@ -578,7 +469,7 @@ function modulesInstall()
 {
   let self = this;
 
-  return _.shell
+  return _.process.start
   ({
     execPath : 'npm i',
     currentPath : self.outPath,
@@ -883,6 +774,10 @@ let Restricts =
   will : null,
   module: null,
   submodules : null,
+  
+  //
+  
+  product : null
 }
 
 let Medials =
@@ -921,11 +816,6 @@ let Extend =
   //
 
   sourceFilesParse,
-  sourceFilesFind,
-  sourceFilesJsParse,
-
-  parsedTreeTransform,
-  parsedTreeJsTransform,
   markdownGenerate,
 
   //

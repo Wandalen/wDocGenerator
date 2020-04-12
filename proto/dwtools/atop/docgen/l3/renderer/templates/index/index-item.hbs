@@ -1,0 +1,15 @@
+{{#with (helperTemplateDataGet this) }}
+<div class="ui accordion">
+  <div class="title">
+    <i class="dropdown icon"></i><code>{{this.kind}}</code>
+    {{>link~}}
+  </div>
+  <div style="position: relative !important;left: 0px !important;" class="content description">
+  {{#if this.description}}
+  <p>{{this.description}}</p>
+  {{else}}
+  <p>{{this.summary}}</p>
+  {{/if}}
+  </div>
+</div>
+{{/with}}
