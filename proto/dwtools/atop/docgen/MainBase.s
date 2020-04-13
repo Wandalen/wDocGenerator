@@ -601,10 +601,10 @@ function _indexForDirectory( inPath, docPath, dirPath )
   let files = provider.filesFind
   ({
     filePath : dirPath,
-    recursive : 1,
-    includingTerminals : 1,
-    includingDirs : 0,
-    includingStem : 0,
+    filter : { recursive : 2 },
+    withTerminals : 1,
+    withDirs : 0,
+    withStem : 0,
   });
 
   if( !files.length )
@@ -641,10 +641,10 @@ function _indexForSubmodulesFilesBased( docPath, indexFile )
   let dirs = provider.filesFind
   ({
     filePath : docPath,
-    recursive : 1,
-    includingTerminals : 0,
-    includingDirs : 1,
-    includingStem : 0,
+    filter: { recursive : 2 },
+    withTerminals : 0,
+    withDirs : 1,
+    withStem : 0,
   });
 
   if( !dirs.length )
