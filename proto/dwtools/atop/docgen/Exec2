@@ -8,7 +8,7 @@ if( typeof module !== 'undefined' )
 }
 
 let _ = wTools;
-let shell = _.shellNodePassingThrough
+let shell = _.process.startNodePassingThrough
 ({
   execPath : _.path.join( __dirname, 'MainTop.s' ),
   verbosity : 0,
