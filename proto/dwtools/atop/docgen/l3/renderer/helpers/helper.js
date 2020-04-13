@@ -72,6 +72,27 @@ function helperTemplateDataGet( context )
   return context.templateDataMake();
 }
 
+//
+
+function highlight( src )
+{ 
+  //highlight text wrapped by format {-text-}
+  
+  let wrap = '**';
+  
+  return _.strReplaceAll( src, /\{\-(.*?)\-\}/g, ( src, ins ) =>
+  {
+    return `${wrap}${ins.groups[ 0 ]}${wrap}`
+  })
+}
+
+//
+
+function escape( src )
+{
+  return _.strReplaceAll( src, '|', '\\|' );
+}
+
 
 let Extension = 
 {
@@ -79,7 +100,9 @@ let Extension =
   code,
   forEachMember,
   entityArgsList,
-  helperTemplateDataGet
+  helperTemplateDataGet,
+  highlight,
+  escape
 }
 
 _.mapExtend( Self, Extension )
