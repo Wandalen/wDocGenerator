@@ -184,10 +184,10 @@ function sidebarIndex( hook )
       
       if( anchor.hasClass( 'anchor-special' ) )
       {
-        let kind = anchor.attr( 'kind' );
-        let name = anchor.attr( 'name' );
-        let id = anchor.attr( 'id' );
-        let href = origin + anchor.attr( 'url' );
+        let kind = anchor.attr( 'data-kind' );
+        let name = anchor.attr( 'data-id' );
+        let id = anchor.attr( 'data-id' );
+        let href = origin + '/' + anchor.attr( 'href' );
         
         let colorAttribute = self.attr( 'data-color' );
         let astyle = colorAttribute ? `color:${colorAttribute}` : ''
@@ -246,8 +246,8 @@ function headerLink( hook )
       function hoverIn()
       {
         let self = $(this);
-
-        let url = self.attr( 'url' );
+        
+        let url = self.attr( 'href' );
 
         self.find( '.linkify' ).css( 'visibility', 'visible' );
 
