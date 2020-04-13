@@ -40,6 +40,16 @@ function forEachMember( context, options )
 
 //
 
+function forNamespaceAndModule( context, options )
+{
+  let result = '';
+  if( context.kind === 'namespace' || context.kind === 'class' )
+  result += options.fn( context );
+  return result;
+}
+
+//
+
 function entityArgsList( entity )
 {
   //returns arguments of current entity as string: "( arg1, arg2, ... )"
@@ -99,6 +109,7 @@ let Extension =
   log,
   code,
   forEachMember,
+  forNamespaceAndModule,
   entityArgsList,
   helperTemplateDataGet,
   highlight,
