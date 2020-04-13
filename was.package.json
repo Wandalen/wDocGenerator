@@ -24,16 +24,18 @@
   }, 
   "dependencies" : 
   {
-    "wFiles" : "", 
-    "wtemplatetreeenvironment" : "", 
-    "wtemplatetreeresolver" : "", 
-    "wselector" : "", 
-    "wselectorextra" : "", 
-    "wcommandsaggregator" : "", 
-    "wcommandsconfig" : "", 
-    "willbe" : "", 
-    "jsdoc-to-markdown" : "", 
-    "express" : ""
+    "wTools": "",
+    "wFiles": "",
+    "wtemplatetreeenvironment": "",
+    "wtemplatetreeresolver": "",
+    "wselector": "",
+    "wselectorextra": "",
+    "wcommandsaggregator": "",
+    "wcommandsconfig": "",
+    "willbe": "",
+    "wdocparser": "",
+    "handlebars": "",
+    "express": ""
   }, 
   "devDependencies" : {}, 
   "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]

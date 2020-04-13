@@ -1,6 +1,9 @@
 
 submodule :
 
+  wTools :
+    path : npm:///wTools
+    enabled : 0 # submodule
   wFiles :
     path : npm:///wFiles
     enabled : 0 # submodule
@@ -25,11 +28,14 @@ submodule :
   willbe :
     path : npm:///willbe
     enabled : 0 # submodule
-  jsdoc-to-markdown :
-    path : npm:///jsdoc-to-markdown
+  wdocparser :
+    path : npm:///wdocparser
     enabled : 0 # submodule
   express :
     path : npm:///express
+    enabled : 0 # submodule
+  handlebars :
+    path : npm:///handlebars
     enabled : 0 # submodule
   wdocgenerator :
     path : hd://.
