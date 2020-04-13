@@ -2,15 +2,12 @@ format: outwillfile-2.0
 root:
   - wDocGenerator.out
 consistency:
-  wDocGenerator.out.will.yml: &ref_0
-    hash: 1f1f054f4a4083ce498e67aa37d8d7a6
-    size: 65364
-  ../.ex.will.yml: &ref_1
+  ../.ex.will.yml: &ref_0
     hash: c42cc0dd1a2a462847975bba361cde53
     size: 1808
-  ../.im.will.yml: &ref_2
-    hash: 8ac68ae58e8a5634bebb7b6bd7e862a5
-    size: 5496
+  ../.im.will.yml: &ref_1
+    hash: fccb74e84a28a15bf646a02873e0061a
+    size: 5618
 module:
   wDocGenerator.out:
     about:
@@ -19,25 +16,25 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters:
+      interpreters: &ref_2
         - njs >= 8.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords:
+      keywords: &ref_3
         - wTools
         - Documentation
         - jsdoc
         - jsdoc2md
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors:
+      contributors: &ref_4
         - Kostiantyn Wandalen <wanalen@willbe.so>
         - Volodymyr M. <volodymyr.migdal@gmail.com>
       npm.name: wdocgenerator
-      npm.scripts:
+      npm.scripts: &ref_5
         test: wtest .run proto/**
         wdoc: node proto/dwtools/atop/docgen/Exec2
-      npm.bin:
+      npm.bin: &ref_6
         wdoc: proto/dwtools/atop/docgen/Exec2
     path:
       module.willfiles:
@@ -161,449 +158,483 @@ module:
           - ../proto/dwtools/atop/docgen/Exec
           - ../proto/dwtools/atop/docgen/Exec2
           - ../proto/dwtools/atop/docgen/IncludeBase.s
+          - ../proto/dwtools/atop/docgen/IncludeMid.s
           - ../proto/dwtools/atop/docgen/MainBase.s
           - ../proto/dwtools/atop/docgen/MainTop.s
-          - ../proto/dwtools/atop/docgen/conf
-          - ../proto/dwtools/atop/docgen/conf/doc.json
-          - ../proto/dwtools/atop/docgen/docsify-app
-          - ../proto/dwtools/atop/docgen/docsify-app/index.html
-          - ../proto/dwtools/atop/docgen/docsify-app/package.json
-          - ../proto/dwtools/atop/docgen/docsify-app/staticserver.ss
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts
+          - ../proto/dwtools/atop/docgen/l3
+          - ../proto/dwtools/atop/docgen/l3/MdGenerator.s
+          - ../proto/dwtools/atop/docgen/l3/renderer
+          - ../proto/dwtools/atop/docgen/l3/renderer/Renderer.s
+          - ../proto/dwtools/atop/docgen/l3/renderer/helpers
+          - ../proto/dwtools/atop/docgen/l3/renderer/helpers/helper.js
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/class
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/clipboard.min.js
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/docsify.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/class/class-body.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/jquery-3.3.1.min.js
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/main.js
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/search.js
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/scripts/uri.js
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/class/class-heading.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/semantic.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/class/class-members.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/class/class.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/semantic.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/description.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/semantic.min.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/entity-body.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/semantic.min.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/entity-heading-return-type.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/entity-heading.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/entity.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/accordion.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/examples.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/accordion.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-default.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/accordion.min.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-table-heading.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/accordion.min.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-table-row.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/ad.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/returns.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/ad.min.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/summary.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/throws.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/api.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/link-to-entity.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/link.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/api.min.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/part-of-class.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/breadcrumb.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/part-of-module.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/breadcrumb.min.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/part-of-namespace.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/separator.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/index
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/button.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/index/classes-index.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/button.min.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/index/index-item.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/index/index.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/card.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/index/modules-index.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/card.min.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/index/namespaces-index.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/module
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/checkbox.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-body.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/checkbox.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-heading.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/checkbox.min.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-members.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/namespace
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/checkbox.min.js
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/namespace/namespace-body.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/comment.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/namespace/namespace-heading.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/comment.min.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/namespace/namespace-members.hbs
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/container.css
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/namespace/namespace.hbs
+          - ../proto/dwtools/atop/docgen/l4
+          - ../proto/dwtools/atop/docgen/l4/docsify-app
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/index.html
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/package.json
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/staticserver.ss
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/container.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts/clipboard.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dimmer.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts/docsify.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dimmer.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts/jquery-3.3.1.min.js
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts/main.js
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts/search.js
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts/uri.js
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dimmer.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/semantic.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dimmer.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/semantic.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/divider.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/semantic.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/divider.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/semantic.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dropdown.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dropdown.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/accordion.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dropdown.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/accordion.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/dropdown.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/accordion.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/embed.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/accordion.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/embed.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/ad.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/embed.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/ad.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/embed.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/api.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/feed.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/api.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/feed.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/breadcrumb.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/flag.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/breadcrumb.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/flag.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/button.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/form.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/button.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/form.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/card.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/form.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/card.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/form.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/checkbox.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/grid.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/checkbox.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/grid.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/checkbox.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/header.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/checkbox.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/header.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/comment.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/icon.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/comment.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/icon.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/container.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/image.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/container.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/image.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/dimmer.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/input.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/dimmer.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/input.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/dimmer.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/item.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/dimmer.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/item.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/divider.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/label.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/divider.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/label.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/dropdown.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/list.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/dropdown.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/list.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/dropdown.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/loader.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/dropdown.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/loader.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/embed.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/menu.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/embed.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/menu.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/embed.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/message.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/embed.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/message.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/feed.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/modal.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/feed.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/modal.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/flag.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/modal.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/flag.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/modal.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/form.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/nag.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/form.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/nag.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/form.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/nag.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/form.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/nag.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/grid.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/placeholder.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/grid.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/placeholder.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/header.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/popup.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/header.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/popup.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/icon.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/popup.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/icon.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/popup.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/image.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/progress.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/image.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/progress.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/input.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/progress.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/input.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/progress.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/item.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rail.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/item.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rail.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/label.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rating.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/label.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rating.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/list.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rating.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/list.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/rating.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/loader.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/reset.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/loader.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/reset.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/menu.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/reveal.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/menu.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/reveal.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/message.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/search.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/message.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/search.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/modal.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/search.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/modal.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/search.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/modal.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/segment.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/modal.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/segment.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/nag.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/shape.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/nag.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/shape.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/nag.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/shape.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/nag.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/shape.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/placeholder.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sidebar.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/placeholder.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sidebar.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/popup.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sidebar.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/popup.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sidebar.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/popup.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/site.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/popup.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/site.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/progress.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/site.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/progress.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/site.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/progress.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/statistic.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/progress.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/statistic.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/rail.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/step.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/rail.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/step.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/rating.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sticky.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/rating.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sticky.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/rating.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sticky.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/rating.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/sticky.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/reset.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/tab.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/reset.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/tab.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/reveal.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/tab.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/reveal.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/tab.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/search.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/table.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/search.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/table.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/search.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/transition.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/search.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/transition.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/segment.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/transition.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/segment.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/transition.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/shape.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/video.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/shape.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/video.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/shape.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/video.min.css
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/shape.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/video.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/sidebar.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/visibility.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/sidebar.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/components/visibility.min.js
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/sidebar.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/sidebar.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/site.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/site.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/site.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.eot
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/site.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.svg
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/statistic.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.ttf
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/statistic.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.woff
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/step.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/step.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/sticky.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/sticky.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.eot
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/sticky.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.svg
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/sticky.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.ttf
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/tab.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.woff
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/tab.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.woff2
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/tab.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.eot
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/tab.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.otf
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/table.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.svg
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/table.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.ttf
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/transition.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.woff
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/transition.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.woff2
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/transition.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.eot
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/transition.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.svg
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/video.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.ttf
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/video.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.woff
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/video.min.css
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.woff2
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/video.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/images
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/visibility.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/default/assets/images/flags.png
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/components/visibility.min.js
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/basic
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/basic/assets
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons-local.ttf
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.svg
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.eot
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.ttf
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.svg
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.woff
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.ttf
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/basic/assets/fonts/icons.woff
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.eot
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.svg
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.eot
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.ttf
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.svg
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.woff
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.ttf
           - >-
-            ../proto/dwtools/atop/docgen/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.woff2
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/styles
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/styles/search.css
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/styles/style.css
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/themes
-          - ../proto/dwtools/atop/docgen/docsify-app/vendor/themes/vue.css
-          - ../proto/dwtools/atop/docgen/helpers
-          - ../proto/dwtools/atop/docgen/helpers/helper.js
-          - ../proto/dwtools/atop/docgen/templates
-          - ../proto/dwtools/atop/docgen/templates/index
-          - ../proto/dwtools/atop/docgen/templates/index/classes.hbs
-          - ../proto/dwtools/atop/docgen/templates/index/index.hbs
-          - ../proto/dwtools/atop/docgen/templates/index/link.hbs
-          - ../proto/dwtools/atop/docgen/templates/index/modules.hbs
-          - ../proto/dwtools/atop/docgen/templates/index/namespaces.hbs
-          - ../proto/dwtools/atop/docgen/templates/main
-          - ../proto/dwtools/atop/docgen/templates/main/main.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/body
-          - ../proto/dwtools/atop/docgen/templates/main/body/body.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/body/link.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/body/summary.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/header
-          - ../proto/dwtools/atop/docgen/templates/main/header/heading-id.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/header/heading-name.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/header/heading-url.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/header/heading.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/kinds
-          - ../proto/dwtools/atop/docgen/templates/main/kinds/class
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.woff
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/class/class-heading-url.hbs
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/brand-icons.woff2
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/class/class-heading.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/kinds/class/class.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/kinds/entity
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.eot
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/entity/entity-members.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/kinds/entity/entity.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/kinds/module
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.otf
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/module/module-member-heading-url.hbs
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.svg
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/module/module-member-heading.hbs
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.ttf
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/module/module-member-name.hbs
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.woff
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/module/module-members.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/kinds/module/module.hbs
-          - ../proto/dwtools/atop/docgen/templates/main/kinds/namespace
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/icons.woff2
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/namespace/namespace-heading-url.hbs
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.eot
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/namespace/namespace-heading.hbs
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.svg
           - >-
-            ../proto/dwtools/atop/docgen/templates/main/kinds/namespace/namespace.hbs
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/fonts/outline-icons.woff2
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/images
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/default/assets/images/flags.png
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/github
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/github/assets
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons-local.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.svg
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/github/assets/fonts/octicons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/material
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/material/assets
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.eot
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.svg
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.ttf
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.woff
+          - >-
+            ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/semantic-2.4.1/themes/material/assets/fonts/icons.woff2
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/styles
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/styles/search.css
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/styles/style.css
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/themes
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/themes/vue.css
     submodule:
+      wTools:
+        path: 'npm:///wTools'
+        autoExporting: 0
+        enabled: 0
       wFiles:
         path: 'npm:///wFiles'
         autoExporting: 0
@@ -636,12 +667,16 @@ module:
         path: 'npm:///willbe'
         autoExporting: 0
         enabled: 0
-      jsdoc-to-markdown:
-        path: 'npm:///jsdoc-to-markdown'
+      wdocparser:
+        path: 'npm:///wdocparser'
         autoExporting: 0
         enabled: 0
       express:
         path: 'npm:///express'
+        autoExporting: 0
+        enabled: 0
+      handlebars:
+        path: 'npm:///handlebars'
         autoExporting: 0
         enabled: 0
       wdocgenerator:
@@ -1165,24 +1200,6 @@ module:
           content: prime
         inherit:
           - files.transpile
-      exported.proto.export:
-        opts:
-          reflector: 'reflector::exported.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
-      exported.files.proto.export:
-        opts:
-          reflector: 'reflector::exported.files.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
     build:
       proto.export:
         steps:
@@ -1271,9 +1288,8 @@ module:
           content: proto
           export: 1
     consistency:
-      wDocGenerator.out.will.yml: *ref_0
-      ../.ex.will.yml: *ref_1
-      ../.im.will.yml: *ref_2
+      ../.ex.will.yml: *ref_0
+      ../.im.will.yml: *ref_1
   ../:
     about:
       name: wDocGenerator
@@ -1281,26 +1297,14 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters:
-        - njs >= 8.0.0
-        - chrome >= 60.0.0
-        - firefox >= 60.0.0
-      keywords:
-        - wTools
-        - Documentation
-        - jsdoc
-        - jsdoc2md
+      interpreters: *ref_2
+      keywords: *ref_3
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors:
-        - Kostiantyn Wandalen <wanalen@willbe.so>
-        - Volodymyr M. <volodymyr.migdal@gmail.com>
+      contributors: *ref_4
       npm.name: wdocgenerator
-      npm.scripts:
-        test: wtest .run proto/**
-        wdoc: node proto/dwtools/atop/docgen/Exec2
-      npm.bin:
-        wdoc: proto/dwtools/atop/docgen/Exec2
+      npm.scripts: *ref_5
+      npm.bin: *ref_6
     path:
       module.willfiles:
         criterion:
@@ -1402,6 +1406,10 @@ module:
           content: prime
         path: '{path::out.*=}/source/Index.s'
     submodule:
+      wTools:
+        path: 'npm:///wTools'
+        autoExporting: 0
+        enabled: 0
       wFiles:
         path: 'npm:///wFiles'
         autoExporting: 0
@@ -1434,12 +1442,16 @@ module:
         path: 'npm:///willbe'
         autoExporting: 0
         enabled: 0
-      jsdoc-to-markdown:
-        path: 'npm:///jsdoc-to-markdown'
+      wdocparser:
+        path: 'npm:///wdocparser'
         autoExporting: 0
         enabled: 0
       express:
         path: 'npm:///express'
+        autoExporting: 0
+        enabled: 0
+      handlebars:
+        path: 'npm:///handlebars'
         autoExporting: 0
         enabled: 0
       wdocgenerator:
@@ -1992,6 +2004,5 @@ module:
         hash: c42cc0dd1a2a462847975bba361cde53
         size: 1808
       ../.im.will.yml:
-        hash: 8ac68ae58e8a5634bebb7b6bd7e862a5
-        size: 5496
-      wDocGenerator.out.will.yml: *ref_0
+        hash: fccb74e84a28a15bf646a02873e0061a
+        size: 5618
