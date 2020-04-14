@@ -29,12 +29,15 @@ function forEachMember( context, options )
   
   let result = '';
   let product = _.docgen.state.product;
-  let members = product.byParent[ context.name ] || [];
+  let parentByNameMap = product.byParent[ context.kind ];
+  
+  let members = parentByNameMap[ context.name ] || [];
   members.forEach( ( entity ) => 
   {
     let templateData = entity.templateDataMake();
     result += options.fn( templateData );
   })
+  
   return result;
 }
 
@@ -88,12 +91,21 @@ function highlight( src )
 { 
   //highlight text wrapped by format {-text-}
   
+  if( !src )
+  return '';
+  
   let wrap = '**';
   
-  return _.strReplaceAll( src, /\{\-(.*?)\-\}/g, ( src, ins ) =>
+  src = _.strReplaceAll( src, /\{\-(.*?)\-\}/g, ( src, ins ) =>
   {
     return `${wrap}${ins.groups[ 0 ]}${wrap}`
   })
+  
+  src = _.strLinesSplit( src );
+  src = _.strLinesStrip( src );
+  src = src.join( '<br>' )
+  
+  return src;
 }
 
 //

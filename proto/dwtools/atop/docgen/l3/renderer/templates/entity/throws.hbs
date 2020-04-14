@@ -1,7 +1,7 @@
 {{#if this.throws}}
 **Throws**: 
 {{#each this.throws}}
-- {{{code this.type}}} - {{{highlight this.description}}}
+- {{{code this.type}}} - {{#if this.description}}{{{highlight this.description}}}{{/if}}
 {{/each}}
 
 {{/if~}}
