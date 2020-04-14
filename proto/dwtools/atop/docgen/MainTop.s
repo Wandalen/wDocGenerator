@@ -104,7 +104,8 @@ commandGenerate.commandProperties =
   includingConcepts : 'Generates concepts and index file if enabled. Default : 1.',
   includingTutorials : 'Generates tutorials and index file if enabled. Default : 1.',
   docsify : 'Prepares docsify app if enabled. Default : 1',
-  v : 'Verbosity level. Default:1.'
+  v : 'Verbosity level. Default:1.',
+  inacurate : 'Allows parser to extract doc comments using regexp. Default:0'
 }
 
 //
@@ -127,7 +128,8 @@ commandGenerateReference.commandProperties =
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   referencePath : 'Path to directory with jsdoc annotated source code. Default : "proto"',
   outPath : 'Path where to generate reference. Default : out/doc',
-  v : 'Verbosity level. Default:1.'
+  v : 'Verbosity level. Default:1.',
+  inacurate : 'Allows parser to extract doc comments using regexp. Default:0'
 }
 
 

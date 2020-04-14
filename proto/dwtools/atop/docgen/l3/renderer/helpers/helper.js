@@ -29,12 +29,15 @@ function forEachMember( context, options )
   
   let result = '';
   let product = _.docgen.state.product;
-  let members = product.byParent[ context.name ] || [];
+  let parentByNameMap = product.byParent[ context.kind ];
+  
+  let members = parentByNameMap[ context.name ] || [];
   members.forEach( ( entity ) => 
   {
     let templateData = entity.templateDataMake();
     result += options.fn( templateData );
   })
+  
   return result;
 }
 
@@ -59,7 +62,7 @@ function entityArgsList( entity )
   if( !entity.params )
   return result;
   
-  let args = entity.params.map( e => e.name );
+  let args = entity.params.map( e => e.name || '' );
   
   //exclude params that can be properties of other argument, like "o.property"
   args = args.filter( arg => 
@@ -88,19 +91,38 @@ function highlight( src )
 { 
   //highlight text wrapped by format {-text-}
   
+  if( !src )
+  return '';
+  
   let wrap = '**';
   
-  return _.strReplaceAll( src, /\{\-(.*?)\-\}/g, ( src, ins ) =>
+  src = _.strReplaceAll( src, /\{\-(.*?)\-\}/g, ( src, ins ) =>
   {
     return `${wrap}${ins.groups[ 0 ]}${wrap}`
   })
+  
+  src = _.strLinesSplit( src );
+  src = _.strLinesStrip( src );
+  src = src.join( '<br>' )
+  
+  return src;
 }
 
 //
 
 function escape( src )
 {
+  if( !src )
+  return '';  
   return _.strReplaceAll( src, '|', '\\|' );
+}
+
+//
+
+function joinReturnsTypes( returns )
+{
+  _.assert( _.arrayIs( returns ) );
+  return returns.map( ( e ) => e.type || '' ).join( '|' )
 }
 
 
@@ -113,7 +135,8 @@ let Extension =
   entityArgsList,
   helperTemplateDataGet,
   highlight,
-  escape
+  escape,
+  joinReturnsTypes
 }
 
 _.mapExtend( Self, Extension )
