@@ -1,4 +1,7 @@
 {{#if this.returns}}
-**Returns**: {{{code this.returns.type}}} - {{{highlight this.returns.description}}}
+**Returns**: 
+{{#each this.returns}}
+- {{{code this.type}}} - {{#if this.description}}{{{highlight this.description}}}{{/if}}
+{{/each}}
 
 {{/if~}}
