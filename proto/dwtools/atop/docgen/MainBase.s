@@ -248,7 +248,8 @@ function markdownGenerate()
   
   let jsParser = new _.docgen.ParserJsdoc
   ({
-    inPath : self.referencePath
+    inPath : self.referencePath,
+    inacurate : self.inacurate
   })
   
   jsParser.form();
@@ -689,6 +690,7 @@ let commonOptionsNames =
 {
   verbosity : 'verbosity',
   v : 'verbosity',
+  inacurate : 'inacurate',
   docsify : 'docsify',
   includingConcepts : 'includingConcepts',
   includingTutorials : 'includingTutorials',
@@ -724,6 +726,8 @@ let Composes =
 {
 
   verbosity : 1,
+  
+  inacurate : 0,
 
   referencePath : 'proto',
   docPath : 'doc',

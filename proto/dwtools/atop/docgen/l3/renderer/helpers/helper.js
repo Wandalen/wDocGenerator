@@ -62,7 +62,7 @@ function entityArgsList( entity )
   if( !entity.params )
   return result;
   
-  let args = entity.params.map( e => e.name );
+  let args = entity.params.map( e => e.name || '' );
   
   //exclude params that can be properties of other argument, like "o.property"
   args = args.filter( arg => 
@@ -112,7 +112,17 @@ function highlight( src )
 
 function escape( src )
 {
+  if( !src )
+  return '';  
   return _.strReplaceAll( src, '|', '\\|' );
+}
+
+//
+
+function joinReturnsTypes( returns )
+{
+  _.assert( _.arrayIs( returns ) );
+  return returns.map( ( e ) => e.type || '' ).join( '|' )
 }
 
 
@@ -125,7 +135,8 @@ let Extension =
   entityArgsList,
   helperTemplateDataGet,
   highlight,
-  escape
+  escape,
+  joinReturnsTypes
 }
 
 _.mapExtend( Self, Extension )
