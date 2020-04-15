@@ -11,8 +11,31 @@ if( typeof module !== 'undefined' )
 let _ = _global_.wTools;
 let path = _.path;
 let provider = _.fileProvider;
+let port = 3333;
 
 /*  */
+
+function stopIfAlreadyRunning()
+{
+  let find = require( 'find-process' );
+  let currentName = _.path.fullName( process.argv[ 1 ] );
+  var con = _.Consequence.From( find( 'port', port ) );
+  var got = con.deasync();
+  var found = got.filter( ( e ) => _.strHas( e.cmd, currentName ) );
+  if( found.length )
+  {
+    _.assert( found.length === 1 );
+    try
+    {
+      process.kill( found[ 0 ].pid );
+    }
+    catch
+    {
+    }
+  }
+}
+
+//
 
 function serverStart()
 {
@@ -74,12 +97,14 @@ function serverStart()
     res.send( result );
   })
 
-  app.listen( 3333 );
-  console.log('Listening at http://localhost:3333');
+  app.listen( port );
+  console.log( `Listening at http://localhost:${port}` );
+  
 }
 
 /* */
 
+stopIfAlreadyRunning();
 serverStart();
 
 })();
