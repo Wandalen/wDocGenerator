@@ -97,8 +97,8 @@ function serverStart()
     res.send( result );
   })
 
-  app.listen( 3333 );
-  console.log('Listening at http://localhost:3333');
+  app.listen( port );
+  console.log( `Listening at http://localhost:${port}` );
   
 }
 
