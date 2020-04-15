@@ -185,6 +185,8 @@ module:
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/entity-body.hbs
           - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/entity-heading-href.hbs
+          - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/entity-heading-return-type.hbs
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/entity-heading.hbs
@@ -208,8 +210,6 @@ module:
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/summary.hbs
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/throws.hbs
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc
-          - >-
-            ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/link-to-entity.hbs
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/link.hbs
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/part-of-class.hbs
@@ -233,6 +233,12 @@ module:
             ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-body.hbs
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-heading.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-member-heading-href.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-member-heading.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-member.hbs
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module-members.hbs
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/module/module.hbs
@@ -2044,6 +2050,4 @@ module:
       ../.im.will.yml:
         hash: fccb74e84a28a15bf646a02873e0061a
         size: 5618
-      wDocGenerator.out.will.yml:
-        hash: 99d46fe2cb0c15fe79790e6333ffb659
-        size: 67712
+      wDocGenerator.out.will.yml: *ref_0
