@@ -43,12 +43,11 @@ function forEachMember( context, options )
 
 //
 
-function forNamespaceAndModule( context, options )
+function ifModuleOrNamespace( context, options )
 {
-  let result = '';
   if( context.kind === 'namespace' || context.kind === 'class' )
-  result += options.fn( context );
-  return result;
+  return options.fn( context );
+  return options.inverse( context );
 }
 
 //
@@ -94,11 +93,12 @@ function highlight( src )
   if( !src )
   return '';
   
-  let wrap = '**';
+  let prefix = '<strong>';
+  let postfix = '</strong>';
   
   src = _.strReplaceAll( src, /\{\-(.*?)\-\}/g, ( src, ins ) =>
   {
-    return `${wrap}${ins.groups[ 0 ]}${wrap}`
+    return `${prefix}${ins.groups[ 0 ]}${postfix}`
   })
   
   src = _.strLinesSplit( src );
@@ -131,7 +131,7 @@ let Extension =
   log,
   code,
   forEachMember,
-  forNamespaceAndModule,
+  ifModuleOrNamespace,
   entityArgsList,
   helperTemplateDataGet,
   highlight,

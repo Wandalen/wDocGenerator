@@ -135,7 +135,7 @@ $( document ).ready( () =>
           $(currentActive).removeClass( 'sidebar-index-item-active' )
 
           currentActiveId = id;
-          currentActive = $(`.item.sidebar-index-item a[data-key=${id}]`);
+          currentActive = $(`.item.sidebar-index-item a[data-key="${id}"]`);
 
           if( currentActive )
           $(currentActive).addClass( 'sidebar-index-item-active' )
@@ -187,7 +187,8 @@ function sidebarIndex( hook )
         let kind = anchor.attr( 'data-kind' );
         let name = anchor.attr( 'data-id' );
         let id = anchor.attr( 'data-id' );
-        let href = origin + '/' + anchor.attr( 'href' );
+        let href = anchor.attr( 'anchor-href' ) || anchor.attr( 'href' )
+        href = origin + '/' + href;
         
         let colorAttribute = self.attr( 'data-color' );
         let astyle = colorAttribute ? `color:${colorAttribute}` : ''
@@ -236,25 +237,27 @@ function headerLink( hook )
   })
 
   function onEachSpecial( index, value )
-  {
+  { 
       let elem =  $( `<i class="linkify button icon header-url-icon"></i>` );
       $(value).prepend( elem );
 
       $(value).mouseenter( hoverIn );
       $(value).mouseleave( hoverOut );
+      
+      $(elem).click( e => e.preventDefault() );
 
       function hoverIn()
       {
         let self = $(this);
         
-        let url = self.attr( 'href' );
+        let url = self.attr( 'anchor-href' ) || self.attr( 'href' );
 
         self.find( '.linkify' ).css( 'visibility', 'visible' );
 
         new ClipboardJS( '.linkify',
         {
           text: function()
-          {
+          { 
             window.history.pushState({ url : url }, document.title, url );
             return origin + url;
           }

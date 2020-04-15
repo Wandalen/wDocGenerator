@@ -170,6 +170,11 @@ section.content
   color: black !important;
 }
 
+.anchor-special strong
+{
+  color: var(--theme-color,#42b983);
+}
+
 .markdown-section code
 {
   margin: 0px 0px !important;
