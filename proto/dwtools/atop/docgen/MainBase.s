@@ -359,10 +359,12 @@ function performConcepts()
   let self = this;
   let provider =  self.provider;
   let path = provider.path;
-
+  
   let index = `### Concepts\n`;
 
   /* current */
+  
+  debugger
 
   index += self._indexForModule( self.docPath, self.inPath, self.conceptsPath );
 
@@ -642,7 +644,7 @@ function _indexForSubmodulesFilesBased( docPath, indexFile )
   let dirs = provider.filesFind
   ({
     filePath : docPath,
-    filter: { recursive : 2 },
+    filter: { recursive : 1 },
     withTerminals : 0,
     withDirs : 1,
     withStem : 0,
