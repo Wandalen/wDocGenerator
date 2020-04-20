@@ -194,13 +194,6 @@ module:
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/examples.hbs
           - >-
-            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-default.hbs
-          - >-
-            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-table-heading.hbs
-          - >-
-            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-table-row.hbs
-          - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params.hbs
-          - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/properties-table-heading.hbs
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/properties.hbs
@@ -209,6 +202,21 @@ module:
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/summary.hbs
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/throws.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/param-default.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/param-description.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/param-name.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/param-type.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/params-table-heading.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/params-table-row.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/params.hbs
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/link.hbs
           - >-
