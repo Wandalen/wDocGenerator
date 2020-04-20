@@ -61,17 +61,17 @@ function entityArgsList( entity )
   if( !entity.params )
   return result;
   
-  let args = entity.params.map( e => e.name || '' );
-  
-  //exclude params that can be properties of other argument, like "o.property"
-  args = args.filter( arg => 
+  //exclude params without name and params that can be properties of other argument, like "o.property"
+  let args = entity.params.filter( e => 
   { 
-    return !_.strHas( arg, '.' ) 
+    return _.strDefined( e.name ) && !_.strHas( e.name, '.' );
   })
   
-  args = args.join( ', ' );
+  if( !args.length )
+  return result;
   
-  result = `( ${args} )`;
+  result = args.map( ( e ) => e.name ).join( ', ' )
+  result = `( ${result} )`;
   
   return result
 }
