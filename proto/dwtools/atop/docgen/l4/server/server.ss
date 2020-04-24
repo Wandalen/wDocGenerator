@@ -1,4 +1,4 @@
-( function _StaticServer_ss_() {
+( function _server_ss_() {
 
 'use strict';
 

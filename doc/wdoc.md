@@ -70,7 +70,7 @@ Folders structure :
 ├── ReferenceIndex.md
 ├── TutorialsIndex.md
 ├── ConceptsIndex.md
-├── staticserver.ss # server for docsify app
+├── server.ss # server for docsify app
 ├── vendor # docsify app
 └── index.html # main page of docsify app
 ```

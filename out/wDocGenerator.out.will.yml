@@ -255,7 +255,7 @@ module:
           - ../proto/dwtools/atop/docgen/l4/docsify-app
           - ../proto/dwtools/atop/docgen/l4/docsify-app/index.html
           - ../proto/dwtools/atop/docgen/l4/docsify-app/package.json
-          - ../proto/dwtools/atop/docgen/l4/docsify-app/staticserver.ss
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/server.ss
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts
           - >-
