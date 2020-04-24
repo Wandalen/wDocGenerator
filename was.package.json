@@ -12,7 +12,7 @@
   "main" : "proto/dwtools/atop/docgen/MainTop.s", 
   "files" : [ "proto/dwtools/atop/docgen", "proto/dwtools/Tools.s", "out" ], 
   "bin" : { "wdoc" : "proto/dwtools/atop/docgen/Exec2" }, 
-  "scripts" : { "test" : "wtest .run proto/**", "wdoc" : "node proto/dwtools/atop/docgen/Exec2" }, 
+  "scripts" : { "test" : "wtest .run proto/**", "wdoc" : "node proto/dwtools/atop/docgen/Exec2", "pack": "webpack --config ./webpack.config.js" }, 
   "repository" : 
   {
     "type" : "git", 
@@ -34,9 +34,16 @@
     "wcommandsconfig" : "", 
     "willbe" : "", 
     "wdocparser" : "", 
-    "handlebars" : "", 
-    "express" : ""
+    "handlebars" : ""
   }, 
-  "devDependencies" : {}, 
+  "devDependencies" : 
+  {
+    "express": "",
+    "find-process" : "",
+    "babel-loader": "",
+    "babel-polyfill": "",
+    "webpack": "",
+    "webpack-cli": ""
+  }, 
   "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
 }

@@ -31,9 +31,6 @@ submodule :
   wdocparser :
     path : npm:///wdocparser
     enabled : 0 # submodule
-  express :
-    path : npm:///express
-    enabled : 0 # submodule
   handlebars :
     path : npm:///handlebars
     enabled : 0 # submodule
@@ -41,6 +38,36 @@ submodule :
     path : hd://.
     enabled : 0 # submodule
     criterion :
+      development : 1
+  express :
+    path : npm:///express
+    enabled : 0 # submodule
+    criterion : 
+      development : 1
+  find-process :
+    path : npm:///find-process
+    enabled : 0 # submodule
+    criterion : 
+      development : 1
+  babel-loader :
+    path : npm:///babel-loader
+    enabled : 0 # submodule
+    criterion : 
+      development : 1
+  babel-polyfill :
+    path : npm:///babel-polyfill
+    enabled : 0 # submodule
+    criterion : 
+      development : 1
+  webpack :
+    path : npm:///webpack
+    enabled : 0 # submodule
+    criterion : 
+      development : 1
+  webpack-cli :
+    path : npm:///webpack-cli
+    enabled : 0 # submodule
+    criterion : 
       development : 1
 
 path :

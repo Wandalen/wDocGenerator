@@ -1,9 +1,0 @@
-{
-  "enabled": 0,
-  "dependencies": {
-    "express": "",
-    "find-process": "",
-    "wFiles": ""
-  },
-  "devDependencies": {}
-}
