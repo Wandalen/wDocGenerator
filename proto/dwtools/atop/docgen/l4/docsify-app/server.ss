@@ -30414,10 +30414,10 @@ module.exports = function (module) {
 
 /***/ }),
 
-/***/ "./proto/dwtools/atop/docgen/l4/server/staticserver.ss":
+/***/ "./proto/dwtools/atop/docgen/l4/server/server.ss":
 /***/ (function(module, exports, __webpack_require__) {
 
-( function _StaticServer_ss_() {
+( function _server_ss_() {
 
 'use strict';
 
@@ -30528,7 +30528,7 @@ stopIfAlreadyRunning()
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("./node_modules/babel-polyfill/lib/index.js");
-module.exports = __webpack_require__("./proto/dwtools/atop/docgen/l4/server/staticserver.ss");
+module.exports = __webpack_require__("./proto/dwtools/atop/docgen/l4/server/server.ss");
 
 
 /***/ }),
