@@ -2,10 +2,13 @@ format: outwillfile-2.0
 root:
   - wDocGenerator.out
 consistency:
-  ../.ex.will.yml: &ref_0
+  wDocGenerator.out.will.yml: &ref_0
+    hash: 8a22c3a4bb85e13c3b5a4db4ccd67306
+    size: 70272
+  ../.ex.will.yml: &ref_1
     hash: c42cc0dd1a2a462847975bba361cde53
     size: 1808
-  ../.im.will.yml: &ref_1
+  ../.im.will.yml: &ref_2
     hash: cfc79a334c16aa60964befa59d8f3a3f
     size: 6224
 module:
@@ -16,25 +19,25 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters: &ref_2
+      interpreters:
         - njs >= 8.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords: &ref_3
+      keywords:
         - wTools
         - Documentation
         - jsdoc
         - jsdoc2md
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors: &ref_4
+      contributors:
         - Kostiantyn Wandalen <wanalen@willbe.so>
         - Volodymyr M. <volodymyr.migdal@gmail.com>
       npm.name: wdocgenerator
-      npm.scripts: &ref_5
+      npm.scripts:
         test: wtest .run proto/**
         wdoc: node proto/dwtools/atop/docgen/Exec2
-      npm.bin: &ref_6
+      npm.bin:
         wdoc: proto/dwtools/atop/docgen/Exec2
     path:
       module.willfiles:
@@ -259,7 +262,7 @@ module:
           - ../proto/dwtools/atop/docgen/l4
           - ../proto/dwtools/atop/docgen/l4/docsify-app
           - ../proto/dwtools/atop/docgen/l4/docsify-app/index.html
-          - ../proto/dwtools/atop/docgen/l4/docsify-app/staticserver.ss
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/server.ss
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts
           - >-
@@ -648,7 +651,7 @@ module:
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/themes
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/themes/vue.css
           - ../proto/dwtools/atop/docgen/l4/server
-          - ../proto/dwtools/atop/docgen/l4/server/staticserver.ss
+          - ../proto/dwtools/atop/docgen/l4/server/server.ss
     submodule:
       wTools:
         path: 'npm:///wTools'
@@ -1251,6 +1254,24 @@ module:
           content: prime
         inherit:
           - files.transpile
+      exported.proto.export:
+        opts:
+          reflector: 'reflector::exported.proto.export*'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
+      exported.files.proto.export:
+        opts:
+          reflector: 'reflector::exported.files.proto.export*'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
     build:
       proto.export:
         steps:
@@ -1339,8 +1360,9 @@ module:
           content: proto
           export: 1
     consistency:
-      ../.ex.will.yml: *ref_0
-      ../.im.will.yml: *ref_1
+      wDocGenerator.out.will.yml: *ref_0
+      ../.ex.will.yml: *ref_1
+      ../.im.will.yml: *ref_2
   ../:
     about:
       name: wDocGenerator
@@ -1348,14 +1370,26 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters: *ref_2
-      keywords: *ref_3
+      interpreters:
+        - njs >= 8.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
+      keywords:
+        - wTools
+        - Documentation
+        - jsdoc
+        - jsdoc2md
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors: *ref_4
+      contributors:
+        - Kostiantyn Wandalen <wanalen@willbe.so>
+        - Volodymyr M. <volodymyr.migdal@gmail.com>
       npm.name: wdocgenerator
-      npm.scripts: *ref_5
-      npm.bin: *ref_6
+      npm.scripts:
+        test: wtest .run proto/**
+        wdoc: node proto/dwtools/atop/docgen/Exec2
+      npm.bin:
+        wdoc: proto/dwtools/atop/docgen/Exec2
     path:
       module.willfiles:
         criterion:
@@ -2089,3 +2123,6 @@ module:
       ../.im.will.yml:
         hash: cfc79a334c16aa60964befa59d8f3a3f
         size: 6224
+      wDocGenerator.out.will.yml:
+        hash: 8a22c3a4bb85e13c3b5a4db4ccd67306
+        size: 70272
