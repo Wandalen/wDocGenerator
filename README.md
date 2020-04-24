@@ -7,13 +7,13 @@ Utility to generate documentation from jsdoc annotated source code and markdown 
 ```
 npm install -g wdocgenerator
 wdocgen .generate asset/realFiles
-node out/documentation/staticserver.ss
+node out/documentation/server.ss
 ```
 Or
 ```
 npm install 
 npm run-script wdocgen .generate asset/realFiles
-node out/documentation/staticserver.ss
+node out/documentation/server.ss
 ```
 
 

@@ -294,7 +294,7 @@ function commandView( e )
   if( e.argument && !e.propertiesMap.outPath )
   self.outPath = path.resolve( path.current(), self.inPath, e.argument );
 
-  let serverScriptPath = path.join( self.outPath, 'staticserver.ss' );
+  let serverScriptPath = path.join( self.outPath, 'server.ss' );
 
   _.sure( provider.fileExists( serverScriptPath ), 'Server script does not exist at:', serverScriptPath );
 
