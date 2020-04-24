@@ -2,15 +2,12 @@ format: outwillfile-2.0
 root:
   - wDocGenerator.out
 consistency:
-  wDocGenerator.out.will.yml: &ref_0
-    hash: 99d46fe2cb0c15fe79790e6333ffb659
-    size: 67712
-  ../.ex.will.yml: &ref_1
+  ../.ex.will.yml: &ref_0
     hash: c42cc0dd1a2a462847975bba361cde53
     size: 1808
-  ../.im.will.yml: &ref_2
-    hash: fccb74e84a28a15bf646a02873e0061a
-    size: 5618
+  ../.im.will.yml: &ref_1
+    hash: cfc79a334c16aa60964befa59d8f3a3f
+    size: 6224
 module:
   wDocGenerator.out:
     about:
@@ -19,25 +16,25 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters:
+      interpreters: &ref_2
         - njs >= 8.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords:
+      keywords: &ref_3
         - wTools
         - Documentation
         - jsdoc
         - jsdoc2md
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors:
+      contributors: &ref_4
         - Kostiantyn Wandalen <wanalen@willbe.so>
         - Volodymyr M. <volodymyr.migdal@gmail.com>
       npm.name: wdocgenerator
-      npm.scripts:
+      npm.scripts: &ref_5
         test: wtest .run proto/**
         wdoc: node proto/dwtools/atop/docgen/Exec2
-      npm.bin:
+      npm.bin: &ref_6
         wdoc: proto/dwtools/atop/docgen/Exec2
     path:
       module.willfiles:
@@ -194,13 +191,6 @@ module:
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/examples.hbs
           - >-
-            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-default.hbs
-          - >-
-            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-table-heading.hbs
-          - >-
-            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params-table-row.hbs
-          - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params.hbs
-          - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/properties-table-heading.hbs
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/properties.hbs
@@ -209,6 +199,21 @@ module:
           - >-
             ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/summary.hbs
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/throws.hbs
+          - ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/param-default.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/param-description.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/param-name.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/param-type.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/params-table-heading.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/params-table-row.hbs
+          - >-
+            ../proto/dwtools/atop/docgen/l3/renderer/templates/entity/params/params.hbs
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc
           - ../proto/dwtools/atop/docgen/l3/renderer/templates/etc/link.hbs
           - >-
@@ -254,8 +259,7 @@ module:
           - ../proto/dwtools/atop/docgen/l4
           - ../proto/dwtools/atop/docgen/l4/docsify-app
           - ../proto/dwtools/atop/docgen/l4/docsify-app/index.html
-          - ../proto/dwtools/atop/docgen/l4/docsify-app/package.json
-          - ../proto/dwtools/atop/docgen/l4/docsify-app/server.ss
+          - ../proto/dwtools/atop/docgen/l4/docsify-app/staticserver.ss
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/scripts
           - >-
@@ -643,6 +647,8 @@ module:
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/styles/style.css
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/themes
           - ../proto/dwtools/atop/docgen/l4/docsify-app/vendor/themes/vue.css
+          - ../proto/dwtools/atop/docgen/l4/server
+          - ../proto/dwtools/atop/docgen/l4/server/staticserver.ss
     submodule:
       wTools:
         path: 'npm:///wTools'
@@ -684,16 +690,48 @@ module:
         path: 'npm:///wdocparser'
         autoExporting: 0
         enabled: 0
-      express:
-        path: 'npm:///express'
-        autoExporting: 0
-        enabled: 0
       handlebars:
         path: 'npm:///handlebars'
         autoExporting: 0
         enabled: 0
       wdocgenerator:
         path: 'hd://..'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      express:
+        path: 'npm:///express'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      find-process:
+        path: 'npm:///find-process'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      babel-loader:
+        path: 'npm:///babel-loader'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      babel-polyfill:
+        path: 'npm:///babel-polyfill'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      webpack:
+        path: 'npm:///webpack'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      webpack-cli:
+        path: 'npm:///webpack-cli'
         autoExporting: 0
         enabled: 0
         criterion:
@@ -1213,24 +1251,6 @@ module:
           content: prime
         inherit:
           - files.transpile
-      exported.proto.export:
-        opts:
-          reflector: 'reflector::exported.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
-      exported.files.proto.export:
-        opts:
-          reflector: 'reflector::exported.files.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
     build:
       proto.export:
         steps:
@@ -1319,9 +1339,8 @@ module:
           content: proto
           export: 1
     consistency:
-      wDocGenerator.out.will.yml: *ref_0
-      ../.ex.will.yml: *ref_1
-      ../.im.will.yml: *ref_2
+      ../.ex.will.yml: *ref_0
+      ../.im.will.yml: *ref_1
   ../:
     about:
       name: wDocGenerator
@@ -1329,26 +1348,14 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters:
-        - njs >= 8.0.0
-        - chrome >= 60.0.0
-        - firefox >= 60.0.0
-      keywords:
-        - wTools
-        - Documentation
-        - jsdoc
-        - jsdoc2md
+      interpreters: *ref_2
+      keywords: *ref_3
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors:
-        - Kostiantyn Wandalen <wanalen@willbe.so>
-        - Volodymyr M. <volodymyr.migdal@gmail.com>
+      contributors: *ref_4
       npm.name: wdocgenerator
-      npm.scripts:
-        test: wtest .run proto/**
-        wdoc: node proto/dwtools/atop/docgen/Exec2
-      npm.bin:
-        wdoc: proto/dwtools/atop/docgen/Exec2
+      npm.scripts: *ref_5
+      npm.bin: *ref_6
     path:
       module.willfiles:
         criterion:
@@ -1490,16 +1497,48 @@ module:
         path: 'npm:///wdocparser'
         autoExporting: 0
         enabled: 0
-      express:
-        path: 'npm:///express'
-        autoExporting: 0
-        enabled: 0
       handlebars:
         path: 'npm:///handlebars'
         autoExporting: 0
         enabled: 0
       wdocgenerator:
         path: 'hd://.'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      express:
+        path: 'npm:///express'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      find-process:
+        path: 'npm:///find-process'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      babel-loader:
+        path: 'npm:///babel-loader'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      babel-polyfill:
+        path: 'npm:///babel-polyfill'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      webpack:
+        path: 'npm:///webpack'
+        autoExporting: 0
+        enabled: 0
+        criterion:
+          development: 1
+      webpack-cli:
+        path: 'npm:///webpack-cli'
         autoExporting: 0
         enabled: 0
         criterion:
@@ -2048,6 +2087,5 @@ module:
         hash: c42cc0dd1a2a462847975bba361cde53
         size: 1808
       ../.im.will.yml:
-        hash: fccb74e84a28a15bf646a02873e0061a
-        size: 5618
-      wDocGenerator.out.will.yml: *ref_0
+        hash: cfc79a334c16aa60964befa59d8f3a3f
+        size: 6224
