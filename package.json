@@ -1,6 +1,6 @@
 {
   "name" : "wdocgenerator", 
-  "version" : "0.1.133", 
+  "version" : "0.1.134", 
   "description" : "Utility to generate documentation from jsdoc annotated source code", 
   "license" : "MIT", 
   "author" : "Kostiantyn Wandalen <wanalen@willbe.so>", 
@@ -12,7 +12,7 @@
   "main" : "proto/dwtools/atop/docgen/MainTop.s", 
   "files" : [ "proto/dwtools/atop/docgen", "proto/dwtools/Tools.s", "out" ], 
   "bin" : { "wdoc" : "proto/dwtools/atop/docgen/Exec2" }, 
-  "scripts" : { "test" : "wtest .run proto/**", "wdoc" : "node proto/dwtools/atop/docgen/Exec2" }, 
+  "scripts" : { "test" : "wtest .run proto/**", "wdoc" : "node proto/dwtools/atop/docgen/Exec2", "pack" : "webpack --config ./webpack.config.js" }, 
   "repository" : 
   {
     "type" : "git", 
@@ -34,9 +34,16 @@
     "wcommandsconfig" : "alpha", 
     "willbe" : "alpha", 
     "wdocparser" : "alpha", 
-    "handlebars" : "4.7.6", 
-    "express" : "4.17.1"
+    "handlebars" : "4.7.6"
   }, 
-  "devDependencies" : {}, 
+  "devDependencies" : 
+  {
+    "express" : "4.17.1", 
+    "find-process" : "1.4.3", 
+    "babel-loader" : "8.1.0", 
+    "babel-polyfill" : "6.26.0", 
+    "webpack" : "4.43.0", 
+    "webpack-cli" : "3.3.11"
+  }, 
   "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
 }
