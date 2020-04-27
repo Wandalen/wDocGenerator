@@ -1,49 +1,49 @@
 {
-  "name" : "wdocgenerator", 
-  "version" : "0.1.142", 
-  "description" : "Utility to generate documentation from jsdoc annotated source code", 
-  "license" : "MIT", 
-  "author" : "Kostiantyn Wandalen <wanalen@willbe.so>", 
-  "contributors" : 
+  "name" : "wdocgenerator",
+  "version" : "0.1.143",
+  "description" : "Utility to generate documentation from jsdoc annotated source code",
+  "license" : "MIT",
+  "author" : "Kostiantyn Wandalen <wanalen@willbe.so>",
+  "contributors" :
   [
-    { "name" : "Kostiantyn Wandalen", "email" : "wanalen@willbe.so" }, 
+    { "name" : "Kostiantyn Wandalen", "email" : "wanalen@willbe.so" },
     { "name" : "Volodymyr M.", "email" : "volodymyr.migdal@gmail.com" }
-  ], 
-  "main" : "proto/dwtools/atop/docgen/MainTop.s", 
-  "files" : [ "proto/dwtools/atop/docgen", "proto/dwtools/Tools.s", "out" ], 
-  "bin" : { "wdoc" : "proto/dwtools/atop/docgen/Exec2" }, 
-  "scripts" : { "test" : "wtest .run proto/**", "wdoc" : "node proto/dwtools/atop/docgen/Exec2", "pack" : "webpack --config ./webpack.config.js" }, 
-  "repository" : 
+  ],
+  "main" : "proto/dwtools/atop/docgen/MainTop.s",
+  "files" : [ "proto/dwtools/atop/docgen", "proto/dwtools/Tools.s", "out" ],
+  "bin" : { "wdoc" : "proto/dwtools/atop/docgen/Exec2" },
+  "scripts" : { "test" : "wtest .run proto/**", "wdoc" : "node proto/dwtools/atop/docgen/Exec2", "pack" : "webpack --config ./webpack.config.js" },
+  "repository" :
   {
-    "type" : "git", 
+    "type" : "git",
     "url" : "https://github.com/Wandalen/wDocGenerator.git"
-  }, 
-  "bugs" : 
+  },
+  "bugs" :
   {
     "url" : "https://github.com/Wandalen/wDocGenerator/issues"
-  }, 
-  "dependencies" : 
+  },
+  "dependencies" :
   {
-    "wTools" : "", 
-    "wFiles" : "", 
-    "wtemplatetreeenvironment" : "", 
-    "wtemplatetreeresolver" : "", 
-    "wselector" : "", 
-    "wselectorextra" : "", 
-    "wcommandsaggregator" : "", 
-    "wcommandsconfig" : "", 
-    "willbe" : "", 
-    "wdocparser" : "", 
+    "wTools" : "",
+    "wFiles" : "",
+    "wtemplatetreeenvironment" : "",
+    "wtemplatetreeresolver" : "",
+    "wselector" : "",
+    "wselectorextra" : "",
+    "wcommandsaggregator" : "",
+    "wcommandsconfig" : "",
+    "willbe" : "",
+    "wdocparser" : "",
     "handlebars" : ""
-  }, 
-  "devDependencies" : 
+  },
+  "devDependencies" :
   {
-    "express" : "", 
-    "find-process" : "", 
-    "babel-loader" : "", 
-    "babel-polyfill" : "", 
-    "webpack" : "", 
+    "express" : "",
+    "find-process" : "",
+    "babel-loader" : "",
+    "babel-polyfill" : "",
+    "webpack" : "",
     "webpack-cli" : ""
-  }, 
+  },
   "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
 }
