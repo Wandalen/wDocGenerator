@@ -1,6 +1,6 @@
 {
   "name" : "wdocgenerator",
-  "version" : "0.1.152",
+  "version" : "0.1.153",
   "description" : "Utility to generate documentation from jsdoc annotated source code",
   "license" : "MIT",
   "author" : "Kostiantyn Wandalen <wanalen@willbe.so>",
@@ -24,16 +24,16 @@
   },
   "dependencies" :
   {
-    "wTools" : "gamma",
-    "wFiles" : "gamma",
-    "wtemplatetreeenvironment" : "gamma",
-    "wtemplatetreeresolver" : "gamma",
-    "wselector" : "gamma",
-    "wselectorextra" : "gamma",
-    "wcommandsaggregator" : "gamma",
-    "wcommandsconfig" : "gamma",
-    "willbe" : "gamma",
-    "wdocparser" : "gamma",
+    "wTools" : "alpha",
+    "wFiles" : "alpha",
+    "wtemplatetreeenvironment" : "alpha",
+    "wtemplatetreeresolver" : "alpha",
+    "wselector" : "alpha",
+    "wselectorextra" : "alpha",
+    "wcommandsaggregator" : "alpha",
+    "wcommandsconfig" : "alpha",
+    "willbe" : "alpha",
+    "wdocparser" : "alpha",
     "handlebars" : "4.7.6"
   },
   "devDependencies" :
