@@ -2,13 +2,10 @@ format: outwillfile-2.0
 root:
   - wDocGenerator.out
 consistency:
-  wDocGenerator.out.will.yml: &ref_0
-    hash: 8a22c3a4bb85e13c3b5a4db4ccd67306
-    size: 70272
-  ../.ex.will.yml: &ref_1
-    hash: c42cc0dd1a2a462847975bba361cde53
+  ../.ex.will.yml: &ref_0
+    hash: 65f9580d6bfabd78c64438c8b52821e6
     size: 1808
-  ../.im.will.yml: &ref_2
+  ../.im.will.yml: &ref_1
     hash: cfc79a334c16aa60964befa59d8f3a3f
     size: 6224
 module:
@@ -19,25 +16,25 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters:
+      interpreters: &ref_2
         - njs >= 8.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords:
+      keywords: &ref_3
         - wTools
         - Documentation
         - jsdoc
         - jsdoc2md
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors:
+      contributors: &ref_4
         - Kostiantyn Wandalen <wanalen@01.school>
         - Volodymyr M. <volodymyr.migdal@gmail.com>
       npm.name: wdocgenerator
-      npm.scripts:
+      npm.scripts: &ref_5
         test: wtest .run proto/**
         wdoc: node proto/dwtools/atop/docgen/Exec2
-      npm.bin:
+      npm.bin: &ref_6
         wdoc: proto/dwtools/atop/docgen/Exec2
     path:
       module.willfiles:
@@ -748,6 +745,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           debug: debug
@@ -763,6 +761,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           debug: release
@@ -778,6 +777,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           debug: debug
@@ -793,6 +793,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           debug: release
@@ -808,6 +809,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           raw: raw
           debug: release
@@ -824,6 +826,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           raw: compiled
@@ -841,6 +844,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           raw: compiled
@@ -857,6 +861,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: only.tests
           raw: compiled
@@ -873,6 +878,7 @@ module:
         dst:
           prefixPath: ''
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: only.tests
           raw: compiled
@@ -886,6 +892,7 @@ module:
             '**': ''
           prefixPath: ../proto
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           generated: 1
           content: proto
@@ -899,6 +906,7 @@ module:
           recursive: 0
         recursive: 0
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           generated: 1
           content: proto
@@ -1254,24 +1262,6 @@ module:
           content: prime
         inherit:
           - files.transpile
-      exported.proto.export:
-        opts:
-          reflector: 'reflector::exported.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
-      exported.files.proto.export:
-        opts:
-          reflector: 'reflector::exported.files.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
     build:
       proto.export:
         steps:
@@ -1360,9 +1350,8 @@ module:
           content: proto
           export: 1
     consistency:
-      wDocGenerator.out.will.yml: *ref_0
-      ../.ex.will.yml: *ref_1
-      ../.im.will.yml: *ref_2
+      ../.ex.will.yml: *ref_0
+      ../.im.will.yml: *ref_1
   ../:
     about:
       name: wDocGenerator
@@ -1370,26 +1359,14 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters:
-        - njs >= 8.0.0
-        - chrome >= 60.0.0
-        - firefox >= 60.0.0
-      keywords:
-        - wTools
-        - Documentation
-        - jsdoc
-        - jsdoc2md
+      interpreters: *ref_2
+      keywords: *ref_3
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors:
-        - Kostiantyn Wandalen <wanalen@01.school>
-        - Volodymyr M. <volodymyr.migdal@gmail.com>
+      contributors: *ref_4
       npm.name: wdocgenerator
-      npm.scripts:
-        test: wtest .run proto/**
-        wdoc: node proto/dwtools/atop/docgen/Exec2
-      npm.bin:
-        wdoc: proto/dwtools/atop/docgen/Exec2
+      npm.scripts: *ref_5
+      npm.bin: *ref_6
     path:
       module.willfiles:
         criterion:
@@ -1583,6 +1560,7 @@ module:
           filePath:
             'path::proto': '{path::out.*=1}/source'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           debug: debug
@@ -1595,6 +1573,7 @@ module:
           filePath:
             'path::proto': '{path::out.*=1}/source'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           debug: release
@@ -1607,6 +1586,7 @@ module:
           filePath:
             'path::proto': '{path::out.*=1}/source'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           debug: debug
@@ -1619,6 +1599,7 @@ module:
           filePath:
             'path::proto': '{path::out.*=1}/source'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           debug: release
@@ -1631,6 +1612,7 @@ module:
           filePath:
             'path::proto': '{path::out.raw.release}'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           raw: raw
           debug: release
@@ -1644,6 +1626,7 @@ module:
             '**.test/**': 0
             'path::proto': '{path::out.*=1}/Main.s'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           raw: compiled
@@ -1658,6 +1641,7 @@ module:
             '**.test/**': 0
             'path::proto': '{path::out.*=1}/Main.s'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: no.tests
           raw: compiled
@@ -1671,6 +1655,7 @@ module:
             '**.test*': 1
             'path::proto': '{path::out.*=1}/Tests.test.s'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: only.tests
           raw: compiled
@@ -1684,6 +1669,7 @@ module:
             '**.test*': 1
             'path::proto': '{path::out.*=1}/Tests.test.s'
         mandatory: 1
+        dstRewritingOnlyPreserving: 1
         criterion:
           tests: only.tests
           raw: compiled
@@ -2118,9 +2104,8 @@ module:
           - 'build::npm'
     consistency:
       ../.ex.will.yml:
-        hash: c42cc0dd1a2a462847975bba361cde53
+        hash: 65f9580d6bfabd78c64438c8b52821e6
         size: 1808
       ../.im.will.yml:
         hash: cfc79a334c16aa60964befa59d8f3a3f
         size: 6224
-      wDocGenerator.out.will.yml: *ref_0
