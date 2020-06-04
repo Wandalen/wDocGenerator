@@ -364,9 +364,9 @@ let wFileExecutorHtmlFormatters =
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.FileExecutorHtmlFormatters },
 }
 
-let wTranspilationStrategy =
+let wTranspile =
 {
-  includeAny : includeAny( 'amid/l9/transpilationStrategy/MainBase.s', 'wtranspilationstrategy' ),
+  includeAny : includeAny( 'amid/l9/transpilationStrategy/MainBase.s', 'wtranspile' ),
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.TranspilationStrategy },
 }
 
@@ -611,7 +611,7 @@ let Extend =
   wStager,
   wFileExecutor,
   wFileExecutorHtmlFormatters,
-  wTranspilationStrategy,
+  wTranspile,
 
   wPathTranslator,
   wNameMapper,
