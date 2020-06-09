@@ -12,7 +12,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wTemplateTreeEnvironment' );
   _.include( 'wTemplateTreeResolver' );
   _.include( 'wSelectorExtra' );
-  _.include( 'wAppBasic' );
+  _.include( 'wProcess' );
   _.include( 'wConsequence' );
 
   _.include( 'wCommandsAggregator' );

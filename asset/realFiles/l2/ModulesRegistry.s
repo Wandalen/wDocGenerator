@@ -92,9 +92,9 @@ let wArraySparse =
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.sparse },
 }
 
-let wAppBasic =
+let wProcess =
 {
-  includeAny : includeAny( 'abase/l4/External.s', 'wappbasic' ),
+  includeAny : includeAny( 'abase/l4/External.s', 'wprocess' ),
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.shell },
 }
 
@@ -546,7 +546,7 @@ let Extend =
   wLookerExtra,
   wArraySorted,
   wArraySparse,
-  wAppBasic,
+  wProcess,
   wUriBasic,
   wTraverser,
   wStringer,
