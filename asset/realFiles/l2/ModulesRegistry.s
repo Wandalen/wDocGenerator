@@ -474,9 +474,9 @@ let wMathSpace =
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.Space },
 }
 
-let wMathConcepts =
+let wMathModels =
 {
-  includeAny : includeAny( 'amath/l8/Concepts.ss', 'wmathconcepts' ),
+  includeAny : includeAny( 'amath/l8/Concepts.ss', 'wmathmodels' ),
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.box },
 }
 
@@ -634,7 +634,7 @@ let Extend =
   wMathScalar,
   wMathVector,
   wMathSpace,
-  wMathConcepts,
+  wMathModels,
 
   // top
 
