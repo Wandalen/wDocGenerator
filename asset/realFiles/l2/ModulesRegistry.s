@@ -212,19 +212,19 @@ let wBaseEncoder =
 
 let wLogger =
 {
-  includeAny : includeAny( 'abase/l9/printer/top/Logger.s', 'wLogger' ),
+  includeAny : includeAny( 'abase/l9/logger/entry/Logger.s', 'wLogger' ),
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.Logger; },
 }
 
 let wPrinterToFile =
 {
-  includeAny : includeAny( 'abase/l9/printer/top/ToFile.ss', 'wloggertofile' ),
+  includeAny : includeAny( 'abase/l9/logger/ToFile.ss', 'wloggertofile' ),
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.PrinterToFile; },
 }
 
 let wPrinterToJs =
 {
-  includeAny : includeAny( 'abase/l9/printer/top/ToJstructure.s', 'wloggertojs' ),
+  includeAny : includeAny( 'abase/l9/logger/ToJstructure.s', 'wloggertojs' ),
   isIncluded : function(){ return !!_global.wTools && !!_global.wTools.PrinterToJs; },
 }
 
