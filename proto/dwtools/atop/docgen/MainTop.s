@@ -49,10 +49,10 @@ function commandHelp( e )
 
   ca._commandHelp( e );
 
-  if( !e.subject )
-  {
-    _.assert( 0 );
-  }
+  // if( !e.commandName )
+  // {
+  //   _.assert( 0 );
+  // }
 
 }
 
@@ -166,8 +166,8 @@ function commandGenerateTutorials( e )
 
   self.form( e );
 
-  if( e.argument && !e.propertiesMap.tutorialsPath )
-  self.tutorialsPath = path.resolve( path.current(), self.inPath, e.argument );
+  if( e.commandArgument && !e.propertiesMap.tutorialsPath )
+  self.tutorialsPath = path.resolve( path.current(), self.inPath, e.commandArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -198,8 +198,8 @@ function commandGenerateConcepts( e )
 
   self.form( e );
 
-  if( e.argument && !e.propertiesMap.conceptsPath )
-  self.conceptsPath = path.resolve( path.current(), self.inPath, e.argument );
+  if( e.commandArgument && !e.propertiesMap.conceptsPath )
+  self.conceptsPath = path.resolve( path.current(), self.inPath, e.commandArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -228,8 +228,8 @@ function commandGenerateLintReports( e )
 
   self.form( e );
 
-  if( e.argument && !e.propertiesMap.lintPath )
-  self.lintPath = path.resolve( path.current(), self.inPath, e.argument );
+  if( e.commandArgument && !e.propertiesMap.lintPath )
+  self.lintPath = path.resolve( path.current(), self.inPath, e.commandArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -258,8 +258,8 @@ function commandGenerateTestingReports( e )
 
   self.form( e );
 
-  if( e.argument && !e.propertiesMap.testingPath )
-  self.testingPath = path.resolve( path.current(), self.inPath, e.argument );
+  if( e.commandArgument && !e.propertiesMap.testingPath )
+  self.testingPath = path.resolve( path.current(), self.inPath, e.commandArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -291,8 +291,8 @@ function commandView( e )
 
   self.form( e );
 
-  if( e.argument && !e.propertiesMap.outPath )
-  self.outPath = path.resolve( path.current(), self.inPath, e.argument );
+  if( e.commandArgument && !e.propertiesMap.outPath )
+  self.outPath = path.resolve( path.current(), self.inPath, e.commandArgument );
 
   let serverScriptPath = path.join( self.outPath, 'server.ss' );
 
