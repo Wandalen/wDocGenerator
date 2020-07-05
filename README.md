@@ -1,5 +1,5 @@
 
-# wDocGenerator [![Build Status](https://travis-ci.org/Wandalen/wDocGenerator.svg?branch=master)](https://travis-ci.org/Wandalen/wDocGenerator)
+# module::DocGenerator [![Status](https://github.com/Wandalen/wDocGenerator/workflows/Test/badge.svg)](https://github.com/Wandalen/wDocGenerator}/actions?query=workflow%3ATest)
 
 Utility to generate documentation from jsdoc annotated source code and markdown files.
 
