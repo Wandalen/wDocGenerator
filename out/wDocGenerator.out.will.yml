@@ -2,15 +2,12 @@ format: outwillfile-2.0
 root:
   - wDocGenerator.out
 consistency:
-  wDocGenerator.out.will.yml: &ref_0
-    hash: 323a62b7e52eb9afb44b072eacfd21a5
-    size: 69913
-  ../.ex.will.yml: &ref_1
-    hash: c78499d2cfb7ab994c1c4ef8dacf9bad
-    size: 1809
-  ../.im.will.yml: &ref_2
-    hash: cfc79a334c16aa60964befa59d8f3a3f
-    size: 6224
+  ../.ex.will.yml: &ref_0
+    hash: f9a64a3575da6b6759d155d25cce4ecd
+    size: 1807
+  ../.im.will.yml: &ref_1
+    hash: a41d9b3957a602eb0699eea4f5e86c95
+    size: 6221
 module:
   wDocGenerator.out:
     about:
@@ -19,25 +16,25 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters:
+      interpreters: &ref_2
         - njs >= 10.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords:
+      keywords: &ref_3
         - wTools
         - Documentation
         - jsdoc
         - jsdoc2md
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors:
+      contributors: &ref_4
         - Kostiantyn Wandalen <wanalen@01.school>
         - Volodymyr M. <volodymyr.migdal@gmail.com>
       npm.name: wdocgenerator
-      npm.scripts:
+      npm.scripts: &ref_5
         test: wtest .run proto/**
         wdoc: node proto/wtools/atop/docgen/Exec2
-      npm.bin:
+      npm.bin: &ref_6
         wdoc: proto/wtools/atop/docgen/Exec2
     path:
       module.willfiles:
@@ -198,10 +195,8 @@ module:
             ../proto/wtools/atop/docgen/l3/renderer/templates/entity/properties-table-heading.hbs
           - >-
             ../proto/wtools/atop/docgen/l3/renderer/templates/entity/properties.hbs
-          - >-
-            ../proto/wtools/atop/docgen/l3/renderer/templates/entity/returns.hbs
-          - >-
-            ../proto/wtools/atop/docgen/l3/renderer/templates/entity/summary.hbs
+          - ../proto/wtools/atop/docgen/l3/renderer/templates/entity/returns.hbs
+          - ../proto/wtools/atop/docgen/l3/renderer/templates/entity/summary.hbs
           - ../proto/wtools/atop/docgen/l3/renderer/templates/entity/throws.hbs
           - ../proto/wtools/atop/docgen/l3/renderer/templates/entity/params
           - >-
@@ -268,8 +263,7 @@ module:
           - ../proto/wtools/atop/docgen/l4/docsify-app/vendor/scripts
           - >-
             ../proto/wtools/atop/docgen/l4/docsify-app/vendor/scripts/clipboard.min.js
-          - >-
-            ../proto/wtools/atop/docgen/l4/docsify-app/vendor/scripts/docsify.js
+          - ../proto/wtools/atop/docgen/l4/docsify-app/vendor/scripts/docsify.js
           - >-
             ../proto/wtools/atop/docgen/l4/docsify-app/vendor/scripts/jquery-3.3.1.min.js
           - ../proto/wtools/atop/docgen/l4/docsify-app/vendor/scripts/main.js
@@ -1153,7 +1147,7 @@ module:
           debug: release
       reflect.proto.debug.raw:
         opts:
-          filePath: 'reflector::reflect.proto*'
+          filePath: 'reflector::reflect.proto.debug.raw'
         criterion:
           tests: no.tests
           debug: debug
@@ -1163,7 +1157,7 @@ module:
           - files.reflect
       reflect.proto.release.raw:
         opts:
-          filePath: 'reflector::reflect.proto*'
+          filePath: 'reflector::reflect.proto.release.raw'
         criterion:
           tests: no.tests
           debug: release
@@ -1173,7 +1167,7 @@ module:
           - files.reflect
       reflect.proto.debug.compiled:
         opts:
-          filePath: 'reflector::reflect.proto*'
+          filePath: 'reflector::reflect.proto.debug.compiled'
         criterion:
           tests: no.tests
           debug: debug
@@ -1183,7 +1177,7 @@ module:
           - files.reflect
       reflect.proto.release.compiled:
         opts:
-          filePath: 'reflector::reflect.proto*'
+          filePath: 'reflector::reflect.proto.release.compiled'
         criterion:
           tests: no.tests
           debug: release
@@ -1194,7 +1188,7 @@ module:
       transpile.proto.raw:
         opts:
           entry: 'path::entry.proto.no.tests'
-          filePath: 'reflector::transpile.proto.raw*'
+          filePath: 'reflector::transpile.proto.raw'
         criterion:
           raw: raw
           debug: release
@@ -1204,7 +1198,7 @@ module:
       transpile.proto.no.tests.compiled.debug:
         opts:
           entry: 'path::entry.proto.*=1'
-          filePath: 'reflector::transpile.proto.no.tests.compiled*'
+          filePath: 'reflector::transpile.proto.no.tests.compiled.debug'
         criterion:
           tests: no.tests
           raw: compiled
@@ -1215,7 +1209,7 @@ module:
       transpile.proto.no.tests.compiled.release:
         opts:
           entry: 'path::entry.proto.*=1'
-          filePath: 'reflector::transpile.proto.no.tests.compiled*'
+          filePath: 'reflector::transpile.proto.no.tests.compiled.release'
         criterion:
           tests: no.tests
           raw: compiled
@@ -1227,7 +1221,7 @@ module:
         opts:
           entry: 'path::entry.proto.*=1'
           external.before: '{path::out.*=1}/Main.s'
-          filePath: 'reflector::transpile.proto.only.tests.compiled*'
+          filePath: 'reflector::transpile.proto.only.tests.compiled.debug'
         criterion:
           tests: only.tests
           raw: compiled
@@ -1239,7 +1233,7 @@ module:
         opts:
           entry: 'path::entry.proto.*=1'
           external.before: '{path::out.*=1}/Main.s'
-          filePath: 'reflector::transpile.proto.only.tests.compiled*'
+          filePath: 'reflector::transpile.proto.only.tests.compiled.release'
         criterion:
           tests: only.tests
           raw: compiled
@@ -1247,24 +1241,6 @@ module:
           content: prime
         inherit:
           - files.transpile
-      exported.proto.export:
-        opts:
-          filePath: 'reflector::exported.proto.export'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
-      exported.files.proto.export:
-        opts:
-          filePath: 'reflector::exported.files.proto.export'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
     build:
       proto.export:
         steps:
@@ -1353,9 +1329,8 @@ module:
           content: proto
           export: 1
     consistency:
-      wDocGenerator.out.will.yml: *ref_0
-      ../.ex.will.yml: *ref_1
-      ../.im.will.yml: *ref_2
+      ../.ex.will.yml: *ref_0
+      ../.im.will.yml: *ref_1
   ../:
     about:
       name: wDocGenerator
@@ -1363,26 +1338,14 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters:
-        - njs >= 10.0.0
-        - chrome >= 60.0.0
-        - firefox >= 60.0.0
-      keywords:
-        - wTools
-        - Documentation
-        - jsdoc
-        - jsdoc2md
+      interpreters: *ref_2
+      keywords: *ref_3
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors:
-        - Kostiantyn Wandalen <wanalen@01.school>
-        - Volodymyr M. <volodymyr.migdal@gmail.com>
+      contributors: *ref_4
       npm.name: wdocgenerator
-      npm.scripts:
-        test: wtest .run proto/**
-        wdoc: node proto/wtools/atop/docgen/Exec2
-      npm.bin:
-        wdoc: proto/wtools/atop/docgen/Exec2
+      npm.scripts: *ref_5
+      npm.bin: *ref_6
     path:
       module.willfiles:
         criterion:
@@ -2102,9 +2065,8 @@ module:
           - 'build::npm'
     consistency:
       ../.ex.will.yml:
-        hash: c78499d2cfb7ab994c1c4ef8dacf9bad
-        size: 1809
+        hash: f9a64a3575da6b6759d155d25cce4ecd
+        size: 1807
       ../.im.will.yml:
-        hash: cfc79a334c16aa60964befa59d8f3a3f
-        size: 6224
-      wDocGenerator.out.will.yml: *ref_0
+        hash: a41d9b3957a602eb0699eea4f5e86c95
+        size: 6221
