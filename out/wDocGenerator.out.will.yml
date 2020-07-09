@@ -2,10 +2,13 @@ format: outwillfile-2.0
 root:
   - wDocGenerator.out
 consistency:
-  ../.ex.will.yml: &ref_0
+  wDocGenerator.out.will.yml: &ref_0
+    hash: 1b25008e5d9eab82dd54445fafd54db2
+    size: 69771
+  ../.ex.will.yml: &ref_1
     hash: f9a64a3575da6b6759d155d25cce4ecd
     size: 1807
-  ../.im.will.yml: &ref_1
+  ../.im.will.yml: &ref_2
     hash: a41d9b3957a602eb0699eea4f5e86c95
     size: 6221
 module:
@@ -16,25 +19,25 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters: &ref_2
+      interpreters:
         - njs >= 10.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords: &ref_3
+      keywords:
         - wTools
         - Documentation
         - jsdoc
         - jsdoc2md
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: &ref_4
+      contributors:
         - Kostiantyn Wandalen <wanalen@01.school>
         - Volodymyr M. <volodymyr.migdal@gmail.com>
       npm.name: wdocgenerator
-      npm.scripts: &ref_5
+      npm.scripts:
         test: wtest .run proto/**
         wdoc: node proto/wtools/atop/docgen/Exec2
-      npm.bin: &ref_6
+      npm.bin:
         wdoc: proto/wtools/atop/docgen/Exec2
     path:
       module.willfiles:
@@ -1241,6 +1244,24 @@ module:
           content: prime
         inherit:
           - files.transpile
+      exported.proto.export:
+        opts:
+          filePath: 'reflector::exported.proto.export'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
+      exported.files.proto.export:
+        opts:
+          filePath: 'reflector::exported.files.proto.export'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
     build:
       proto.export:
         steps:
@@ -1329,8 +1350,9 @@ module:
           content: proto
           export: 1
     consistency:
-      ../.ex.will.yml: *ref_0
-      ../.im.will.yml: *ref_1
+      wDocGenerator.out.will.yml: *ref_0
+      ../.ex.will.yml: *ref_1
+      ../.im.will.yml: *ref_2
   ../:
     about:
       name: wDocGenerator
@@ -1338,14 +1360,26 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters: *ref_2
-      keywords: *ref_3
+      interpreters:
+        - njs >= 10.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
+      keywords:
+        - wTools
+        - Documentation
+        - jsdoc
+        - jsdoc2md
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: *ref_4
+      contributors:
+        - Kostiantyn Wandalen <wanalen@01.school>
+        - Volodymyr M. <volodymyr.migdal@gmail.com>
       npm.name: wdocgenerator
-      npm.scripts: *ref_5
-      npm.bin: *ref_6
+      npm.scripts:
+        test: wtest .run proto/**
+        wdoc: node proto/wtools/atop/docgen/Exec2
+      npm.bin:
+        wdoc: proto/wtools/atop/docgen/Exec2
     path:
       module.willfiles:
         criterion:
@@ -2070,3 +2104,6 @@ module:
       ../.im.will.yml:
         hash: a41d9b3957a602eb0699eea4f5e86c95
         size: 6221
+      wDocGenerator.out.will.yml:
+        hash: 1b25008e5d9eab82dd54445fafd54db2
+        size: 69771
