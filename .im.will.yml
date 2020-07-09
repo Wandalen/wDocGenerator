@@ -105,7 +105,7 @@ path :
       content : prime
 
   entry.proto.no.tests :
-    path : proto/dwtools/atop/docgen/MainTop.s
+    path : proto/wtools/atop/docgen/MainTop.s
     criterion :
       tests : 'no.tests'
   entry.proto.only.tests :
@@ -113,11 +113,11 @@ path :
     criterion :
       tests : 'only.tests'
 
-  # npm.entry : proto/dwtools/abase/Layer2.s
+  # npm.entry : proto/wtools/abase/Layer2.s
   # npm.files : proto
 
   entry.out.raw.debug :
-    path : '{path::out.*=1}/source/dwtools/atop/docgen/MainTop.s'
+    path : '{path::out.*=1}/source/wtools/atop/docgen/MainTop.s'
     criterion :
       debug : [ debug, release ]
       raw : raw

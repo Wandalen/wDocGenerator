@@ -2,8 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const nodeEnv = process.env.NODE_ENV;
 const isProduction = true;
-let serverScriptPath = path.join( __dirname, 'proto/dwtools/atop/docgen/l4/server/server.ss' )
-let docsifyAppDirPath = path.join( __dirname, 'proto/dwtools/atop/docgen/l4/docsify-app' )
+let serverScriptPath = path.join( __dirname, 'proto/wtools/atop/docgen/l4/server/server.ss' )
+let docsifyAppDirPath = path.join( __dirname, 'proto/wtools/atop/docgen/l4/docsify-app' )
 
 // Common plugins
 let plugins = [

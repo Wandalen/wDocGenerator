@@ -22,9 +22,9 @@ about :
   npm.name : 'wdocgenerator'
   npm.scripts :
     test : 'wtest .run proto/**'
-    wdoc : 'node proto/dwtools/atop/docgen/Exec2'
+    wdoc : 'node proto/wtools/atop/docgen/Exec2'
   npm.bin :
-    wdoc : 'proto/dwtools/atop/docgen/Exec2'
+    wdoc : 'proto/wtools/atop/docgen/Exec2'
 
 path :
 

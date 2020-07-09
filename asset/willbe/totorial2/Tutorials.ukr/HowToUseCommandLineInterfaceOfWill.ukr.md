@@ -158,7 +158,7 @@ Request ".held .build"
 
  * Application
 Current path : /[path]
-Exec path : /usr/bin/node /usr/lib/node_modules/willbe/proto/dwtools/atop/will/MainTop.s .held .build
+Exec path : /usr/bin/node /usr/lib/node_modules/willbe/proto/wtools/atop/will/MainTop.s .held .build
 
 Unknown subject ".held"
 Try subject ".help"   
