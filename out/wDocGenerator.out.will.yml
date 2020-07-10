@@ -2104,6 +2104,4 @@ module:
       ../.im.will.yml:
         hash: a41d9b3957a602eb0699eea4f5e86c95
         size: 6221
-      wDocGenerator.out.will.yml:
-        hash: 1b25008e5d9eab82dd54445fafd54db2
-        size: 69771
+      wDocGenerator.out.will.yml: *ref_0
