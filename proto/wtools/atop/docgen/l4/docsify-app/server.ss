@@ -13102,7 +13102,7 @@ function setup(env) {
   * Active `debug` instances.
   */
 
-  createDebug.instances = [];
+  createDebug.Instances = [];
   /**
   * The currently active debug mode names, and names to skip.
   */
@@ -13211,15 +13211,15 @@ function setup(env) {
       createDebug.init(debug);
     }
 
-    createDebug.instances.push(debug);
+    createDebug.Instances.push(debug);
     return debug;
   }
 
   function destroy() {
-    var index = createDebug.instances.indexOf(this);
+    var index = createDebug.Instances.indexOf(this);
 
     if (index !== -1) {
-      createDebug.instances.splice(index, 1);
+      createDebug.Instances.splice(index, 1);
       return true;
     }
 
@@ -13261,8 +13261,8 @@ function setup(env) {
       }
     }
 
-    for (i = 0; i < createDebug.instances.length; i++) {
-      var instance = createDebug.instances[i];
+    for (i = 0; i < createDebug.Instances.length; i++) {
+      var instance = createDebug.Instances[i];
       instance.enabled = createDebug.enabled(instance.namespace);
     }
   }
