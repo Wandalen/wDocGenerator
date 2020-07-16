@@ -3,12 +3,12 @@
 Помилка при роботі з оновленням підмодуля. завантаження або завантаження через апгрейд проходить успішно:
 
 ```
-dmytry@dmytry:~/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirSubmoduleImporting$ will .submodules.upgrade
+dmytry@dmytry:~/Документы/willbe_src/pract2/FirSubmoduleImporting$ will .submodules.upgrade
 Request ".submodules.upgrade"
-   . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.will.yml
+   . Read : /home/dmytry/Документы/willbe_src/pract2/FirstModule_SubmoduleImporting/.will.yml
  . Read 1 will-files in 0.061s
  ! Failed to read submodule::PathBasic, try to download it with .submodules.download or even clean it before downloading
-   . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathBasic/out/wPathBasic.out.will.yml
+   . Read : /home/dmytry/Документы/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathBasic/out/wPathBasic.out.will.yml
    + module::PathBasic was upgraded in 6.133s
  + 1/1 submodule(s) of module::first were upgraded in 6.138s
 
@@ -17,11 +17,11 @@ Request ".submodules.upgrade"
 Але повторний апгрейд викликає помилку і такий лог:
 
 ```
-dmytry@dmytry:~/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirSubmoduleImporting$ will .submodules.upgrade
+dmytry@dmytry:~/Документы/willbe_src/pract2/FirSubmoduleImporting$ will .submodules.upgrade
 Request ".submodules.upgrade"
-   . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.will.yml
+   . Read : /home/dmytry/Документы/willbe_src/pract2/FirstModule_SubmoduleImporting/.will.yml
  . Read 1 will-files in 0.072s
- . Read : /home/dmytry/Документы/UpWork/IntellectualServiceMysnyk/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathBasic/out/wPathBasic.out.will.yml
+ . Read : /home/dmytry/Документы/willbe_src/pract2/FirstModule_SubmoduleImporting/.module/PathBasic/out/wPathBasic.out.will.yml
  * Message
 Failed to upgrade submodules of module::first
 Failed to upgrade module::PathBasic

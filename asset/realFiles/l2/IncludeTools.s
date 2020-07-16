@@ -5,10 +5,10 @@
 //
 
 var usingSinglePath = 0;
-var Self = _global_.wTools;
-var _global = _global_;
-var _ = _global_.wTools;
-var _global = _global_;
+let Self = _global_.wTools;
+let _global = _global_;
+let _ = _global_.wTools;
+let _global = _global_;
 
 var Module = null;
 var __include;
