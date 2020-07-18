@@ -379,7 +379,7 @@ let Forbids =
 // declare
 // --
 
-let Extend =
+let Extension =
 {
 
   Exec : Exec,
@@ -413,7 +413,7 @@ let Extend =
 _.classExtend
 ({
   cls : Self,
-  extend : Extend,
+  extend : Extension,
 });
 
 //

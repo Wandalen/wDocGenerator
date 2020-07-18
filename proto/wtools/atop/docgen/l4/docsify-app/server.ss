@@ -22424,7 +22424,7 @@ StripBOMWrapper.prototype.end = function () {
 
 
 var Buffer = __webpack_require__("buffer").Buffer; // Note: not polyfilled with safer-buffer on a purpose, as overrides Buffer
-// == Extend Node primitives to use iconv-lite =================================
+// == Extension Node primitives to use iconv-lite =================================
 
 
 module.exports = function (iconv) {
