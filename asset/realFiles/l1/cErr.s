@@ -1087,10 +1087,10 @@ diagnosticEachElementComparator.defaults =
 
 //
 
-function diagnosticsStructureGenerate( o )
+function diagnosticStructureGenerate( o )
 {
   _.assert( arguments.length === 1 )
-  _.routineOptions( diagnosticsStructureGenerate, o );
+  _.routineOptions( diagnosticStructureGenerate, o );
   _.assert( _.numberIs( o.breadth ) );
   _.assert( _.numberIs( o.depth ) );
 
@@ -1222,7 +1222,7 @@ function diagnosticsStructureGenerate( o )
 
 }
 
-diagnosticsStructureGenerate.defaults =
+diagnosticStructureGenerate.defaults =
 {
   depth : null,
   breadth : null,
@@ -1298,7 +1298,7 @@ let Extend =
   diagnosticEachLongType,
   diagnosticEachElementComparator,
 
-  diagnosticsStructureGenerate
+  diagnosticStructureGenerate
 
 }
 

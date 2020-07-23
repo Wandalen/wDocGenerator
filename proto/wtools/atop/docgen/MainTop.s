@@ -298,7 +298,7 @@ function commandView( e )
 
   _.sure( provider.fileExists( serverScriptPath ), 'Server script does not exist at:', serverScriptPath );
 
-  _.shellNode( serverScriptPath );
+  _.process.startNode( serverScriptPath );
 
 }
 
