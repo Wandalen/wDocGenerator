@@ -34,7 +34,7 @@ function exec()
 
   let self = this;
 
-  let appArgs = _.process.args();
+  let appArgs = _.process.input();
   let ca = self.commandsMake();
 
   return ca.appArgsPerform({ appArgs : appArgs });

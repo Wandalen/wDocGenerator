@@ -150,7 +150,7 @@ function _optionsFromArgsRead( e )
 
   if( !e )
   {
-    self.appArgs = _.process.args();
+    self.appArgs = _.process.input();
   }
   else
   {
@@ -175,7 +175,7 @@ function _optionsFromArgsApply( e )
 {
   let self = this;
 
-  _.process.argsReadTo
+  _.process.inputReadTo
   ({
     dst : self,
     namesMap : optionsNamesMap,
