@@ -1498,8 +1498,8 @@ let finnallyTimeOut = _.routineFromPreAndBody( timeOut_pre, _timeOut, 'finnallyT
 var defaults = finnallyTimeOut.defaults;
 defaults.kindOfResource = KindOfResource.Both;
 
-let thenTimeOut = _.routineFromPreAndBody( timeOut_pre, _timeOut, 'thenTimeOut' );
-var defaults = thenTimeOut.defaults;
+let thenDelay = _.routineFromPreAndBody( timeOut_pre, _timeOut, 'thenDelay' );
+var defaults = thenDelay.defaults;
 defaults.kindOfResource = KindOfResource.ArgumentOnly;
 
 let exceptTimeOut = _.routineFromPreAndBody( timeOut_pre, _timeOut, 'exceptTimeOut' );
@@ -4319,7 +4319,7 @@ let Extend =
 
   _timeOut,
   finnallyTimeOut,
-  thenTimeOut,
+  thenDelay,
   exceptTimeOut,
   timeOut : finnallyTimeOut,
 
