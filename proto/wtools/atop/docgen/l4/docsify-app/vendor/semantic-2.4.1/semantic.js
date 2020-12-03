@@ -17009,7 +17009,7 @@ $.fn.sidebar.settings = {
   regExp: {
     ios          : /(iPad|iPhone|iPod)/g,
     mobileChrome : /(CriOS)/g,
-    mobile       : /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/g
+    mobile       : /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|val)|Blazer|Dolfin|Dolphin|Skyfire|Zune/g
   },
 
   error   : {
