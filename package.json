@@ -1,6 +1,6 @@
 {
   "name" : "wdocgenerator",
-  "version" : "0.1.197",
+  "version" : "0.1.198",
   "description" : "Utility to generate documentation from jsdoc annotated source code",
   "license" : "MIT",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
