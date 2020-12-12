@@ -737,8 +737,8 @@ $.fn.form = function(parameters) {
             var
               allValid = true
             ;
-            $.each(validation, function(fieldName, field) {
-              if( !( module.validate.field(field, fieldName, true) ) ) {
+            $.each(validation, function(propName, field) {
+              if( !( module.validate.field(field, propName, true) ) ) {
                 allValid = false;
               }
             });
@@ -785,8 +785,8 @@ $.fn.form = function(parameters) {
             }
             else {
               module.verbose('Checking if form is valid');
-              $.each(validation, function(fieldName, field) {
-                if( !module.is.valid(fieldName) ) {
+              $.each(validation, function(propName, field) {
+                if( !module.is.valid(propName) ) {
                   allValid = false;
                 }
               });
@@ -1043,8 +1043,8 @@ $.fn.form = function(parameters) {
             if(!validation) {
               return false;
             }
-            $.each(validation, function(fieldName, field) {
-              identifier = field.identifier || fieldName;
+            $.each(validation, function(propName, field) {
+              identifier = field.identifier || propName;
               if( module.get.field(identifier)[0] == $field[0] ) {
                 field.identifier = identifier;
                 fieldValidation = field;
@@ -1447,18 +1447,18 @@ $.fn.form = function(parameters) {
           },
 
           // takes a validation object and returns whether field passes validation
-          field: function(field, fieldName, showErrors) {
+          field: function(field, propName, showErrors) {
             showErrors = (showErrors !== undefined)
               ? showErrors
               : true
             ;
             if(typeof field == 'string') {
               module.verbose('Validating field', field);
-              fieldName = field;
+              propName = field;
               field     = validation[field];
             }
             var
-              identifier    = field.identifier || fieldName,
+              identifier    = field.identifier || propName,
               $field        = module.get.field(identifier),
               $dependsField = (field.depends)
                 ? module.get.field(field.depends)
