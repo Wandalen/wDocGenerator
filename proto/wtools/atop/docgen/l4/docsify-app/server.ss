@@ -9356,7 +9356,7 @@ $export($export.S, 'Reflect', {
 /***/ "./node_modules/core-js/modules/es6.reflect.get-prototype-of.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-// 26.1.8 Reflect.getPrototypeOf(target)
+// 26.1.8 Object.getPrototypeOf(target)
 var $export = __webpack_require__("./node_modules/core-js/modules/_export.js");
 
 var getProto = __webpack_require__("./node_modules/core-js/modules/_object-gpo.js");
@@ -9474,7 +9474,7 @@ $export($export.S, 'Reflect', {
 /***/ "./node_modules/core-js/modules/es6.reflect.set-prototype-of.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-// 26.1.14 Reflect.setPrototypeOf(target, proto)
+// 26.1.14 Object.setPrototypeOf(target, proto)
 var $export = __webpack_require__("./node_modules/core-js/modules/_export.js");
 
 var setProto = __webpack_require__("./node_modules/core-js/modules/_set-proto.js");
