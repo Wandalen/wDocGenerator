@@ -38,6 +38,7 @@
   },
   "devDependencies" :
   {
+    "wTesting" : "alpha",
     "express" : "4.17.1",
     "find-process" : "1.4.4",
     "babel-loader" : "8.2.2",
