@@ -1,17 +1,21 @@
-( function _Renderer_s_() {
+( function _Renderer_s_()
+{
 
 'use strict';
 
+var handlebars;
+
 if( typeof module !== 'undefined' )
 {
-  var handlebars = require( 'handlebars' )
+  handlebars = require( 'handlebars' )
 }
 
 //
 
 let _ = _global_.wTools;
 let Parent = null;
-let Self = function wRenderer( o )
+let Self = wRenderer;
+function wRenderer( o )
 {
   return _.workpiece.construct( Self, this, arguments );
 }
@@ -54,36 +58,35 @@ function form()
 {
   let self = this;
   _.assert( arguments.length === 0 );
-  
+
   let provider = self.provider;
   let path = provider.path;
-  
+
   /* find partials and helpers */
-  
+
   let find = provider.filesFinder
-  ({ 
+  ({
     filter : { recursive : 2 },
     withTerminals : 1,
     withDirs : 0,
     withStem : 0,
   })
-  
+
   find({ filePath : path.join( __dirname, 'helpers' ), result : self.helpers })
   find({ filePath : path.join( __dirname, 'templates' ), result : self.partials })
-  
+
   _.assert( self.helpers.length );
   _.assert( self.partials.length );
-  
+
   /* register helpers */
-  
-  self.helpers.forEach( ( helper ) => handlebars.registerHelper( require( path.nativize( helper.absolute ) ) ) ) 
-  
+
+  self.helpers.forEach( ( helper ) => handlebars.registerHelper( require( path.nativize( helper.absolute ) ) ) )
+
   /* register partials */
-  
-  self.partials.forEach( ( partial ) => handlebars.registerPartial( partial.name, provider.fileRead( partial.absolute ) ) ) 
-  
-  
-  
+
+  self.partials.forEach( ( partial ) => handlebars.registerPartial( partial.name, provider.fileRead( partial.absolute ) ) )
+
+
 }
 
 //
@@ -91,18 +94,18 @@ function form()
 function render( o )
 {
   let self = this;
-  
+
   _.routineOptions( render, o );
-  
+
   _.assert( _.strDefined( o.template ) );
   _.assert( _.objectIs( o.data ) );
-  
-  let compiled = handlebars.compile( o.template, { preventIndent: true, strict: true } )
-  
+
+  let compiled = handlebars.compile( o.template, { preventIndent : true, strict : true } )
+
   return compiled( o.data );
 }
 
-render.defaults = 
+render.defaults =
 {
   template : null,
   data : null

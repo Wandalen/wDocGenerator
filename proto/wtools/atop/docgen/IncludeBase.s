@@ -1,4 +1,5 @@
-( function _IncludeBase_s_( ) {
+( function _IncludeBase_s_( )
+{
 
 'use strict';
 

@@ -1,4 +1,5 @@
-( function _MainBase_s_() {
+( function _MainBase_s_()
+{
 
 'use strict';
 
@@ -21,7 +22,8 @@ let _ = _global_.wTools;
 let Parent = null;
 _.docgen = _.docgen || Object.create( null );
 
-let Self = function wDocGenerator( o )
+let Self = wDocGenerator;
+function wDocGenerator( o )
 {
   return _.workpiece.construct( Self, this, arguments );
 }
@@ -244,21 +246,21 @@ function sourceFilesParse()
 function markdownGenerate()
 {
   let self = this;
-  
+
   let jsParser = new _.docgen.ParserJsdoc
   ({
     inPath : self.referencePath,
     inacurate : self.inacurate
   })
-  
+
   jsParser.form();
-  
+
   let ready = jsParser.parse();
-  
-  ready.then( ( got ) => 
-  { 
+
+  ready.then( ( got ) =>
+  {
     self.product = got;
-    
+
     let mdGenerator = new _.docgen.MarkdownGenerator
     ({
       product : self.product,
@@ -268,7 +270,7 @@ function markdownGenerate()
       provider : self.provider,
       verbosity : self.verbosity
     })
-    
+
     mdGenerator.form();
     return mdGenerator.render();
   })
@@ -358,11 +360,11 @@ function performConcepts()
   let self = this;
   let provider =  self.provider;
   let path = provider.path;
-  
+
   let index = `### Concepts\n`;
 
   /* current */
-  
+
   debugger
 
   index += self._indexForModule( self.docPath, self.inPath, self.conceptsPath );
@@ -372,7 +374,7 @@ function performConcepts()
   if( self.includingSubmodules )
   index += self._indexForSubmodules( 'path::concepts' );
   else
-  index += self._indexForSubmodulesFilesBased( self.outDocPath,'Concepts.md' );
+  index += self._indexForSubmodulesFilesBased( self.outDocPath, 'Concepts.md' );
 
   /* write index */
 
@@ -643,7 +645,7 @@ function _indexForSubmodulesFilesBased( docPath, indexFile )
   let dirs = provider.filesFind
   ({
     filePath : docPath,
-    filter: { recursive : 1 },
+    filter : { recursive : 1 },
     withTerminals : 0,
     withDirs : 1,
     withStem : 0,
@@ -709,7 +711,7 @@ let pathOptionsNames =
   doc : 'docPath',
   out : 'outPath',
   conceptsPath : 'conceptsPath',
-  concepts: 'conceptsPath',
+  concepts : 'conceptsPath',
   tutorialsPath : 'tutorialsPath',
   tutorials : 'tutorialsPath',
   lintPath : 'lintPath',
@@ -727,7 +729,7 @@ let Composes =
 {
 
   verbosity : 1,
-  
+
   inacurate : 0,
 
   referencePath : 'proto',
@@ -743,8 +745,8 @@ let Composes =
   inPath : '.',
   outPath : 'out/doc',
 
-  includeAny : ".+\\.(js|ss|s)(doc)?$",
-  excludeAny : "(^|\\/|\\.)(-|node_modules|3rd|external|test)",
+  includeAny : '.+\\.(js|ss|s)(doc)?$',
+  excludeAny : '(^|\\/|\\.)(-|node_modules|3rd|external|test)',
 
   docsify : 1,
 
@@ -777,11 +779,11 @@ let Restricts =
   outDocPath : '{{outPath}}/doc',
 
   will : null,
-  module: null,
+  module : null,
   submodules : null,
-  
+
   //
-  
+
   product : null
 }
 

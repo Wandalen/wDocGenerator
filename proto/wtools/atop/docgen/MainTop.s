@@ -1,4 +1,5 @@
-( function _MainBase_s_() {
+( function _MainBase_s_()
+{
 
 'use strict';
 
@@ -37,7 +38,7 @@ function exec()
   let appArgs = _.process.input();
   let ca = self.commandsMake();
 
-  return ca.appArgsPerform({ appArgs : appArgs });
+  return ca.appArgsPerform({ appArgs });
 }
 
 //
@@ -99,7 +100,7 @@ commandGenerate.commandProperties =
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
   readmePath : 'Path to README.md file that will used as homepage.',
-  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  includingSubmodules : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
   // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   includingConcepts : 'Generates concepts and index file if enabled. Default : 1.',
   includingTutorials : 'Generates tutorials and index file if enabled. Default : 1.',
@@ -184,7 +185,7 @@ commandGenerateTutorials.commandProperties =
   readmePath : 'Path to README.md file that will used as homepage.',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
-  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  includingSubmodules : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
   // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   v : 'Verbosity level. Default:1.'
 }
@@ -216,7 +217,7 @@ commandGenerateConcepts.commandProperties =
   readmePath : 'Path to README.md file that will used as homepage.',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
-  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  includingSubmodules : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
   // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   v : 'Verbosity level. Default:1.'
 }
@@ -246,7 +247,7 @@ commandGenerateLintReports.commandProperties =
   lintPath : 'Path to directory with eslint reports. Default: "doc/lint"',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
-  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  includingSubmodules : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
   // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   v : 'Verbosity level. Default:1.'
 }
@@ -276,7 +277,7 @@ commandGenerateLintReports.commandProperties =
   readmePath : 'Path to README.md file that will used as homepage.',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save result of generation. Default : "out/doc"',
-  includingSubmodules: 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
+  includingSubmodules : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
   // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   v : 'Verbosity level. Default:1.'
 }
@@ -333,7 +334,7 @@ function commandsMake()
   let ca = _.CommandsAggregator
   ({
     basePath : self.provider.path.current(),
-    commands : commands,
+    commands,
     commandPrefix : 'node ',
     logger : self.logger,
   })
@@ -368,7 +369,7 @@ let Restricts =
 
 let Statics =
 {
-  Exec : Exec
+  Exec
 }
 
 let Forbids =
@@ -382,29 +383,29 @@ let Forbids =
 let Extension =
 {
 
-  Exec : Exec,
-  exec : exec,
+  Exec,
+  exec,
 
-  commandHelp : commandHelp,
+  commandHelp,
 
-  commandGenerate : commandGenerate,
-  commandGenerateReference : commandGenerateReference,
-  commandGenerateDocsify: commandGenerateDocsify,
-  commandGenerateTutorials: commandGenerateTutorials,
-  commandGenerateConcepts: commandGenerateConcepts,
-  commandGenerateLintReports: commandGenerateLintReports,
-  commandGenerateTestingReports: commandGenerateTestingReports,
-  commandView : commandView,
+  commandGenerate,
+  commandGenerateReference,
+  commandGenerateDocsify,
+  commandGenerateTutorials,
+  commandGenerateConcepts,
+  commandGenerateLintReports,
+  commandGenerateTestingReports,
+  commandView,
 
-  commandsMake : commandsMake,
+  commandsMake,
 
   // relation
 
-  Composes : Composes,
-  Associates : Associates,
-  Restricts : Restricts,
-  Statics : Statics,
-  Forbids : Forbids,
+  Composes,
+  Associates,
+  Restricts,
+  Statics,
+  Forbids,
 
 }
 

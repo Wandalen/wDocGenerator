@@ -1,4 +1,5 @@
-( function _Helper_js() {
+( function _Helper_js()
+{
 
 let _ = require( 'wTools' )
 _.include( 'wLogger' );
@@ -10,7 +11,7 @@ let Self = exports;
 //
 
 function log( src )
-{ 
+{
   logger.log( _.toStr( src, { levels : 99 } ) )
 }
 
@@ -24,20 +25,20 @@ function code( src )
 //
 
 function forEachMember( context, options )
-{ 
+{
   //runs provided template for each member of current entity
-  
+
   let result = '';
   let product = _.docgen.state.product;
   let parentByNameMap = product.byParent[ context.kind ];
-  
+
   let members = parentByNameMap[ context.name ] || [];
-  members.forEach( ( entity ) => 
+  members.forEach( ( entity ) =>
   {
     let templateData = entity.templateDataMake();
     result += options.fn( templateData );
   })
-  
+
   return result;
 }
 
@@ -55,31 +56,31 @@ function ifModuleOrNamespace( context, options )
 function entityArgsList( entity )
 {
   //returns arguments of current entity as string: "( arg1, arg2, ... )"
-  
+
   let result = '';
-  
+
   if( !entity.params )
   return result;
-  
+
   //exclude params without name and params that can be properties of other argument, like "o.property"
-  let args = entity.params.filter( e => 
-  { 
+  let args = entity.params.filter( ( e ) =>
+  {
     return _.strDefined( e.name ) && !_.strHas( e.name, '.' );
   })
-  
+
   if( !args.length )
   return result;
-  
+
   result = args.map( ( e ) => e.name ).join( ', ' )
   result = `( ${result} )`;
-  
+
   return result
 }
 
 //
 
 function helperTemplateDataGet( context )
-{ 
+{
   // console.log(context )
   return context.templateDataMake();
 }
@@ -87,24 +88,24 @@ function helperTemplateDataGet( context )
 //
 
 function highlight( src )
-{ 
+{
   //highlight text wrapped by format {-text-}
-  
+
   if( !src )
   return '';
-  
+
   let prefix = '<strong>';
   let postfix = '</strong>';
-  
+
   src = _.strReplaceAll( src, /\{\-(.*?)\-\}/g, ( src, ins ) =>
   {
     return `${prefix}${ins.groups[ 0 ]}${postfix}`
   })
-  
+
   src = _.strLinesSplit( src );
   src = _.strLinesStrip( src );
   src = src.join( '<br>' )
-  
+
   return src;
 }
 
@@ -113,7 +114,7 @@ function highlight( src )
 function escape( src )
 {
   if( !src )
-  return '';  
+  return '';
   return _.strReplaceAll( src, '|', '\\|' );
 }
 
@@ -126,7 +127,7 @@ function joinReturnsTypes( returns )
 }
 
 
-let Extension = 
+let Extension =
 {
   log,
   code,

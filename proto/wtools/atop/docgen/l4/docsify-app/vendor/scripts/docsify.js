@@ -1,4 +1,5 @@
-(function () {
+(function ()
+{
 /**
  * Create a cached version of a pure function.
  */
