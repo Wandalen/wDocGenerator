@@ -1,16 +1,18 @@
 
-let _ = require( 'wresolverextra' );
-var src =
-{
-  dir :
-  {
-    val1 : 'Hello'
-  },
-}
+// let _ = require( 'wresolverextra' );
+// var src =
+// {
+//   dir :
+//   {
+//     val1 : 'Hello'
+//   },
+// }
 
-var resolved = _.resolver.resolve( src, 'dir/val1' )
-console.log( resolved );
+// var resolved = _.resolver.resolve( src, 'dir/val1' )
+// console.log( resolved );
 
-/*
-log : `Hello`
-*/
+// /*
+// log : `Hello`
+// */
+
+console.log( 'not implemented' );

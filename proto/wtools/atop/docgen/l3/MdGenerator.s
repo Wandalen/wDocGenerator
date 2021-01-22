@@ -1,4 +1,5 @@
-( function _MarkdownGenerator_s_() {
+( function _MarkdownGenerator_s_()
+{
 
 'use strict';
 
@@ -6,7 +7,8 @@
 
 let _ = _global_.wTools;
 let Parent = null;
-let Self = function wMarkdownGenerator( o )
+let Self = wMarkdownGenerator;
+function wMarkdownGenerator( o )
 {
   return _.workpiece.construct( Self, this, arguments );
 }
@@ -52,10 +54,10 @@ function form()
   _.assert( _.objectIs( self.product ) )
   _.assert( _.strDefined( self.outPath ) )
   _.assert( _.strDefined( self.outReferencePath ) )
-  
+
   self.renderer = new _.docgen.Renderer();
   self.renderer.form();
-  
+
   _.docgen.state = { product : self.product }
 }
 
@@ -65,10 +67,10 @@ function render()
 {
   let self = this;
   let ready = new _.Consequence().take( null );
-  
+
   self.referenceGenerate();
   self.referenceIndexGenerate();
-  
+
   return ready;
 }
 
@@ -128,7 +130,7 @@ function render()
 //     let result = arrayify( self.product );
 
 //     result = result.filter( where( query ) );
-//     result = result.filter( ( e ) => !e.ignore && e.access !== 'private' );
+//     result = result.filter( ( e ) =>!e.ignore && e.access !== 'private' );
 
 //     return result;
 //   }
@@ -258,27 +260,27 @@ function render()
 //
 
 function referenceGenerate()
-{ 
+{
   let self = this;
-  
-  self.product.byType.module.forEach( ( e ) => 
-  {  
+
+  self.product.byType.module.forEach( ( e ) =>
+  {
     let templateData = e.templateDataMake();
     let result = self.renderer.render({ template : '{{>module}}', data : templateData });
     let filePath = self.provider.path.join( self.outReferencePath, 'module', templateData.name + '.md' );
     self.provider.fileWrite( filePath, result );
   })
-  
-  self.product.byType.namespace.forEach( ( e ) => 
-  {  
+
+  self.product.byType.namespace.forEach( ( e ) =>
+  {
     let templateData = e.templateDataMake();
     let result = self.renderer.render({ template : '{{>namespace}}', data : templateData });
     let filePath = self.provider.path.join( self.outReferencePath, 'namespace', templateData.name + '.md' );
     self.provider.fileWrite( filePath, result );
   })
-  
-  self.product.byType.class.forEach( ( e ) => 
-  {  
+
+  self.product.byType.class.forEach( ( e ) =>
+  {
     let templateData = e.templateDataMake();
     let result = self.renderer.render({ template : '{{>class}}', data : templateData });
     let filePath = self.provider.path.join( self.outReferencePath, 'class', templateData.name + '.md' );

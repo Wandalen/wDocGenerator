@@ -38,6 +38,8 @@
   },
   "devDependencies" :
   {
+    "wTesting" : "alpha",
+    "eslint" : "7.1.0",
     "express" : "",
     "find-process" : "",
     "babel-loader" : "",

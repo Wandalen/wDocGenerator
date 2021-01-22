@@ -1,4 +1,5 @@
-( function _server_ss_() {
+( function _server_ss_()
+{
 
 'use strict';
 
@@ -93,7 +94,7 @@ function serverStart()
 
   app.listen( port );
   console.log( `Listening at http://localhost:${port}` );
-  
+
 }
 
 /* */
