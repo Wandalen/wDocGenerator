@@ -277,6 +277,7 @@ function eslint( test )
       '--ignore-pattern', '*.jslike',
       '--ignore-pattern', '*.less',
       '--ignore-pattern', '*.hbs',
+      '--ignore-pattern', '*.noeslint',
       '--quiet'
     ],
     throwingExitCode : 0,
