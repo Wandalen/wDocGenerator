@@ -38,7 +38,7 @@
   },
   "devDependencies" :
   {
-    "wTesting" : "alpha",
+    "wTesting" : "",
     "eslint" : "7.1.0",
     "express" : "",
     "find-process" : "",
