@@ -21,7 +21,7 @@ about :
   - 'Volodymyr M. <volodymyr.migdal@gmail.com>'
   npm.name : 'wdocgenerator'
   npm.scripts :
-    test : 'wtest .run proto/**'
+    test : 'wtest .run proto/** rapidity:-1'
     wdoc : 'node proto/wtools/atop/docgen/Exec2'
   npm.bin :
     wdoc : 'proto/wtools/atop/docgen/Exec2'
