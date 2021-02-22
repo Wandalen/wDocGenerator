@@ -12,7 +12,7 @@ let Self = exports;
 
 function log( src )
 {
-  logger.log( _.toStr( src, { levels : 99 } ) )
+  logger.log( _.entity.exportString( src, { levels : 99 } ) )
 }
 
 //
