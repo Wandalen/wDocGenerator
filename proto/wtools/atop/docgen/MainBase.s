@@ -586,7 +586,8 @@ function _performCoverageNumbersTotal( resultMap )
   [ 
     'assignment_expression', /* var a = function ... */
     'variable_declarator', /* a.b = function ... */
-    'pair' /* { b : function ... } */
+    'pair' /* { b : function ... } */,
+    'member_expression'
   ];
 
   _.assert( _.arrayLike( self.parsedFiles ) );
