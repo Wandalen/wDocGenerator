@@ -303,10 +303,8 @@ function commandGenerateCoverageReport( e )
 
 commandGenerateCoverageReport.commandProperties =
 {
-  docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
+  referencePath : 'Path to directory with jsdoc annotated source code. Default : "proto"',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
-  outPath : 'Path where to save result of generation. Default : "out/doc"',
-  includingSubmodules : 'Uses will file to generate tutorials/concepts for submodules of current module. Ignores tutorialsPath,conceptsPath, docPath from options, because takes this values from will files. Default : false.',
   // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
   v : 'Verbosity level. Default:1.'
 }
