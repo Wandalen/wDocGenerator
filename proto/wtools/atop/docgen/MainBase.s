@@ -195,7 +195,7 @@ function _pathsResolve()
   self.inPath = path.resolve( path.current(), self.inPath );
 
   if( self.referencePath )
-  self.referencePath = path.resolve( path.current(), self.inPath, self.referencePath );
+  self.referencePath = path.s.resolve( path.current(), self.inPath, self.referencePath );
 
   self.outPath = path.resolve( path.current(), /* self.inPath, */ self.outPath );
   self.docPath = path.resolve( path.current(), self.inPath, self.docPath );
@@ -491,7 +491,7 @@ function performCoverageReport()
       data : [],
       topHead : [ 'filePath', ' nDocumented / nTotal' ],
       bottomHead : [ 'Total', `${resultMap.documentedCount} / ${resultMap.totalCount}` ],
-      dim : [ self.parsedFiles.length, 2 ],
+      dim : [ 0, 2 ],
       style : 'border'
     }
 
@@ -508,9 +508,10 @@ function performCoverageReport()
         relativePath,
         `${resultsForFile.documented} / ${resultsForFile.total}`,
       )
+      o.dim[ 0 ] += 1;
     });
 
-    self.logger.log( `\nReference path:${_.ct.format( self.referencePath, 'path' )}` )
+    self.logger.log( `\nReference path(s):${_.ct.format( _.entity.exportJs( path.s.relative( self.inPath, self.referencePath ) ), 'path' )}` )
 
     self.logger.log( _.strTable( o ).result );
 
@@ -893,6 +894,7 @@ let commonOptionsNames =
 let pathOptionsNames =
 {
   referencePath : 'referencePath',
+  inPath : 'inPath',
   outPath : 'outPath',
   docPath : 'docPath',
   doc : 'docPath',
