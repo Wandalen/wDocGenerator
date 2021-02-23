@@ -99,7 +99,7 @@ let _ObjectHasOwnProperty = Object.hasOwnProperty;
 //   {
 //     return range.first
 //   }
-//   _.assert( 0, 'unexpected type of range',_.strType( range ) );
+//   _.assert( 0, 'unexpected type of range',_.entity.strType( range ) );
 //
 // }
 //
@@ -122,7 +122,7 @@ let _ObjectHasOwnProperty = Object.hasOwnProperty;
 //   {
 //     return range.last
 //   }
-//   _.assert( 0, 'unexpected type of range',_.strType( range ) );
+//   _.assert( 0, 'unexpected type of range',_.entity.strType( range ) );
 //
 // }
 

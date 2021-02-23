@@ -236,7 +236,7 @@ function bufferMakeSimilar( ins,src )
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   _.assert( _.numberIsFinite( length ) );
-  _.assert( _.routineIs( ins ) || _.longIs( ins ) || _.bufferRawIs( ins ),'unknown type of array',_.strType( ins ) );
+  _.assert( _.routineIs( ins ) || _.longIs( ins ) || _.bufferRawIs( ins ),'unknown type of array',_.entity.strType( ins ) );
 
   if( _.longIs( src ) || _.bufferAnyIs( src ) )
   {
@@ -485,7 +485,7 @@ function bufferJoin()
       srcs.push( new Uint8Array( src.buffer,src.byteOffset,src.byteLength ) );
     }
 
-    _.assert( src.byteLength >= 0,'Expects buffers, but got',_.strType( src ) );
+    _.assert( src.byteLength >= 0,'Expects buffers, but got',_.entity.strType( src ) );
 
     size += src.byteLength;
   }
@@ -996,7 +996,7 @@ function bufferRawFrom( buffer )
     result = fileReader.readAsArrayBuffer( buffer );
     _.assert( 0, 'not tested' );
   }
-  else _.assert( 0, () => 'Unknown type of source ' + _.strType( buffer ) );
+  else _.assert( 0, () => 'Unknown type of source ' + _.entity.strType( buffer ) );
 
   _.assert( _.bufferRawIs( result ) );
 
@@ -1069,7 +1069,7 @@ function bufferNodeFrom( buffer )
 {
 
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.bufferViewIs( buffer ) || _.bufferTypedIs( buffer ) || _.bufferRawIs( buffer ) || _.bufferNodeIs( buffer ) || _.strIs( buffer ) || _.arrayIs( buffer ), 'Expects typed or raw buffer, but got',_.strType( buffer ) );
+  _.assert( _.bufferViewIs( buffer ) || _.bufferTypedIs( buffer ) || _.bufferRawIs( buffer ) || _.bufferNodeIs( buffer ) || _.strIs( buffer ) || _.arrayIs( buffer ), 'Expects typed or raw buffer, but got',_.entity.strType( buffer ) );
 
   if( _.bufferNodeIs( buffer ) )
   return buffer;
@@ -1165,7 +1165,7 @@ function buffersSerialize( o )
     let attribute = attributes[ a ][ 1 ];
     let buffer = o.onBufferGet.call( o.context,attribute );
 
-    _.assert( _.bufferTypedIs( buffer ) || buffer === null,'Expects buffer or null, got : ' + _.strType( buffer ) );
+    _.assert( _.bufferTypedIs( buffer ) || buffer === null,'Expects buffer or null, got : ' + _.entity.strType( buffer ) );
 
     let bufferSize = buffer ? buffer.length*buffer.BYTES_PER_ELEMENT : 0;
 
@@ -1487,7 +1487,7 @@ function arrayFromCoercing( src )
   if( _.argumentsArrayIs( src ) )
   return _ArraySlice.call( src );
 
-  _.assert( 0, 'Unknown data type : ' + _.strType( src ) );
+  _.assert( 0, 'Unknown data type : ' + _.entity.strType( src ) );
 }
 
 //

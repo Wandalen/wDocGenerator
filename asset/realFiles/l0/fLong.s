@@ -270,7 +270,7 @@ function longMake( ins, src )
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   _.assert( _.numberIsFinite( length ) );
-  _.assert( _.routineIs( ins ) || _.longIs( ins ) || _.bufferRawIs( ins ), 'unknown type of array', _.strType( ins ) );
+  _.assert( _.routineIs( ins ) || _.longIs( ins ) || _.bufferRawIs( ins ), 'unknown type of array', _.entity.strType( ins ) );
 
   if( _.longIs( src ) )
   {
@@ -318,7 +318,7 @@ function longMakeZeroed( ins, src )
     length = src.length;
     else if( _.numberIs( src ) )
     length = src;
-    else _.assert( 0, 'Expects long or number as the second argument, got', _.strType( src ) );
+    else _.assert( 0, 'Expects long or number as the second argument, got', _.entity.strType( src ) );
   }
 
   if( _.argumentsArrayIs( ins ) )
@@ -326,7 +326,7 @@ function longMakeZeroed( ins, src )
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   _.assert( _.numberIs( length ) );
-  _.assert( _.routineIs( ins ) || _.longIs( ins ) || _.bufferRawIs( ins ), 'unknown type of array', _.strType( ins ) );
+  _.assert( _.routineIs( ins ) || _.longIs( ins ) || _.bufferRawIs( ins ), 'unknown type of array', _.entity.strType( ins ) );
 
   if( _.routineIs( ins ) )
   {
@@ -365,7 +365,7 @@ function _longClone( src )
   else if( _.bufferViewIs( src ) )
   return new src.constructor( src.buffer, src.byteOffset, src.byteLength );
 
-  _.assert( 0, 'unknown kind of buffer', _.strType( src ) );
+  _.assert( 0, 'unknown kind of buffer', _.entity.strType( src ) );
 }
 
 //

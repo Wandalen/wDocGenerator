@@ -157,7 +157,7 @@ function str()
     }
     catch( err )
     {
-      line = _.strType( src );
+      line = _.entity.strType( src );
     }
 
     result += line + ' ';
@@ -187,11 +187,11 @@ function strShort( src )
     }
     else if( src && !_.objectIs( src ) && _.numberIs( src.length ) )
     {
-      result += '[ ' + _.strType( src ) + ' with ' + src.length + ' elements ]';
+      result += '[ ' + _.entity.strType( src ) + ' with ' + src.length + ' elements ]';
     }
     else if( _.objectIs( src ) || _.objectLike( src ) )
     {
-      result += '[ ' + _.strType( src ) + ' with ' + _.entityLength( src ) + ' elements' + ' ]';
+      result += '[ ' + _.entity.strType( src ) + ' with ' + _.entityLength( src ) + ' elements' + ' ]';
     }
     else if( src instanceof Date )
     {
@@ -233,7 +233,7 @@ function strPrimitive( src )
 /**
   * Return type of src.
   * @example
-      let str = _.strType( 'testing' );
+      let str = _.entity.strType( 'testing' );
   * @param {*} src
   * @return {string}
   * string name of type src

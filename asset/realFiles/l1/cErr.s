@@ -588,19 +588,19 @@ function diagnosticStack( stack, range )
   // if( !_.numberIs( first ) && first !== undefined )
   // {
   //   debugger;
-  //   throw Error( 'diagnosticStack : expects number {-first-}, got ' + _.strType( first ) );
+  //   throw Error( 'diagnosticStack : expects number {-first-}, got ' + _.entity.strType( first ) );
   // }
   //
   // if( !_.numberIs( last ) && last !== undefined )
   // {
   //   debugger;
-  //   throw Error( 'diagnosticStack : expects number {-last-}, got ' + _.strType( last ) );
+  //   throw Error( 'diagnosticStack : expects number {-last-}, got ' + _.entity.strType( last ) );
   // }
 
   if( !_.rangeIs( range ) )
   {
     debugger;
-    throw Error( 'diagnosticStack : expects range but, got ' + _.strType( range ) );
+    throw Error( 'diagnosticStack : expects range but, got ' + _.entity.strType( range ) );
   }
 
   let first = range[ 0 ];
@@ -609,13 +609,13 @@ function diagnosticStack( stack, range )
   if( !_.numberIs( first ) )
   {
     debugger;
-    throw Error( 'diagnosticStack : expects number range[ 0 ], but got ' + _.strType( first ) );
+    throw Error( 'diagnosticStack : expects number range[ 0 ], but got ' + _.entity.strType( first ) );
   }
 
   if( !_.numberIs( last ) )
   {
     debugger;
-    throw Error( 'diagnosticStack : expects number range[ 0 ], but got ' + _.strType( last ) );
+    throw Error( 'diagnosticStack : expects number range[ 0 ], but got ' + _.entity.strType( last ) );
   }
 
   let errIs = 0;

@@ -578,7 +578,7 @@ function _routinesCompose_body( o )
     let args = _.unrollAppend( null, arguments );
     for( let k = 0 ; k < elements.length ; k++ )
     {
-      _.assert( _.unrollIs( args ), () => 'Expects unroll, but got', _.strType( args ) );
+      _.assert( _.unrollIs( args ), () => 'Expects unroll, but got', _.entity.strType( args ) );
       let routine = elements[ k ];
       let r = routine.apply( this, args );
       _.assert( r !== false /* && r !== undefined */, 'Temporally forbidden type of result', r );
@@ -818,7 +818,7 @@ routineFromPreAndBody.defaults = Object.create( routineFromPreAndBody_body.defau
 //
 //   _.routineOptions( routine, o );
 //   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-//   _.assert( _.routineIs( o.routine ) || _.strIs( o.routine ) || _.strsAreAll( o.routine ), 'Expects routine {-o.routine-}, but got', _.strType( o.routine ) );
+//   _.assert( _.routineIs( o.routine ) || _.strIs( o.routine ) || _.strsAreAll( o.routine ), 'Expects routine {-o.routine-}, but got', _.entity.strType( o.routine ) );
 //   _.assert( args.length === 1 || args.length === 2 );
 //   _.assert( o.select >= 1 || _.strIs( o.select ) || _.arrayIs( o.select ), 'Expects {-o.select-} as number >= 1, string or array, but got', o.select );
 //
@@ -848,7 +848,7 @@ routineFromPreAndBody.defaults = Object.create( routineFromPreAndBody_body.defau
 //
 //   routine = routineNormalize( routine );
 //
-//   _.assert( _.routineIs( routine ), 'Expects routine {-o.routine-}, but got', _.strType( routine ) );
+//   _.assert( _.routineIs( routine ), 'Expects routine {-o.routine-}, but got', _.entity.strType( routine ) );
 //
 //   /* */
 //

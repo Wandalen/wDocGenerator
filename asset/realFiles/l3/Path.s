@@ -328,7 +328,7 @@ function isSafe( filePath,level )
 function isRefinedMaybeTrailed( path )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.strIs( path ), 'Expects string {-path-}, but got', _.strType( path ) );
+  _.assert( _.strIs( path ), 'Expects string {-path-}, but got', _.entity.strType( path ) );
 
   if( !path.length )
   return false;
@@ -363,7 +363,7 @@ function isRefinedMaybeTrailed( path )
 function isRefined( path )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.strIs( path ), 'Expects string {-path-}, but got', _.strType( path ) );
+  _.assert( _.strIs( path ), 'Expects string {-path-}, but got', _.entity.strType( path ) );
 
   if( !this.isRefinedMaybeTrailed( path ) )
   return false;
@@ -418,7 +418,7 @@ function isNormalized( filePath )
 function isAbsolute( filePath )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.strIs( filePath ), 'Expects string {-filePath-}, but got', _.strType( filePath ) );
+  _.assert( _.strIs( filePath ), 'Expects string {-filePath-}, but got', _.entity.strType( filePath ) );
   _.assert( filePath.indexOf( '\\' ) === -1,'Expects refined {-filePath-}, but got', filePath );
   _.assert(  filePath === '' || this.isRefinedMaybeTrailed( filePath ), () => 'Expects refined {-filePath-}, but got ' + _.strQuote( filePath ) );
   // _.assert( _.filePath.isNormalized( filePath ),'Expects normalized {-filePath-}, but got', filePath ); // Throws many errors
@@ -430,7 +430,7 @@ function isAbsolute( filePath )
 function isRelative( filePath )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.strIs( filePath ), 'Expects string {-filePath-}, but got', _.strType( filePath ) );
+  _.assert( _.strIs( filePath ), 'Expects string {-filePath-}, but got', _.entity.strType( filePath ) );
   return !this.isAbsolute( filePath );
 }
 
@@ -449,7 +449,7 @@ function isGlobal( filePath )
 function isRoot( filePath )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.strIs( filePath ), 'Expects string {-filePath-}, but got', _.strType( filePath ) );
+  _.assert( _.strIs( filePath ), 'Expects string {-filePath-}, but got', _.entity.strType( filePath ) );
   if( filePath === this._rootStr )
   return true;
   if( this.isRelative( filePath ) )
@@ -501,8 +501,8 @@ function isGlob( src )
 function begins( srcPath,beginPath )
 {
   _.assert( arguments.length === 2, 'Expects two arguments' );
-  _.assert( _.strIs( srcPath ), 'Expects string {-srcPath-}, but got', _.strType( srcPath ) );
-  _.assert( _.strIs( beginPath ), 'Expects string {-beginPath-}, but got', _.strType( beginPath ) );
+  _.assert( _.strIs( srcPath ), 'Expects string {-srcPath-}, but got', _.entity.strType( srcPath ) );
+  _.assert( _.strIs( beginPath ), 'Expects string {-beginPath-}, but got', _.entity.strType( beginPath ) );
   if( srcPath === beginPath )
   return true;
   return _.strBegins( srcPath,this.trail( beginPath ) );
@@ -751,7 +751,7 @@ function from( src )
   if( _.strIs( src ) )
   return src;
   else
-  _.assert( 0, 'Expects string, but got ' + _.strType( src ) );
+  _.assert( 0, 'Expects string, but got ' + _.entity.strType( src ) );
 
 }
 
@@ -1062,7 +1062,7 @@ function ext( path )
 {
 
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.strIs( path ), 'Expects string {-path-}, but got', _.strType( path ) );
+  _.assert( _.strIs( path ), 'Expects string {-path-}, but got', _.entity.strType( path ) );
 
   let index = path.lastIndexOf( '/' );
   if( index >= 0 )
@@ -1087,7 +1087,7 @@ function exts( path )
 {
 
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.strIs( path ), 'Expects string {-path-}, but got', _.strType( path ) );
+  _.assert( _.strIs( path ), 'Expects string {-path-}, but got', _.entity.strType( path ) );
 
   path = this.name({ path : path,withExtension : 1 });
 
@@ -1136,7 +1136,7 @@ function join_body( o )
   for( let a = o.paths.length-1 ; a >= 0 ; a-- )
   {
     let src = o.paths[ a ];
-    _.assert( _.strIs( src ) || src === null, () => 'Expects strings as path arguments, but #' + a + ' argument is ' + _.strType( src ) );
+    _.assert( _.strIs( src ) || src === null, () => 'Expects strings as path arguments, but #' + a + ' argument is ' + _.entity.strType( src ) );
   }
 
   /* */
@@ -1152,7 +1152,7 @@ function join_body( o )
     if( result === null )
     result = '';
 
-    // _.assert( _.strIs( src ), () => 'Expects strings as path arguments, but #' + a + ' argument is ' + _.strType( src ) );
+    // _.assert( _.strIs( src ), () => 'Expects strings as path arguments, but #' + a + ' argument is ' + _.entity.strType( src ) );
 
     prepending = prepend( src );
     if( prepending === false )
@@ -1737,7 +1737,7 @@ function _relative( o )
   let relative = this.from( o.relative );
   let filePath = this.from( o.filePath );
 
-  _.assert( _.strIs( relative ),'relative expects string {-relative-}, but got',_.strType( relative ) );
+  _.assert( _.strIs( relative ),'relative expects string {-relative-}, but got',_.entity.strType( relative ) );
   _.assert( _.strIs( filePath ) || _.arrayIs( filePath ) );
   _.routineOptions( _relative, arguments );
 

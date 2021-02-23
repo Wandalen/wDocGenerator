@@ -824,7 +824,7 @@ function entityFilter( src, onEach )
   onEach = _._filter_functor( onEach, 1 );
 
   _.assert( arguments.length === 2 );
-  _.assert( _.objectLike( src ) || _.longIs( src ), () => 'Expects objectLike or longIs src, but got ' + _.strType( src ) );
+  _.assert( _.objectLike( src ) || _.longIs( src ), () => 'Expects objectLike or longIs src, but got ' + _.entity.strType( src ) );
   _.assert( _.routineIs( onEach ) );
 
   /* */
@@ -875,7 +875,7 @@ function _entityFilterDeep( o )
   let onEach = _._filter_functor( o.onEach, o.conditionLevels );
 
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.objectLike( o.src ) || _.longIs( o.src ), 'entityFilter : expects objectLike or longIs src, but got', _.strType( o.src ) );
+  _.assert( _.objectLike( o.src ) || _.longIs( o.src ), 'entityFilter : expects objectLike or longIs src, but got', _.entity.strType( o.src ) );
   _.assert( _.routineIs( onEach ) );
 
   /* */
@@ -1074,7 +1074,7 @@ function entityShallowClone( src )
   return _.mapShallowClone( src )
   else if( _.longIs( src ) )
   return _.longShallowClone( src );
-  else _.assert( 0, 'Not clear how to shallow clone', _.strType( src ) );
+  else _.assert( 0, 'Not clear how to shallow clone', _.entity.strType( src ) );
 
 }
 

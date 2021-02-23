@@ -875,7 +875,7 @@ function _first( src, stack )
     self.take( result );
 
   }
-  else _.assert( 0, 'first expects consequence of routine, but got', _.strType( src ) );
+  else _.assert( 0, 'first expects consequence of routine, but got', _.entity.strType( src ) );
 
   return self;
 }
@@ -1251,7 +1251,7 @@ function _put( o )
   let keeping = o.keeping;
 
   _.assert( !_.primitiveIs( o.container ), 'Expects one or two argument, container for resource or key and container' );
-  _.assert( o.key === null || _.numberIs( o.key ) || _.strIs( o.key ), () => 'Key should be number or string, but it is ' + _.strType( o.key ) );
+  _.assert( o.key === null || _.numberIs( o.key ) || _.strIs( o.key ), () => 'Key should be number or string, but it is ' + _.entity.strType( o.key ) );
 
   if( o.key !== null )
   {
@@ -1557,7 +1557,7 @@ function _and( o )
     for( let s = 0 ; s < competitors.length-1 ; s++ )
     {
       let competitor = competitors[ s ];
-      _.assert( _.consequenceIs( competitor ) || _.routineIs( competitor ) || competitor === null, () => 'Consequence.and expects consequence, routine or null, but got ' + _.strType( competitor ) );
+      _.assert( _.consequenceIs( competitor ) || _.routineIs( competitor ) || competitor === null, () => 'Consequence.and expects consequence, routine or null, but got ' + _.entity.strType( competitor ) );
       if( !_.consequenceIs( competitor ) )
       continue;
       if( _.arrayHas( competitors2, competitor ) )
@@ -1598,7 +1598,7 @@ function _and( o )
         competitor = new _.Consequence().error( _.err( err ) );
       }
 
-      _.assert( _.consequenceIs( competitor ) || competitor === null, () => 'Expects consequence or null, but got ' + _.strType( competitor ) );
+      _.assert( _.consequenceIs( competitor ) || competitor === null, () => 'Expects consequence or null, but got ' + _.entity.strType( competitor ) );
 
       if( competitor === null )
       {
@@ -2419,8 +2419,8 @@ function __take( error, argument )
     _.assert( !self.resourceLimit || self._resource.length < self.resourceLimit, () => 'Resource limit' + ( self.tag ? ' of ' + self.tag + ' ' : ' ' ) + 'set to ' + self.resourceLimit + ', but got more resources' );
     let msg = '{-error-} and {-argument-} channels should not be in use simultaneously\n' +
       '{-error-} or {-argument-} should be undefined, but currently ' +
-      '{-error-} is ' + _.strType( error ) +
-      '{-argument-} is ' + _.strType( argument );
+      '{-error-} is ' + _.entity.strType( error ) +
+      '{-argument-} is ' + _.entity.strType( argument );
     _.assert( error === undefined || argument === undefined, msg );
   }
 
@@ -3765,7 +3765,7 @@ function _Take( o )
     return o.consequence.call( context, o.error, o.args[ 0 ] );
 
   }
-  else throw _.err( 'Unknown type of consequence : ' + _.strType( o.consequence ) );
+  else throw _.err( 'Unknown type of consequence : ' + _.entity.strType( o.consequence ) );
 
 }
 

@@ -431,7 +431,7 @@ function mapHasKey( object, key )
   else if( _.symbolIs( key ) )
   return ( key in object );
 
-  _.assert( 0, 'mapHasKey :', 'unknown type of key :', _.strType( key ) );
+  _.assert( 0, 'mapHasKey :', 'unknown type of key :', _.entity.strType( key ) );
 }
 
 //
@@ -474,7 +474,7 @@ function mapOwnKey( object, key )
   else if( _.symbolIs( key ) )
   return _ObjectHasOwnProperty.call( object, key );
 
-  _.assert( 0, 'mapOwnKey :', 'unknown type of key :', _.strType( key ) );
+  _.assert( 0, 'mapOwnKey :', 'unknown type of key :', _.entity.strType( key ) );
 }
 
 //
@@ -1155,7 +1155,7 @@ function mapExtendConditional( filter, dstMap )
   {
     let srcMap = arguments[ a ];
 
-    _.assert( !_.primitiveIs( srcMap ), () => 'Expects object-like entity to extend, but got : ' + _.strType( srcMap ) );
+    _.assert( !_.primitiveIs( srcMap ), () => 'Expects object-like entity to extend, but got : ' + _.entity.strType( srcMap ) );
 
     for( let k in srcMap )
     {
@@ -1187,7 +1187,7 @@ function mapsExtendConditional( filter, dstMap, srcMaps )
   {
     let srcMap = srcMaps[ a ];
 
-    _.assert( !_.primitiveIs( srcMap ), () => 'Expects object-like entity to extend, but got : ' + _.strType( srcMap ) );
+    _.assert( !_.primitiveIs( srcMap ), () => 'Expects object-like entity to extend, but got : ' + _.entity.strType( srcMap ) );
 
     for( let k in srcMap )
     {
@@ -1358,7 +1358,7 @@ function mapSupplementStructureless( dstMap, srcMap )
       if( _.objectLike( srcMap[ s ] ) || _.arrayLike( srcMap[ s ] ) )
       {
         debugger;
-        throw Error( 'Source map should have only primitive elements, but have ' + _.strType( srcMap ) );
+        throw Error( 'Source map should have only primitive elements, but have ' + _.entity.strType( srcMap ) );
       }
       dstMap[ s ] = srcMap[ s ];
     }
@@ -2087,7 +2087,7 @@ function mapsFlatten( o )
       }
 
     }
-    else _.assert( 0, 'Expects map or array of maps, but got ' + _.strType( src ) );
+    else _.assert( 0, 'Expects map or array of maps, but got ' + _.entity.strType( src ) );
 
   }
 
@@ -4325,7 +4325,7 @@ function sureMapHasOnly( srcMap, screenMaps, msg )
     // console.error( 'Consider extending object by :\n' + _.strJoin([ '  ', but, ' : null, ' ]).join( '\n' ) );
     let err = _._err
     ({
-      args : [ ( msg ? _.strConcat( msg ) : _.strType( srcMap ) + ' should have no fields :' ), _.strQuote( but ).join( ', ' ) ],
+      args : [ ( msg ? _.strConcat( msg ) : _.entity.strType( srcMap ) + ' should have no fields :' ), _.strQuote( but ).join( ', ' ) ],
       level : 2,
     });
     throw err;
@@ -4619,7 +4619,7 @@ function sureMapHasNone( srcMap, screenMaps, msg )
     debugger;
     throw _._err
     ({
-      args : [ ( msg ? _.strConcat( msg ) : _.strType( srcMap ) + ' should have no fields :' ), _.strQuote( but ).join( ', ' ) ],
+      args : [ ( msg ? _.strConcat( msg ) : _.entity.strType( srcMap ) + ' should have no fields :' ), _.strQuote( but ).join( ', ' ) ],
       level : 2,
     });
     return false;

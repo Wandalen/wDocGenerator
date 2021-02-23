@@ -443,7 +443,7 @@ function processIs( src )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
 
-  let typeOf = _.strType( src );
+  let typeOf = _.entity.strType( src );
   if( typeOf === 'ChildProcess' || typeOf === 'process' )
   return true;
 
