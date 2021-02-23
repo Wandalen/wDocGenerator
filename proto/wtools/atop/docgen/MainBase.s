@@ -489,9 +489,9 @@ function performCoverageReport()
     let o = 
     {
       data : [],
-      topHead : [ 'filePath', ' nDocumented / nTotal' ],
-      bottomHead : [ 'Total', `${resultMap.documentedCount} / ${resultMap.totalCount}` ],
-      dim : [ 0, 2 ],
+      topHead : [ 'filePath', ' nDocumented / nTotal', '  Coverage' ],
+      bottomHead : [ 'Total', `${resultMap.documentedCount} / ${resultMap.totalCount}`, Math.ceil( resultMap.documentedCount / resultMap.totalCount * 100 ) + '%' ],
+      dim : [ 0, 3 ],
       style : 'border'
     }
 
@@ -507,6 +507,7 @@ function performCoverageReport()
       ( 
         relativePath,
         `${resultsForFile.documented} / ${resultsForFile.total}`,
+        Math.ceil( resultsForFile.documented / resultsForFile.total * 100 ) + '%'
       )
       o.dim[ 0 ] += 1;
     });
