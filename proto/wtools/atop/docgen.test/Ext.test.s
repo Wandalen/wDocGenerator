@@ -48,6 +48,28 @@ function assetFor( test, name )
   name = test.name;
   let a = test.assetFor( name );
 
+  a.find = a.fileProvider.filesFinder
+  ({
+    withTerminals : 1,
+    withDirs : 1,
+    withStem : 1,
+    allowingMissed : 1,
+    maskPreset : 0,
+    outputFormat : 'relative',
+    filter :
+    {
+      recursive : 2,
+      maskAll :
+      {
+        excludeAny : [ /(^|\/)\.git($|\/)/, /(^|\/)\+/ ],
+      },
+      maskTransientAll :
+      {
+        excludeAny : [ /(^|\/)\.git($|\/)/, /(^|\/)\+/ ],
+      },
+    },
+  });
+
   return a;
 }
 
@@ -55,11 +77,58 @@ function assetFor( test, name )
 // complex
 // --
 
+function generateReferenceTrivial( test )
+{
+  let context = this;
+  let a = context.assetFor( test, 'generate-reference' );
+  a.reflect();
+
+  a.ready.then( () => 
+  {
+    test.case = 'generate reference for a single file';
+    return null;
+  })
+
+  /* */
+
+  a.appStart( `.generate.reference ${a.abs( 'File1.js' )}` )
+  .then( ( op ) =>
+  {
+    test.identical( op.exitCode, 0 );
+
+    let files = a.find
+    ({ 
+      filePath : a.abs( '.' ),
+      withStem : 0
+    });
+
+    let expectedFiles =
+    [
+      './File1.js', 
+      './out',
+      './out/doc',
+      './out/doc/Reference.md',
+      './out/doc/reference',
+      './out/doc/reference/namespace',
+      './out/doc/reference/namespace/file1.md'
+    ]
+
+    test.identical( files, expectedFiles );
+
+    return null;
+  })
+
+  return a.ready;
+}
+
+generateReferenceTrivial.timeOut = 30000;
+
+//
 
 function coverageReport( test )
 {
   let context = this;
-  let a = test.assetFor( 'coverage' );
+  let a = context.assetFor( test, 'coverage' );
   a.reflect();
 
   a.ready.then( () => 
@@ -130,7 +199,7 @@ coverageReport.timeOut = 30000;
 function coverageReportThrowing( test )
 {
   let context = this;
-  let a = test.assetFor( 'coverage' );
+  let a = context.assetFor( test, 'coverage' );
   a.reflect();
 
   /* */
@@ -184,6 +253,7 @@ let Self =
 
     /* basic */
 
+    generateReferenceTrivial,
     coverageReport,
     coverageReportThrowing
 
