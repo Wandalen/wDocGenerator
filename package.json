@@ -1,6 +1,6 @@
 {
   "name": "wdocgenerator",
-  "version": "0.1.226",
+  "version": "0.1.227",
   "description": "Utility to generate documentation from jsdoc annotated source code",
   "license": "MIT",
   "author": "Kostiantyn Wandalen <wanalen@01.school>",
@@ -56,7 +56,7 @@
     "find-process": "1.4.4",
     "wTesting": "alpha",
     "wdocgenerator": "file:.",
-    "webpack": "5.24.0",
+    "webpack": "5.24.1",
     "webpack-cli": "4.5.0"
   },
   "keywords": [
