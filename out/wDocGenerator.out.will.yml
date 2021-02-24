@@ -650,6 +650,13 @@ module:
           - ../proto/wtools/atop/docgen/l4/docsify-app/vendor/themes/vue.css
           - ../proto/wtools/atop/docgen/l4/server
           - ../proto/wtools/atop/docgen/l4/server/server.ss
+          - ../proto/wtools/atop/docgen.test
+          - ../proto/wtools/atop/docgen.test/Ext.test.s
+          - ../proto/wtools/atop/docgen.test/_asset
+          - ../proto/wtools/atop/docgen.test/_asset/coverage
+          - ../proto/wtools/atop/docgen.test/_asset/coverage/File1.js
+          - ../proto/wtools/atop/docgen.test/_asset/generate-reference
+          - ../proto/wtools/atop/docgen.test/_asset/generate-reference/File1.js
     submodule:
       wTools:
         path: npm:///wTools
