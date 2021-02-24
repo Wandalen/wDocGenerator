@@ -284,6 +284,33 @@ commandGenerateLintReports.commandProperties =
 
 //
 
+function commandGenerateCoverageReport( e )
+{
+  let self = this;
+  let path = self.provider.path;
+
+  self.form( e );
+
+  if( e.commandArgument && !e.propertiesMap.testingPath )
+  self.testingPath = path.resolve( path.current(), self.inPath, e.commandArgument );
+
+  let ready = new _.Consequence().take( null );
+
+  ready.then( () => self.performCoverageReport() );
+
+  return ready;
+}
+
+commandGenerateCoverageReport.commandProperties =
+{
+  referencePath : 'Path to directory with jsdoc annotated source code. Default : "proto"',
+  inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
+  // willModulePath : 'Path to root of the module. Is used by generator when `useWillForManuals` is enabled.',
+  v : 'Verbosity level. Default:1.'
+}
+
+//
+
 function commandView( e )
 {
   let self = this;
@@ -328,6 +355,7 @@ function commandsMake()
     'generate concepts' :       { e : _.routineJoin( self, self.commandGenerateConcepts ),    h : 'Aggregates concepts and creates index file.' },
     'generate lint' :       { e : _.routineJoin( self, self.commandGenerateLintReports ),    h : 'Aggregates eslint reports and creates index file.' },
     'generate testing' :       { e : _.routineJoin( self, self.commandGenerateTestingReports ),    h : 'Aggregates testing reports and creates index file.' },
+    'generate coverage report' :       { e : _.routineJoin( self, self.commandGenerateCoverageReport ),    h : 'Generates doc coverage report.' },
     'view' :                    { e : _.routineJoin( self, self.commandView ),    h : 'Launches the doc.' },
   }
 
@@ -395,6 +423,7 @@ let Extension =
   commandGenerateConcepts,
   commandGenerateLintReports,
   commandGenerateTestingReports,
+  commandGenerateCoverageReport,
   commandView,
 
   commandsMake,

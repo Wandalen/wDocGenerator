@@ -195,7 +195,7 @@ function _pathsResolve()
   self.inPath = path.resolve( path.current(), self.inPath );
 
   if( self.referencePath )
-  self.referencePath = path.resolve( path.current(), self.inPath, self.referencePath );
+  self.referencePath = path.s.resolve( path.current(), self.inPath, self.referencePath );
 
   self.outPath = path.resolve( path.current(), /* self.inPath, */ self.outPath );
   self.docPath = path.resolve( path.current(), self.inPath, self.docPath );
@@ -469,6 +469,196 @@ function performTestingReports()
 
 //
 
+function performCoverageReport()
+{
+  let self = this;
+  let provider =  self.provider;
+  let path = provider.path;
+
+  let resultMap = Object.create( null );
+  resultMap.perFileMap = Object.create( null );
+  resultMap.documentedCount = 0;
+  resultMap.totalCount = 0;
+
+  let ready = self._performCoverageNumbersDocumented( resultMap );
+
+  ready.then( () => self._performCoverageNumbersTotal( resultMap ) );
+
+  ready.then( () => 
+  {
+    let o = 
+    {
+      data : [],
+      topHead : [ 'filePath', ' nDocumented / nTotal', '  Coverage' ],
+      bottomHead : [ 'Total', `${resultMap.documentedCount} / ${resultMap.totalCount}`, Math.ceil( resultMap.documentedCount / resultMap.totalCount * 100 ) + '%' ],
+      dim : [ 0, 3 ],
+      style : 'border'
+    }
+
+    self.parsedFiles.forEach( ( filePath ) => 
+    {
+      let resultsForFile = resultMap.perFileMap[ filePath ];
+
+      if( !resultsForFile.documented && !resultsForFile.total )
+      return;
+
+      let relativePath = path.relative( path.join( filePath, '../..' ), filePath );
+      o.data.push
+      ( 
+        relativePath,
+        `${resultsForFile.documented} / ${resultsForFile.total}`,
+        Math.ceil( resultsForFile.documented / resultsForFile.total * 100 ) + '%'
+      )
+      o.dim[ 0 ] += 1;
+    });
+
+    self.logger.log( `\nReference path(s):${_.ct.format( _.entity.exportJs( path.s.relative( self.inPath, self.referencePath ) ), 'path' )}` )
+
+    self.logger.log( _.strTable( o ).result );
+
+    return null;
+  })
+
+  return ready;
+
+}
+
+//
+
+function _performCoverageNumbersDocumented( resultMap )
+{
+  let self = this;
+  let provider =  self.provider;
+  let path = provider.path;
+
+  let jsParser = new _.docgen.ParserJsdoc
+  ({
+    inPath : self.referencePath,
+    inacurate : true,
+  })
+
+  jsParser.form();
+
+  let ready = jsParser.parse();
+
+  ready.then( ( got ) =>
+  {
+    self.product = got;
+    self.parsedFiles = jsParser.files;
+
+    self.parsedFiles.forEach( ( filePath ) =>
+    {
+      let currentFileMap = resultMap.perFileMap[ filePath ] = Object.create( null );
+      currentFileMap.documented = 0;
+      currentFileMap.total = 0;
+    })
+
+    self.product.entities.forEach( onEachEntity );
+    return null;
+  })
+
+  return ready;
+
+  function onEachEntity( entity )
+  {
+    if( entity.typeGet() !== 'function' )
+    return;
+
+    resultMap.perFileMap[ entity.filePath ].documented += 1;
+    resultMap.documentedCount += 1;
+  }
+}
+
+//
+
+function _performCoverageNumbersTotal( resultMap )
+{
+  let self = this;
+  let provider =  self.provider;
+  let path = provider.path;
+
+  let sys = _.introspector.System
+  ({ 
+    defaultParserClass : _.introspector.Parser.JsTreeSitter 
+  });
+    
+  let allowedParentTypesOfAnonymousFunction = 
+  [ 
+    'assignment_expression', /* var a = function ... */
+    'variable_declarator', /* a.b = function ... */
+    'pair' /* { b : function ... } */,
+    'member_expression'
+  ];
+
+  _.assert( _.arrayLike( self.parsedFiles ) );
+
+  let cons = self.parsedFiles.map( onEachFile );
+  let done = _.Consequence.AndKeep( ... cons );
+  return done;
+
+  //
+
+  function onEachFile( filePath )
+  {
+    return provider.fileRead({ filePath, sync : 0 })
+    .then( ( sourceCode ) => 
+    {
+      let file = _.introspector.File({ data : sourceCode, sys });
+      file.refine();
+      let routines = file.product.byType.gRoutine;
+
+      if( !routines )
+      return null;
+      if( !routines.length )
+      return null;
+
+      file.product.byType.gRoutine.each( ( node ) => onEachRoutine( node, filePath ) );
+
+      return null;
+    })
+  }
+
+  //
+
+  function onEachRoutine( node, filePath )
+  {
+    if( node.parent ) 
+    {
+      /* if function is an argument */
+      if( node.parent.type === 'arguments' )
+      return;
+
+      /* if function is self invoking */
+      if( node.parent.type === 'parenthesized_expression' )
+      if( node.parent.parent.type === 'call_expression' )
+      return;
+    }
+
+    /* if function is anonymous */
+    if( !node.nameNode )
+    {
+      if( !node.parent )
+      return;
+
+      if( node.type === 'arrow_function' )
+      return;
+
+      if( !_.longHas( allowedParentTypesOfAnonymousFunction, node.parent.type ) )
+      return;
+    }
+
+    /* if function is an argument */
+    let argumentsNode = node.closest( 'arguments' );
+    if( argumentsNode && argumentsNode.startIndex < node.startIndex  )
+    return;
+
+    resultMap.perFileMap[ filePath ].total += 1;
+    resultMap.totalCount += 1;
+  }
+}
+
+//
+
 function modulesInstall()
 {
   let self = this;
@@ -706,6 +896,7 @@ let commonOptionsNames =
 let pathOptionsNames =
 {
   referencePath : 'referencePath',
+  inPath : 'inPath',
   outPath : 'outPath',
   docPath : 'docPath',
   doc : 'docPath',
@@ -773,7 +964,7 @@ let Restricts =
   templateData : _.define.own( {} ),
 
   sourceFiles : _.define.own({}),
-  parsedFiles : _.define.own({}),
+  parsedFiles : null,
 
   outReferencePath : '{{outPath}}/reference',
   outDocPath : '{{outPath}}/doc',
@@ -833,6 +1024,9 @@ let Extension =
   performTutorials,
   performLintReports,
   performTestingReports,
+  performCoverageReport,
+  _performCoverageNumbersDocumented,
+  _performCoverageNumbersTotal,
 
   modulesInstall,
 

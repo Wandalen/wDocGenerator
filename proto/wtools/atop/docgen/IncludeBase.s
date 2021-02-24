@@ -20,6 +20,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wCommandsConfig' );
   _.include( 'wCommandsConfig' );
   _.include( 'wDocParser' );
+  _.include( 'wTranspile' );
 
   require( 'willbe' );
 }
