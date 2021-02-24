@@ -314,7 +314,7 @@ function strQuote( o )
   let src = o.src;
 
   if( !_.primitiveIs( src ) )
-  src = _.toStr( src );
+  src = _.entity.exportString( src );
 
   _.assert( _.primitiveIs( src ) );
 

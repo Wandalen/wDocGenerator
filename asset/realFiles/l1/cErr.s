@@ -863,7 +863,7 @@ function diagnosticWatchFields( o )
       //let result = o.target[ fieldSymbol ];
       let result = val;
       if( o.verbosity > 1 )
-      console.log( 'reading ' + fieldName + ' ' + _.toStr( result ) );
+      console.log( 'reading ' + fieldName + ' ' + _.entity.exportString( result ) );
       else
       console.log( 'reading ' + fieldName );
       if( o.debugging > 1 )
@@ -876,7 +876,7 @@ function diagnosticWatchFields( o )
     function write( src )
     {
       if( o.verbosity > 1 )
-      console.log( 'writing ' + fieldName + ' ' + _.toStr( o.target[ fieldName ] ) + ' -> ' + _.toStr( src ) );
+      console.log( 'writing ' + fieldName + ' ' + _.entity.exportString( o.target[ fieldName ] ) + ' -> ' + _.entity.exportString( src ) );
       else
       console.log( 'writing ' + fieldName );
       if( o.debugging )
@@ -950,7 +950,7 @@ function diagnosticProxyFields( o )
       if( o.names && !( k in o.names ) )
       return;
       if( o.verbosity > 1 )
-      console.log( 'writing ' + k + ' ' + _.toStr( o.target[ k ] ) + ' -> ' + _.toStr( e ) );
+      console.log( 'writing ' + k + ' ' + _.entity.exportString( o.target[ k ] ) + ' -> ' + _.entity.exportString( e ) );
       else
       console.log( 'writing ' + k );
       if( o.debug )

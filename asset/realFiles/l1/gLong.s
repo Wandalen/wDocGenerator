@@ -2335,7 +2335,7 @@ function arrayMask( srcArray, mask )
   (
     _.numberIsInt( length ),
     'arrayMask :','Expects mask that has component for each atom of srcArray',
-    _.toStr
+    _.entity.exportString
     ({
       'atomsPerElement' : atomsPerElement,
       'srcArray.length' : srcArray.length,
@@ -2390,7 +2390,7 @@ function arrayUnmask( o )
 
   let length = o.src.length / atomsPerElementPreserved;
   if( Math.floor( length ) !== length )
-  throw _.err( 'arrayMask :','Expects mask that has component for each atom of o.src',_.toStr({ 'atomsPerElementPreserved' : atomsPerElementPreserved, 'o.src.length' : o.src.length  }) );
+  throw _.err( 'arrayMask :','Expects mask that has component for each atom of o.src',_.entity.exportString({ 'atomsPerElementPreserved' : atomsPerElementPreserved, 'o.src.length' : o.src.length  }) );
 
   let dstArray = new o.src.constructor( atomsPerElement*length );
 

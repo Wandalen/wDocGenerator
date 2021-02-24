@@ -120,7 +120,7 @@ function _setupUnhandledErrorHandler1()
     if( !err.originalMessage && _.objectLike && _.objectLike( err ) )
     try
     {
-      let serr = _.toStr && _.field ? _.toStr.fields( err,{ errorAsMap : 1 } ) : err;
+      let serr = _.entity.exportString && _.field ? _.entity.exportString.fields( err,{ errorAsMap : 1 } ) : err;
       console.error( err );
     }
     catch( err2 )

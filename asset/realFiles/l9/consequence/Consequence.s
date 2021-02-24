@@ -3228,7 +3228,7 @@ function competitorCancel( competitorRoutine )
     debugger;
     let procedure = _.procedure.getSingleMaybe( competitorRoutine );
     let procedureName = ( procedure ? '\n' + procedure.longName : '' );
-    throw _.err( 'Competitor', _.toStrShort( competitorRoutine ), 'is not on the queue', procedureName );
+    throw _.err( 'Competitor', _.entity.exportStringShort( competitorRoutine ), 'is not on the queue', procedureName );
   }
 
   _.assert( found.element.competitorRoutine === competitorRoutine );

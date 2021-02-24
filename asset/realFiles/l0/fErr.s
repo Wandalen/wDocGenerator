@@ -214,7 +214,7 @@ function _err( o )
         o.args[ a ] = arg.message || arg.msg || arg.constructor.name || 'unknown error';
         let fields = _.mapFields( arg );
         if( Object.keys( fields ).length )
-        o.args[ a ] += '\n' + _.toStr( fields,{ wrap : 0, multiline : 1, levels : 2 } );
+        o.args[ a ] += '\n' + _.entity.exportString( fields,{ wrap : 0, multiline : 1, levels : 2 } );
       }
 
       if( errors.length > 0 )
@@ -317,9 +317,9 @@ function _err( o )
       {
         if( _.strIs( argument.originalMessage ) ) str = argument.originalMessage;
         else if( _.strIs( argument.message ) ) str = argument.message;
-        else str = _.toStr( argument );
+        else str = _.entity.exportString( argument );
       }
-      else str = _.toStr( argument,{ levels : 2 } );
+      else str = _.entity.exportString( argument,{ levels : 2 } );
 
     }
     else if( argument === undefined )
@@ -1299,7 +1299,7 @@ function assertOwnNoConstructor( ins )
   args[ 0 ] = _.checkOwnNoConstructor( ins );
 
   if( args.length === 1 )
-  args.push( () => 'Entity should not own constructor, but own ' + _.toStrShort( ins ) );
+  args.push( () => 'Entity should not own constructor, but own ' + _.entity.exportStringShort( ins ) );
 
   _.assert.apply( _, args );
 }

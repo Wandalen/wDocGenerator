@@ -938,9 +938,9 @@ function strForCall( nameOfRoutine,args,ret,o )
     result += ', ';
 
     if( _.objectIs( e ) )
-    result += k + ' :' + _.toStr( e,o );
+    result += k + ' :' + _.entity.exportString( e,o );
     else
-    result += _.toStr( e,o );
+    result += _.entity.exportString( e,o );
 
     first = false;
 
@@ -949,7 +949,7 @@ function strForCall( nameOfRoutine,args,ret,o )
   result += ' )';
 
   if( arguments.length >= 3 )
-  result += ' -> ' + _.toStr( ret,o );
+  result += ' -> ' + _.entity.exportString( ret,o );
 
   return result;
 }
@@ -3403,7 +3403,7 @@ function strConcat( srcs, o )
   for( let a = 0 ; a < srcs.length ; a++ )
   {
     let src = srcs[ a ];
-    src = _.toStr( src,o.optionsForToStr );
+    src = _.entity.exportString( src,o.optionsForToStr );
     if( !nl )
     {
       let i = src.lastIndexOf( o.lineDelimter );
