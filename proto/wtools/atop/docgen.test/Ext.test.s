@@ -6,14 +6,14 @@
 if( typeof module !== 'undefined' )
 {
 
-  let _ = require( '../../Tools.s' );
+  const _ = require( '../../Tools.s' );
   _.include( 'wTesting' );
 
   require( './../docgen/MainTop.s' );
 
 }
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 
 // --
 // context
@@ -228,7 +228,7 @@ coverageReportThrowing.timeOut = 30000;
 // proto
 // --
 
-let Self =
+const Proto =
 {
 
   name : 'Tools.DocGenerator.Ext',
@@ -263,7 +263,7 @@ let Self =
 
 //
 
-Self = wTestSuite( Self );
+const Self = wTestSuite( Proto );
 if( typeof module !== 'undefined' && !module.parent )
 wTester.test( Self.name );
 

@@ -6,7 +6,7 @@ _.include( 'wLogger' );
 
 let handlebars = require( 'handlebars' );
 
-let Self = exports;
+const Self = exports;
 
 //
 

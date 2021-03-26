@@ -5,9 +5,9 @@
 
 //
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 let Parent = null;
-let Self = wMarkdownGenerator;
+const Self = wMarkdownGenerator;
 function wMarkdownGenerator( o )
 {
   return _.workpiece.construct( Self, this, arguments );

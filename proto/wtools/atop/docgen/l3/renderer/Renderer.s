@@ -12,9 +12,9 @@ if( typeof module !== 'undefined' )
 
 //
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 let Parent = null;
-let Self = wRenderer;
+const Self = wRenderer;
 function wRenderer( o )
 {
   return _.workpiece.construct( Self, this, arguments );

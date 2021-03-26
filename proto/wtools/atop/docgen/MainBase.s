@@ -18,11 +18,11 @@ if( typeof module !== 'undefined' )
 
 //
 
-let _ = _global_.wTools;
+const _ = _global_.wTools;
 let Parent = null;
 _.docgen = _.docgen || Object.create( null );
 
-let Self = wDocGenerator;
+const Self = wDocGenerator;
 function wDocGenerator( o )
 {
   return _.workpiece.construct( Self, this, arguments );
@@ -168,7 +168,7 @@ function _optionsFromArgsRead( e )
   if( appArgs.scriptArgs[ 1 ] && !appArgs.map.referencePath )
   self.referencePath = appArgs.scriptArgs[ 1 ];
 
-  _.assertMapHasOnly( self.appArgs.map, optionsNamesMap );
+  _.map.assertHasOnly( self.appArgs.map, optionsNamesMap );
 }
 
 //

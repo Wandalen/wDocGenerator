@@ -14,7 +14,7 @@ if( typeof module !== 'undefined' )
 
 let _ = wTools;
 let Parent = null;
-let Self = _.docgen.DocGenerator;
+const Self = _.docgen.DocGenerator;
 
 // --
 // exec
