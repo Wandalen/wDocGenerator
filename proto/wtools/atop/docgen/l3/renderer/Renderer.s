@@ -13,7 +13,7 @@ if( typeof module !== 'undefined' )
 //
 
 const _ = _global_.wTools;
-let Parent = null;
+const Parent = null;
 const Self = wRenderer;
 function wRenderer( o )
 {

@@ -19,7 +19,7 @@ if( typeof module !== 'undefined' )
 //
 
 const _ = _global_.wTools;
-let Parent = null;
+const Parent = null;
 _.docgen = _.docgen || Object.create( null );
 
 const Self = wDocGenerator;

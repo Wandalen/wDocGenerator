@@ -13,7 +13,7 @@ if( typeof module !== 'undefined' )
 //
 
 let _ = wTools;
-let Parent = null;
+const Parent = null;
 const Self = _.docgen.DocGenerator;
 
 // --
