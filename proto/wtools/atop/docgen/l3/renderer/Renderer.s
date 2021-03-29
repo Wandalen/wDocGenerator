@@ -116,7 +116,7 @@ render.defaults =
 /* function filesFind()
 {
   let self = this;
-  let fileProvider = self.provider;
+  const fileProvider = self.provider;
 
   self.inPath = fileProvider.recordFilter
   ({
