@@ -13,6 +13,6 @@ doc/Changes.md
 build
 builder
 html.build.coffee
-node_modules
+/node_modules
 package-lock.json
 out/doc

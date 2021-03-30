@@ -10,7 +10,7 @@
     { "name" : "Volodymyr M.", "email" : "volodymyr.migdal@gmail.com" }
   ],
   "main" : "proto/wtools/atop/docgen/MainTop.s",
-  "files" : [ "proto/wtools/atop/docgen", "proto/wtools/Tools.s", "out" ],
+  "files" : [ "proto/wtools/atop/docgen", "proto/wtools/Tools.s", "out", "proto/node_modules" ],
   "bin" : { "wdoc" : "proto/wtools/atop/docgen/Exec2" },
   "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-1", "wdoc" : "node proto/wtools/atop/docgen/Exec2", "pack" : "webpack --config ./webpack.config.js" },
   "repository" :
@@ -45,8 +45,7 @@
     "babel-loader" : "",
     "babel-polyfill" : "",
     "webpack" : "",
-    "webpack-cli" : "",
-    "wdocgenerator" : "file:."
+    "webpack-cli" : ""
   },
   "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
 }
