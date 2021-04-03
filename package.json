@@ -1,68 +1,51 @@
 {
-  "name": "wdocgenerator",
-  "version": "0.1.239",
-  "description": "Utility to generate documentation from jsdoc annotated source code",
-  "license": "MIT",
-  "author": "Kostiantyn Wandalen <wanalen@01.school>",
-  "contributors": [
-    {
-      "name": "Kostiantyn Wandalen",
-      "email": "wanalen@01.school"
-    },
-    {
-      "name": "Volodymyr M.",
-      "email": "volodymyr.migdal@gmail.com"
-    }
+  "name" : "wdocgenerator",
+  "version" : "0.1.240",
+  "description" : "Utility to generate documentation from jsdoc annotated source code",
+  "license" : "MIT",
+  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
+  "contributors" :
+  [
+    { "name" : "Kostiantyn Wandalen", "email" : "wanalen@01.school" },
+    { "name" : "Volodymyr M.", "email" : "volodymyr.migdal@gmail.com" }
   ],
-  "main": "proto/wtools/atop/docgen/MainTop.s",
-  "files": [
-    "proto/wtools/atop/docgen",
-    "proto/wtools/Tools.s",
-    "out",
-    "proto/node_modules"
-  ],
-  "bin": {
-    "wdoc": "proto/wtools/atop/docgen/Exec2"
+  "main" : "/pro/module/wDocGenerator/proto/node_modules/wdocgenerator",
+  "files" : [ "proto/wtools/atop/docgen", "proto/wtools/Tools.s", "out", "proto/node_modules" ],
+  "bin" : { "wdoc" : "proto/wtools/atop/docgen/Exec2" },
+  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-1", "wdoc" : "node proto/wtools/atop/docgen/Exec2", "pack" : "webpack --config ./webpack.config.js" },
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/Wandalen/wDocGenerator.git"
   },
-  "scripts": {
-    "test": "wtest .run 'proto/**' rapidity:-1",
-    "wdoc": "node proto/wtools/atop/docgen/Exec2",
-    "pack": "webpack --config ./webpack.config.js"
+  "bugs" :
+  {
+    "url" : "https://github.com/Wandalen/wDocGenerator/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Wandalen/wDocGenerator.git"
+  "dependencies" :
+  {
+    "wTools" : "delta",
+    "wFiles" : "delta",
+    "wtemplatetreeenvironment" : "delta",
+    "wtemplatetreeresolver" : "delta",
+    "wselector" : "delta",
+    "wselectorextra" : "delta",
+    "wcommandsaggregator" : "delta",
+    "wcommandsconfig" : "delta",
+    "willbe" : "delta",
+    "wdocparser" : "delta",
+    "handlebars" : "4.7.7"
   },
-  "bugs": {
-    "url": "https://github.com/Wandalen/wDocGenerator/issues"
+  "devDependencies" :
+  {
+    "eslint" : "7.1.0",
+    "wTesting" : "delta",
+    "express" : "4.17.1",
+    "find-process" : "1.4.4",
+    "babel-loader" : "8.2.2",
+    "babel-polyfill" : "6.26.0",
+    "webpack" : "5.30.0",
+    "webpack-cli" : "4.6.0"
   },
-  "dependencies": {
-    "wTools": "delta",
-    "wFiles": "delta",
-    "wtemplatetreeenvironment": "delta",
-    "wtemplatetreeresolver": "delta",
-    "wselector": "delta",
-    "wselectorextra": "delta",
-    "wcommandsaggregator": "delta",
-    "wcommandsconfig": "delta",
-    "willbe": "delta",
-    "wdocparser": "delta",
-    "handlebars": "4.7.7"
-  },
-  "devDependencies": {
-    "babel-loader": "8.2.2",
-    "babel-polyfill": "6.26.0",
-    "eslint": "7.1.0",
-    "express": "4.17.1",
-    "find-process": "1.4.4",
-    "wTesting": "delta",
-    "webpack": "5.28.0",
-    "webpack-cli": "4.6.0"
-  },
-  "keywords": [
-    "wTools",
-    "Documentation",
-    "jsdoc",
-    "jsdoc2md"
-  ]
+  "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
 }
