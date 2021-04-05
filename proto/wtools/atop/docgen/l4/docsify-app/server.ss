@@ -27998,7 +27998,7 @@ function readStream(stream, encoding, length, limit, callback) {
         throw exception;
       }
 
-      var context = this;
+      let context = this;
 
       function handle(loc, caught) {
         record.type = "throw";
