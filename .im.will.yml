@@ -128,8 +128,8 @@ path:
       raw: compiled
       content: prime
   npm.proto.entry:
-    - /pro/module/wDocGenerator/proto/wtools/atop/docgen/MainTop.s
-    - /pro/module/wDocGenerator/proto/node_modules/wdocgenerator
+    - proto/wtools/atop/docgen/MainTop.s
+    - proto/node_modules/wdocgenerator
 reflector:
   reflect.proto:
     inherit: predefined.*
