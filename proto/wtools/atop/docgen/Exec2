@@ -7,7 +7,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wProcess' );
 }
 
-let _ = wTools;
+const _ = _global_.wTools;
 let shell = _.process.startNjsPassingThrough
 ({
   execPath : _.path.join( __dirname, 'MainTop.s' ),

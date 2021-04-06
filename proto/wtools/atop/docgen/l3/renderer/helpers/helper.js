@@ -1,7 +1,7 @@
 ( function _Helper_js()
 {
 
-let _ = require( 'wTools' )
+const _ = require( 'wTools' )
 _.include( 'wLogger' );
 
 let handlebars = require( 'handlebars' );
