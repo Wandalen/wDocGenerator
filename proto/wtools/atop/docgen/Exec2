@@ -2,7 +2,7 @@
 
 if( typeof module !== 'undefined' )
 {
-  const _ = require( '../../Tools.s' );
+  const _ = require( 'Tools' );
   _.include( 'wFiles' );
   _.include( 'wProcess' );
 }
