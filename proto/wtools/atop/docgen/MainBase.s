@@ -158,7 +158,7 @@ function _optionsFromArgsRead( e )
   {
     self.appArgs =
     {
-      subject : e.commandArgument,
+      subject : e.instructionArgument,
       map : e.propertiesMap
     }
   }

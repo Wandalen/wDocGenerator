@@ -38,7 +38,8 @@ function exec()
   let appArgs = _.process.input();
   let ca = self.commandsMake();
 
-  return ca.appArgsPerform({ appArgs });
+  return ca.programPerform({ program : appArgs.original });
+  // return ca.appArgsPerform({ appArgs });
 }
 
 //
@@ -46,7 +47,7 @@ function exec()
 function commandHelp( e )
 {
   let self = this;
-  let ca = e.ca;
+  let ca = e.aggregator;
 
   ca._commandHelp( e );
 
@@ -92,7 +93,8 @@ function commandGenerate( e )
   return ready;
 }
 
-commandGenerate.commandProperties =
+var command = commandGenerate.command = Object.create( null );
+command.properties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
   tutorialsPath : 'Path to tutorials index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
@@ -124,7 +126,8 @@ function commandGenerateReference( e )
   return ready;
 }
 
-commandGenerateReference.commandProperties =
+var command = commandGenerateReference.command = Object.create( null );
+command.properties =
 {
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   referencePath : 'Path to directory with jsdoc annotated source code. Default : "proto"',
@@ -150,7 +153,8 @@ function commandGenerateDocsify( e )
   return ready;
 }
 
-commandGenerateDocsify.commandProperties =
+var command = commandGenerateDocsify.command = Object.create( null );
+command.properties =
 {
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
   outPath : 'Path where to save docsify app. Default : "out/doc"',
@@ -167,8 +171,8 @@ function commandGenerateTutorials( e )
 
   self.form( e );
 
-  if( e.commandArgument && !e.propertiesMap.tutorialsPath )
-  self.tutorialsPath = path.resolve( path.current(), self.inPath, e.commandArgument );
+  if( e.instructionArgument && !e.propertiesMap.tutorialsPath )
+  self.tutorialsPath = path.resolve( path.current(), self.inPath, e.instructionArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -178,7 +182,8 @@ function commandGenerateTutorials( e )
   return ready;
 }
 
-commandGenerateTutorials.commandProperties =
+var command = commandGenerateTutorials.command = Object.create( null );
+command.properties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
   tutorialsPath : 'Path to tutorials index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
@@ -199,8 +204,8 @@ function commandGenerateConcepts( e )
 
   self.form( e );
 
-  if( e.commandArgument && !e.propertiesMap.conceptsPath )
-  self.conceptsPath = path.resolve( path.current(), self.inPath, e.commandArgument );
+  if( e.instructionArgument && !e.propertiesMap.conceptsPath )
+  self.conceptsPath = path.resolve( path.current(), self.inPath, e.instructionArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -210,7 +215,8 @@ function commandGenerateConcepts( e )
   return ready;
 }
 
-commandGenerateConcepts.commandProperties =
+var command = commandGenerateConcepts.command = Object.create( null );
+command.properties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
   conceptsPath : 'Path to concepts index file or directory that contains tutorials and index file. Default: "out/doc/Doc"',
@@ -222,6 +228,8 @@ commandGenerateConcepts.commandProperties =
   v : 'Verbosity level. Default:1.'
 }
 
+//
+
 function commandGenerateLintReports( e )
 {
   let self = this;
@@ -229,8 +237,8 @@ function commandGenerateLintReports( e )
 
   self.form( e );
 
-  if( e.commandArgument && !e.propertiesMap.lintPath )
-  self.lintPath = path.resolve( path.current(), self.inPath, e.commandArgument );
+  if( e.instructionArgument && !e.propertiesMap.lintPath )
+  self.lintPath = path.resolve( path.current(), self.inPath, e.instructionArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -240,7 +248,8 @@ function commandGenerateLintReports( e )
   return ready;
 }
 
-commandGenerateLintReports.commandProperties =
+var command = commandGenerateLintReports.command = Object.create( null );
+command.properties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
   readmePath : 'Path to README.md file that will used as homepage.',
@@ -252,6 +261,8 @@ commandGenerateLintReports.commandProperties =
   v : 'Verbosity level. Default:1.'
 }
 
+//
+
 function commandGenerateTestingReports( e )
 {
   let self = this;
@@ -259,8 +270,8 @@ function commandGenerateTestingReports( e )
 
   self.form( e );
 
-  if( e.commandArgument && !e.propertiesMap.testingPath )
-  self.testingPath = path.resolve( path.current(), self.inPath, e.commandArgument );
+  if( e.instructionArgument && !e.propertiesMap.testingPath )
+  self.testingPath = path.resolve( path.current(), self.inPath, e.instructionArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -270,7 +281,8 @@ function commandGenerateTestingReports( e )
   return ready;
 }
 
-commandGenerateLintReports.commandProperties =
+var command = commandGenerateTestingReports.command = Object.create( null );
+command.properties =
 {
   docPath : 'Path to directory that contains documentation. It can be directory with documentation of single or multiple modules. In second case docs of each module should be located in subdirectry with name of that module. Default: "doc" ',
   testingPath : 'Path to directory with testing reports. Default: "doc/testing"',
@@ -291,8 +303,8 @@ function commandGenerateCoverageReport( e )
 
   self.form( e );
 
-  if( e.commandArgument && !e.propertiesMap.testingPath )
-  self.testingPath = path.resolve( path.current(), self.inPath, e.commandArgument );
+  if( e.instructionArgument && !e.propertiesMap.testingPath )
+  self.testingPath = path.resolve( path.current(), self.inPath, e.instructionArgument );
 
   let ready = new _.Consequence().take( null );
 
@@ -301,7 +313,8 @@ function commandGenerateCoverageReport( e )
   return ready;
 }
 
-commandGenerateCoverageReport.commandProperties =
+var command = commandGenerateCoverageReport.command = Object.create( null );
+command.properties =
 {
   referencePath : 'Path to directory with jsdoc annotated source code. Default : "proto"',
   inPath : 'Prefix path. This path is prepended to each *path option. Default : "."',
@@ -319,8 +332,8 @@ function commandView( e )
 
   self.form( e );
 
-  if( e.commandArgument && !e.propertiesMap.outPath )
-  self.outPath = path.resolve( path.current(), self.inPath, e.commandArgument );
+  if( e.instructionArgument && !e.propertiesMap.outPath )
+  self.outPath = path.resolve( path.current(), self.inPath, e.instructionArgument );
 
   let serverScriptPath = path.join( self.outPath, 'server.ss' );
 
@@ -330,7 +343,8 @@ function commandView( e )
 
 }
 
-commandView.commandProperties =
+var command = commandView.command = Object.create( null );
+command.properties =
 {
   outPath : 'Path to directory with generated documentation. Default : "out/doc"',
 }
@@ -347,16 +361,16 @@ function commandsMake()
   let commands =
   {
 
-    'help' :                    { e : _.routineJoin( self, self.commandHelp ),                h : 'Get help.' },
-    'generate' :                { e : _.routineJoin( self, self.commandGenerate ),            h : 'Generates markdown files and docsify.' },
-    'generate docsify' :        { e : _.routineJoin( self, self.commandGenerateDocsify ),     h : 'Copies built docsify app into root of `outPath` directory.' },
-    'generate reference' :      { e : _.routineJoin( self, self.commandGenerateReference ),    h : 'Generates *.md files from jsdoc annotated js files.' },
-    'generate tutorials' :      { e : _.routineJoin( self, self.commandGenerateTutorials ),   h : 'Aggregates tutorials and creates index file.' },
-    'generate concepts' :       { e : _.routineJoin( self, self.commandGenerateConcepts ),    h : 'Aggregates concepts and creates index file.' },
-    'generate lint' :       { e : _.routineJoin( self, self.commandGenerateLintReports ),    h : 'Aggregates eslint reports and creates index file.' },
-    'generate testing' :       { e : _.routineJoin( self, self.commandGenerateTestingReports ),    h : 'Aggregates testing reports and creates index file.' },
-    'generate coverage report' :       { e : _.routineJoin( self, self.commandGenerateCoverageReport ),    h : 'Generates doc coverage report.' },
-    'view' :                    { e : _.routineJoin( self, self.commandView ),    h : 'Launches the doc.' },
+    'help' :                      { ro : _.routineJoin( self, self.commandHelp ),                h : 'Get help.' },
+    'generate' :                  { ro : _.routineJoin( self, self.commandGenerate ),            h : 'Generates markdown files and docsify.' },
+    'generate docsify' :          { ro : _.routineJoin( self, self.commandGenerateDocsify ),     h : 'Copies built docsify app into root of `outPath` directory.' },
+    'generate reference' :        { ro : _.routineJoin( self, self.commandGenerateReference ),    h : 'Generates *.md files from jsdoc annotated js files.' },
+    'generate tutorials' :        { ro : _.routineJoin( self, self.commandGenerateTutorials ),   h : 'Aggregates tutorials and creates index file.' },
+    'generate concepts' :         { ro : _.routineJoin( self, self.commandGenerateConcepts ),    h : 'Aggregates concepts and creates index file.' },
+    'generate lint' :             { ro : _.routineJoin( self, self.commandGenerateLintReports ),    h : 'Aggregates eslint reports and creates index file.' },
+    'generate testing' :          { ro : _.routineJoin( self, self.commandGenerateTestingReports ),    h : 'Aggregates testing reports and creates index file.' },
+    'generate coverage report' :  { ro : _.routineJoin( self, self.commandGenerateCoverageReport ),    h : 'Generates doc coverage report.' },
+    'view' :                      { ro : _.routineJoin( self, self.commandView ),    h : 'Launches the doc.' },
   }
 
   let ca = _.CommandsAggregator
