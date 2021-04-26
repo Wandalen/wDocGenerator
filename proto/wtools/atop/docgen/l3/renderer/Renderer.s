@@ -23,7 +23,7 @@ function wRenderer( o )
 Self.shortName = 'Renderer';
 
 // --
-// routines
+// implementation
 // --
 
 function init( o )
@@ -95,7 +95,7 @@ function render( o )
 {
   let self = this;
 
-  _.routineOptions( render, o );
+  _.routine.options_( render, o );
 
   _.assert( _.strDefined( o.template ) );
   _.assert( _.objectIs( o.data ) );

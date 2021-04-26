@@ -135,7 +135,7 @@ $( document ).ready( () =>
           $(currentActive).removeClass( 'sidebar-index-item-active' )
 
           currentActiveId = id;
-          currentActive = $(`.item.sidebar-index-item a[data-key="${id}"]`);
+          currentActive = $( `.item.sidebar-index-item a[data-key="${id}"]` );
 
           if( currentActive )
           $(currentActive).addClass( 'sidebar-index-item-active' )

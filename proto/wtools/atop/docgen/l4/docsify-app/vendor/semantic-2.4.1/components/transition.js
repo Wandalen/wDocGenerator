@@ -74,7 +74,7 @@ $.fn.transition = function() {
           error           = settings.error;
           metadata        = settings.metadata;
 
-          // define namespace
+          // declaration
           eventNamespace  = '.' + settings.namespace;
           moduleNamespace = 'module-' + settings.namespace;
           instance        = $module.data(moduleNamespace) || module;

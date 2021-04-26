@@ -15125,7 +15125,7 @@ $.fn.shape = function(parameters) {
         error         = settings.error,
         className     = settings.className,
 
-        // define namespaces for modules
+        // declarations for modules
         eventNamespace  = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
 
@@ -19014,7 +19014,7 @@ $.fn.transition = function() {
           error           = settings.error;
           metadata        = settings.metadata;
 
-          // define namespace
+          // declaration
           eventNamespace  = '.' + settings.namespace;
           moduleNamespace = 'module-' + settings.namespace;
           instance        = $module.data(moduleNamespace) || module;
@@ -20088,7 +20088,7 @@ $.api = $.fn.api = function(parameters) {
         error           = settings.error,
         className       = settings.className,
 
-        // define namespaces for modules
+        // declarations for modules
         eventNamespace  = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
 

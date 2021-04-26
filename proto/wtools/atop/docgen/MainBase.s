@@ -31,7 +31,7 @@ function wDocGenerator( o )
 Self.shortName = 'DocGenerator';
 
 // --
-// routines
+// implementation
 // --
 
 function init( o )
@@ -140,7 +140,7 @@ function _optionsFromWillRead()
     }
   }
 
-  _.mapExtend( self, readOptions );
+  _.props.extend( self, readOptions );
 
 }
 
@@ -590,7 +590,7 @@ function _performCoverageNumbersTotal( resultMap )
     'member_expression'
   ];
 
-  _.assert( _.arrayLike( self.parsedFiles ) );
+  _.assert( _.argumentsArray.like( self.parsedFiles ) );
 
   let cons = self.parsedFiles.map( onEachFile );
   let done = _.Consequence.AndKeep( ... cons );
@@ -910,7 +910,7 @@ let pathOptionsNames =
   readmePath : 'readmePath'
 }
 
-let optionsNamesMap = _.mapExtend( null, commonOptionsNames, pathOptionsNames );
+let optionsNamesMap = _.props.extend( null, commonOptionsNames, pathOptionsNames );
 
 // --
 // relations

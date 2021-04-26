@@ -16,7 +16,7 @@ function wMarkdownGenerator( o )
 Self.shortName = 'MarkdownGenerator';
 
 // --
-// routines
+// implementation
 // --
 
 function init( o )

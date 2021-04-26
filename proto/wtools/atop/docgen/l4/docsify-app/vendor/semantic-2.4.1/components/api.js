@@ -52,7 +52,7 @@ $.api = $.fn.api = function(parameters) {
         error           = settings.error,
         className       = settings.className,
 
-        // define namespaces for modules
+        // declarations for modules
         eventNamespace  = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
 
