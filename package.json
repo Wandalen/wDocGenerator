@@ -1,6 +1,6 @@
 {
   "name" : "wdocgenerator",
-  "version" : "0.1.253",
+  "version" : "0.1.254",
   "description" : "Utility to generate documentation from jsdoc annotated source code",
   "license" : "MIT",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
@@ -24,27 +24,27 @@
   },
   "dependencies" :
   {
-    "wTools" : "delta",
-    "wFiles" : "delta",
-    "wtemplatetreeenvironment" : "delta",
-    "wtemplatetreeresolver" : "delta",
-    "wselector" : "delta",
-    "wselectorextra" : "delta",
-    "wcommandsaggregator" : "delta",
-    "wcommandsconfig" : "delta",
-    "willbe" : "delta",
-    "wdocparser" : "delta",
+    "wTools" : "gamma",
+    "wFiles" : "gamma",
+    "wtemplatetreeenvironment" : "gamma",
+    "wtemplatetreeresolver" : "gamma",
+    "wselector" : "gamma",
+    "wselectorextra" : "gamma",
+    "wcommandsaggregator" : "gamma",
+    "wcommandsconfig" : "gamma",
+    "willbe" : "gamma",
+    "wdocparser" : "gamma",
     "handlebars" : "4.7.7"
   },
   "devDependencies" :
   {
     "eslint" : "7.1.0",
-    "wTesting" : "delta",
+    "wTesting" : "gamma",
     "express" : "4.17.1",
     "find-process" : "1.4.4",
     "babel-loader" : "8.2.2",
     "babel-polyfill" : "6.26.0",
-    "webpack" : "5.31.2",
+    "webpack" : "5.35.1",
     "webpack-cli" : "4.6.0"
   },
   "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
