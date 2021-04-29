@@ -125,7 +125,7 @@ function _optionsFromWillRead()
   }
 
   let readOptions = Object.create( null );
-  let module = _.objectIs( self.submodule ) ? self.submodule : self.module;
+  let module = _.object.isBasic( self.submodule ) ? self.submodule : self.module;
 
   for( let option in optionSelectorMap )
   {

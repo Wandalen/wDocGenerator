@@ -8603,7 +8603,7 @@ __webpack_require__("./node_modules/core-js/modules/_object-sap.js")('getPrototy
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/es6.object.is-extensible.js":
+/***/ "./node_modules/core-js/modules/es6.object.isBasic-extensible.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.11 Object.isExtensible(O)
@@ -8617,7 +8617,7 @@ __webpack_require__("./node_modules/core-js/modules/_object-sap.js")('isExtensib
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/es6.object.is-frozen.js":
+/***/ "./node_modules/core-js/modules/es6.object.isBasic-frozen.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.12 Object.isFrozen(O)
@@ -8631,7 +8631,7 @@ __webpack_require__("./node_modules/core-js/modules/_object-sap.js")('isFrozen',
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/es6.object.is-sealed.js":
+/***/ "./node_modules/core-js/modules/es6.object.isBasic-sealed.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.13 Object.isSealed(O)
@@ -8645,7 +8645,7 @@ __webpack_require__("./node_modules/core-js/modules/_object-sap.js")('isSealed',
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/es6.object.is.js":
+/***/ "./node_modules/core-js/modules/es6.object.isBasic.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.3.10 Object.is(value1, value2)
@@ -12502,15 +12502,15 @@ __webpack_require__("./node_modules/core-js/modules/es6.object.seal.js");
 
 __webpack_require__("./node_modules/core-js/modules/es6.object.prevent-extensions.js");
 
-__webpack_require__("./node_modules/core-js/modules/es6.object.is-frozen.js");
+__webpack_require__("./node_modules/core-js/modules/es6.object.isBasic-frozen.js");
 
-__webpack_require__("./node_modules/core-js/modules/es6.object.is-sealed.js");
+__webpack_require__("./node_modules/core-js/modules/es6.object.isBasic-sealed.js");
 
-__webpack_require__("./node_modules/core-js/modules/es6.object.is-extensible.js");
+__webpack_require__("./node_modules/core-js/modules/es6.object.isBasic-extensible.js");
 
 __webpack_require__("./node_modules/core-js/modules/es6.object.assign.js");
 
-__webpack_require__("./node_modules/core-js/modules/es6.object.is.js");
+__webpack_require__("./node_modules/core-js/modules/es6.object.isBasic.js");
 
 __webpack_require__("./node_modules/core-js/modules/es6.object.set-prototype-of.js");
 

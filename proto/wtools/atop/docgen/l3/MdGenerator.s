@@ -51,7 +51,7 @@ function form()
 {
   let self = this;
   _.assert( arguments.length === 0 );
-  _.assert( _.objectIs( self.product ) )
+  _.assert( _.object.isBasic( self.product ) )
   _.assert( _.strDefined( self.outPath ) )
   _.assert( _.strDefined( self.outReferencePath ) )
 

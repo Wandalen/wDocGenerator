@@ -98,7 +98,7 @@ function render( o )
   _.routine.options_( render, o );
 
   _.assert( _.strDefined( o.template ) );
-  _.assert( _.objectIs( o.data ) );
+  _.assert( _.object.isBasic( o.data ) );
 
   let compiled = handlebars.compile( o.template, { preventIndent : true, strict : true } )
 
