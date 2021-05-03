@@ -4567,14 +4567,14 @@ var getOrCreateMetadataMap = function (target, targetKey, create) {
 
   if (!targetMetadata) {
     if (!create) return undefined;
-    store.set(target, targetMetadata = new Map());
+    store.set(target, targetMetadata = new HashMap());
   }
 
   var keyMetadata = targetMetadata.get(targetKey);
 
   if (!keyMetadata) {
     if (!create) return undefined;
-    targetMetadata.set(targetKey, keyMetadata = new Map());
+    targetMetadata.set(targetKey, keyMetadata = new HashMap());
   }
 
   return keyMetadata;
