@@ -103,7 +103,7 @@ function highlight( src )
   })
 
   src = _.strLinesSplit( src );
-  src = _.strLinesStrip( src );
+  src = _.str.lines.strip( src );
   src = src.join( '<br>' )
 
   return src;
