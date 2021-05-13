@@ -2,12 +2,9 @@ format: outwillfile-2.0
 root:
   - wDocGenerator.out
 consistency:
-  ../.ex.will.yml: &ref_0
-    hash: 308533aaaa6b100c86de7e350227160f
-    size: 1819
-  ../.im.will.yml: &ref_1
-    hash: baf01cf2e7ead897237074ada7da99ce
-    size: 6059
+  ../will.yml: &ref_0
+    hash: 385bd35eaf6a4e8b3ffde7e7c5dfe44e
+    size: 7630
 module:
   wDocGenerator.out:
     about:
@@ -16,26 +13,26 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters: &ref_2
-        - njs >= 10.0.0
-        - chrome >= 60.0.0
-        - firefox >= 60.0.0
-      keywords: &ref_3
+      license: MIT
+      npm.name: wdocgenerator
+      npm.bin: &ref_1
+        wdoc: proto/wtools/atop/docgen/Exec2
+      author: Kostiantyn Wandalen <wanalen@01.school>
+      keywords: &ref_2
         - wTools
         - Documentation
         - jsdoc
         - jsdoc2md
-      license: MIT
-      author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: &ref_4
+      contributors: &ref_3
         - Kostiantyn Wandalen <wanalen@01.school>
         - Volodymyr M. <volodymyr.migdal@gmail.com>
-      npm.name: wdocgenerator
+      interpreters: &ref_4
+        - njs >= 10.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
       npm.scripts: &ref_5
         test: 'wtest .run proto/** rapidity:-1'
         wdoc: node proto/wtools/atop/docgen/Exec2
-      npm.bin: &ref_6
-        wdoc: proto/wtools/atop/docgen/Exec2
     path:
       module.willfiles:
         criterion:
@@ -48,15 +45,11 @@ module:
       module.original.willfiles:
         criterion:
           predefined: 1
-        path:
-          - ../.ex.will.yml
-          - ../.im.will.yml
+        path: ../will.yml
       module.peer.willfiles:
         criterion:
           predefined: 1
-        path:
-          - ../.ex.will.yml
-          - ../.im.will.yml
+        path: ../will.yml
       module.peer.in:
         criterion:
           predefined: 1
@@ -670,27 +663,27 @@ module:
         path: 'npm:///wFiles'
         autoExporting: 0
         enabled: 0
-      wTemplateTreeEnvironment:
+      wtemplatetreeenvironment:
         path: 'npm:///wtemplatetreeenvironment'
         autoExporting: 0
         enabled: 0
-      wTemplateTreeResolver:
+      wtemplatetreeresolver:
         path: 'npm:///wtemplatetreeresolver'
         autoExporting: 0
         enabled: 0
-      wSelector:
+      wselector:
         path: 'npm:///wselector'
         autoExporting: 0
         enabled: 0
-      wSelectorExtra:
+      wselectorextra:
         path: 'npm:///wselectorextra'
         autoExporting: 0
         enabled: 0
-      wCommandsAggregator:
+      wcommandsaggregator:
         path: 'npm:///wcommandsaggregator'
         autoExporting: 0
         enabled: 0
-      wCommandsConfig:
+      wcommandsconfig:
         path: 'npm:///wcommandsconfig'
         autoExporting: 0
         enabled: 0
@@ -1349,8 +1342,7 @@ module:
           content: proto
           export: 1
     consistency:
-      ../.ex.will.yml: *ref_0
-      ../.im.will.yml: *ref_1
+      ../will.yml: *ref_0
   ../:
     about:
       name: wDocGenerator
@@ -1358,27 +1350,23 @@ module:
       description: Utility to generate documentation from jsdoc annotated source code.
       enabled: 1
       version: 0.2.0
-      interpreters: *ref_2
-      keywords: *ref_3
       license: MIT
-      author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: *ref_4
       npm.name: wdocgenerator
+      npm.bin: *ref_1
+      author: Kostiantyn Wandalen <wanalen@01.school>
+      keywords: *ref_2
+      contributors: *ref_3
+      interpreters: *ref_4
       npm.scripts: *ref_5
-      npm.bin: *ref_6
     path:
       module.willfiles:
         criterion:
           predefined: 1
-        path:
-          - .ex.will.yml
-          - .im.will.yml
+        path: will.yml
       module.original.willfiles:
         criterion:
           predefined: 1
-        path:
-          - .ex.will.yml
-          - .im.will.yml
+        path: will.yml
       module.peer.willfiles:
         criterion:
           predefined: 1
@@ -1480,27 +1468,27 @@ module:
         path: 'npm:///wFiles'
         autoExporting: 0
         enabled: 0
-      wTemplateTreeEnvironment:
+      wtemplatetreeenvironment:
         path: 'npm:///wtemplatetreeenvironment'
         autoExporting: 0
         enabled: 0
-      wTemplateTreeResolver:
+      wtemplatetreeresolver:
         path: 'npm:///wtemplatetreeresolver'
         autoExporting: 0
         enabled: 0
-      wSelector:
+      wselector:
         path: 'npm:///wselector'
         autoExporting: 0
         enabled: 0
-      wSelectorExtra:
+      wselectorextra:
         path: 'npm:///wselectorextra'
         autoExporting: 0
         enabled: 0
-      wCommandsAggregator:
+      wcommandsaggregator:
         path: 'npm:///wcommandsaggregator'
         autoExporting: 0
         enabled: 0
-      wCommandsConfig:
+      wcommandsconfig:
         path: 'npm:///wcommandsconfig'
         autoExporting: 0
         enabled: 0
@@ -2095,9 +2083,6 @@ module:
           - 'build::release'
           - 'build::npm'
     consistency:
-      ../.ex.will.yml:
-        hash: 308533aaaa6b100c86de7e350227160f
-        size: 1819
-      ../.im.will.yml:
-        hash: baf01cf2e7ead897237074ada7da99ce
-        size: 6059
+      ../will.yml:
+        hash: 385bd35eaf6a4e8b3ffde7e7c5dfe44e
+        size: 7630
