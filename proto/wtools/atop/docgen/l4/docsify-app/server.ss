@@ -3502,8 +3502,8 @@ module.exports = function (fn, that, length) {
 
 var fails = __webpack_require__("./node_modules/core-js/modules/_fails.js");
 
-var getTime = Date.prototype.getTime;
-var $toISOString = Date.prototype.toISOString;
+const getTime = Date.prototype.getTime;
+const $toISOString = Date.prototype.toISOString;
 
 var lz = function (num) {
   return num > 9 ? num : '0' + num;
@@ -5299,7 +5299,7 @@ __webpack_require__("./node_modules/core-js/modules/_core.js").inspectSource = f
 
 var classof = __webpack_require__("./node_modules/core-js/modules/_classof.js");
 
-var builtinExec = RegExp.prototype.exec; // `RegExpExec` abstract operation
+const builtinExec = RegExp.prototype.exec; // `RegExpExec` abstract operation
 // https://tc39.github.io/ecma262/#sec-regexpexec
 
 module.exports = function (R, S) {
@@ -5332,11 +5332,11 @@ module.exports = function (R, S) {
 
 var regexpFlags = __webpack_require__("./node_modules/core-js/modules/_flags.js");
 
-var nativeExec = RegExp.prototype.exec; // This always refers to the native implementation, because the
+const nativeExec = RegExp.prototype.exec; // This always refers to the native implementation, because the
 // String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
 // which loads this file before patching the method.
 
-var nativeReplace = String.prototype.replace;
+const nativeReplace = String.prototype.replace;
 var patchedExec = nativeExec;
 var LAST_INDEX = 'lastIndex';
 
@@ -14573,7 +14573,7 @@ var Stats = __webpack_require__("fs").Stats;
  */
 
 
-var toString = Object.prototype.toString;
+const toString = Object.prototype.toString;
 /**
  * Generate an entity tag.
  *
@@ -14738,7 +14738,7 @@ var resolve = __webpack_require__("path").resolve;
 
 var setPrototypeOf = __webpack_require__("./node_modules/setprototypeof/index.js");
 
-var slice = Array.prototype.slice;
+const slice = Array.prototype.slice;
 /**
  * Application prototype.
  */
@@ -17183,8 +17183,8 @@ var setPrototypeOf = __webpack_require__("./node_modules/setprototypeof/index.js
 
 
 var objectRegExp = /^\[object (\S+)\]$/;
-var slice = Array.prototype.slice;
-var toString = Object.prototype.toString;
+const slice = Array.prototype.slice;
+const toString = Object.prototype.toString;
 /**
  * Initialize a new `Router` with the given `options`.
  *
@@ -17802,7 +17802,7 @@ var debug = __webpack_require__("./node_modules/debug/src/index.js")('express:ro
  */
 
 
-var hasOwnProperty = Object.prototype.hasOwnProperty;
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 /**
  * Module exports.
  * @public
@@ -17991,8 +17991,8 @@ var methods = __webpack_require__("./node_modules/methods/index.js");
  */
 
 
-var slice = Array.prototype.slice;
-var toString = Object.prototype.toString;
+const slice = Array.prototype.slice;
+const toString = Object.prototype.toString;
 /**
  * Module exports.
  * @public
@@ -24035,7 +24035,7 @@ module.exports = merge;
  * @private
  */
 
-var hasOwnProperty = Object.prototype.hasOwnProperty;
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 /**
  * Merge the property descriptors of `src` into `dest`
  *
@@ -26392,7 +26392,7 @@ function trustSingle(subnet) {
 "use strict";
 
 
-var replace = String.prototype.replace;
+const replace = String.prototype.replace;
 var percentTwenties = /%20/g;
 module.exports = {
   'default': 'RFC3986',
@@ -26438,7 +26438,7 @@ module.exports = {
 
 var utils = __webpack_require__("./node_modules/qs/lib/utils.js");
 
-var has = Object.prototype.hasOwnProperty;
+const has = Object.prototype.hasOwnProperty;
 var defaults = {
   allowDots: false,
   allowPrototypes: false,
@@ -26624,7 +26624,7 @@ var arrayPrefixGenerators = {
     return prefix;
   }
 };
-var toISO = Date.prototype.toISOString;
+const toISO = Date.prototype.toISOString;
 var defaults = {
   delimiter: '&',
   encode: true,
@@ -26780,7 +26780,7 @@ module.exports = function (object, opts) {
 "use strict";
 
 
-var has = Object.prototype.hasOwnProperty;
+const has = Object.prototype.hasOwnProperty;
 
 var hexTable = function () {
   var array = [];

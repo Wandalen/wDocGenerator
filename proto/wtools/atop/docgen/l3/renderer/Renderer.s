@@ -75,8 +75,8 @@ function form()
   find({ filePath : path.join( __dirname, 'helpers' ), result : self.helpers })
   find({ filePath : path.join( __dirname, 'templates' ), result : self.partials })
 
-  _.assert( self.helpers.length );
-  _.assert( self.partials.length );
+  _.assert( self.helpers.length > 0 );
+  _.assert( self.partials.length > 0 );
 
   /* register helpers */
 

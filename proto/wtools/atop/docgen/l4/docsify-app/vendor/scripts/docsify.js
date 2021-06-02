@@ -19,7 +19,7 @@ var hyphenate = cached(function (str) {
   return str.replace(/([A-Z])/g, function (m) { return '-' + m.toLowerCase(); })
 });
 
-var hasOwn = Object.prototype.hasOwnProperty;
+const hasOwn = Object.prototype.hasOwnProperty;
 
 /**
  * Simple Object.assign polyfill

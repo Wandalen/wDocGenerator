@@ -1,12 +1,12 @@
 ( function _Helper_js()
 {
 
+/* qqq : for Vova : bad : rename all files using camel */
+
 const _ = require( 'wTools' )
 _.include( 'wLogger' );
 
 let handlebars = require( 'handlebars' );
-
-const Self = exports;
 
 //
 
@@ -126,6 +126,9 @@ function joinReturnsTypes( returns )
   return returns.map( ( e ) => e.type || '' ).join( '|' )
 }
 
+// --
+//
+// --
 
 let Extension =
 {
@@ -140,6 +143,6 @@ let Extension =
   joinReturnsTypes
 }
 
-_.props.extend( Self, Extension )
+_.props.extend( module.exports, Extension )
 
 })();
