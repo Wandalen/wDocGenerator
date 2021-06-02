@@ -83,40 +83,42 @@ function generateReferenceTrivial( test )
   let a = context.assetFor( test, 'generate-reference' );
   a.reflect();
 
-  a.ready.then( () => 
+  a.ready.then( () =>
   {
     test.case = 'generate reference for a single file';
     return null;
-  })
+  });
 
   /* */
 
-  a.appStart( `.generate.reference ${a.abs( 'File1.js' )}` )
-  .then( ( op ) =>
+  a.appStart( `.generate.reference ${a.abs( 'File1.js' )}` );
+  a.ready.then( ( op ) =>
   {
     test.identical( op.exitCode, 0 );
 
     let files = a.find
-    ({ 
+    ({
       filePath : a.abs( '.' ),
       withStem : 0
     });
 
     let expectedFiles =
     [
-      './File1.js', 
+      './File1.js',
       './out',
       './out/doc',
       './out/doc/Reference.md',
       './out/doc/reference',
       './out/doc/reference/namespace',
       './out/doc/reference/namespace/file1.md'
-    ]
+    ];
 
     test.identical( files, expectedFiles );
 
     return null;
-  })
+  });
+
+  /* - */
 
   return a.ready;
 }
@@ -131,7 +133,7 @@ function coverageReport( test )
   let a = context.assetFor( test, 'coverage' );
   a.reflect();
 
-  a.ready.then( () => 
+  a.ready.then( () =>
   {
     test.case = 'coverage report for single file';
     return null;
@@ -172,7 +174,7 @@ function coverageReport( test )
 
   /* */
 
-  a.ready.then( () => 
+  a.ready.then( () =>
   {
     test.case = 'coverage report for directory';
     return null;
@@ -204,7 +206,7 @@ function coverageReportThrowing( test )
 
   /* */
 
-  a.ready.then( () => 
+  a.ready.then( () =>
   {
     test.case = 'missing file';
     return null;

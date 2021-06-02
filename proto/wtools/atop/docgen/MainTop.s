@@ -382,7 +382,8 @@ function commandsMake()
   })
 
   _.assert( ca.logger === self.logger );
-  _.assert( ca.verbosity === self.verbosity );
+  // _.assert( ca.verbosity === self.verbosity );
+  _.assert( ca.logger.verbosity === self.verbosity );
 
   ca.form();
 
