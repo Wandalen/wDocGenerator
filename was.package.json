@@ -10,7 +10,7 @@
     { "name" : "Volodymyr M.", "email" : "volodymyr.migdal@gmail.com" }
   ],
   "main" : "proto/node_modules/wdocgenerator",
-  "files" : [ "proto/wtools/atop/docgen", "out", "proto/node_modules" ],
+  "files" : [ "proto/wtools/atop/docgen", "out", "proto/node_modules", "proto/node_modules/Tools", "proto/node_modules/wdocgenerator" ],
   "bin" : { "wdoc" : "proto/wtools/atop/docgen/Exec2" },
   "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-1", "wdoc" : "node proto/wtools/atop/docgen/Exec2", "pack" : "webpack --config ./webpack.config.js" },
   "repository" :
