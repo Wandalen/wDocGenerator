@@ -1,51 +1,69 @@
 {
-  "name" : "wdocgenerator",
-  "version" : "0.1.268",
-  "description" : "Utility to generate documentation from jsdoc annotated source code",
-  "license" : "MIT",
-  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
-  "contributors" :
-  [
-    { "name" : "Kostiantyn Wandalen", "email" : "wanalen@01.school" },
-    { "name" : "Volodymyr M.", "email" : "volodymyr.migdal@gmail.com" }
+  "name": "wdocgenerator",
+  "version": "0.1.269",
+  "description": "Utility to generate documentation from jsdoc annotated source code",
+  "license": "MIT",
+  "author": "Kostiantyn Wandalen <wanalen@01.school>",
+  "contributors": [
+    {
+      "name": "Kostiantyn Wandalen",
+      "email": "wanalen@01.school"
+    },
+    {
+      "name": "Volodymyr M.",
+      "email": "volodymyr.migdal@gmail.com"
+    }
   ],
-  "main" : "proto/node_modules/wdocgenerator",
-  "files" : [ "proto/wtools/atop/docgen", "out", "proto/node_modules", "proto/node_modules/Tools", "proto/node_modules/wdocgenerator" ],
-  "bin" : { "wdoc" : "proto/wtools/atop/docgen/Exec2" },
-  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-1", "wdoc" : "node proto/wtools/atop/docgen/Exec2", "pack" : "webpack --config ./webpack.config.js" },
-  "repository" :
-  {
-    "type" : "git",
-    "url" : "https://github.com/Wandalen/wDocGenerator.git"
+  "main": "proto/node_modules/wdocgenerator",
+  "files": [
+    "proto/wtools/atop/docgen",
+    "out",
+    "proto/node_modules",
+    "proto/node_modules/Tools",
+    "proto/node_modules/wdocgenerator"
+  ],
+  "bin": {
+    "wdoc": "proto/wtools/atop/docgen/Exec2"
   },
-  "bugs" :
-  {
-    "url" : "https://github.com/Wandalen/wDocGenerator/issues"
+  "scripts": {
+    "test": "wtest .run 'proto/**' rapidity:-1",
+    "wdoc": "node proto/wtools/atop/docgen/Exec2",
+    "pack": "webpack --config ./webpack.config.js"
   },
-  "dependencies" :
-  {
-    "wTools" : "gamma",
-    "wFiles" : "gamma",
-    "wtemplatetreeenvironment" : "gamma",
-    "wtemplatetreeresolver" : "gamma",
-    "wselector" : "gamma",
-    "wselectorextra" : "gamma",
-    "wcommandsaggregator" : "gamma",
-    "wcommandsconfig" : "gamma",
-    "willbe" : "gamma",
-    "wdocparser" : "gamma",
-    "handlebars" : "4.7.7"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wandalen/wDocGenerator.git"
   },
-  "devDependencies" :
-  {
-    "eslint" : "7.1.0",
-    "wTesting" : "gamma",
-    "express" : "4.17.1",
-    "find-process" : "1.4.4",
-    "babel-loader" : "8.2.2",
-    "babel-polyfill" : "6.26.0",
-    "webpack" : "5.40.0",
-    "webpack-cli" : "4.7.2"
+  "bugs": {
+    "url": "https://github.com/Wandalen/wDocGenerator/issues"
   },
-  "keywords" : [ "wTools", "Documentation", "jsdoc", "jsdoc2md" ]
+  "dependencies": {
+    "wTools": "gamma",
+    "wtemplatetreeresolver": "gamma",
+    "wtemplatetreeenvironment": "gamma",
+    "wselectorextra": "gamma",
+    "wselector": "gamma",
+    "willbe": "gamma",
+    "wFiles": "gamma",
+    "wdocparser": "gamma",
+    "wcommandsconfig": "gamma",
+    "wcommandsaggregator": "gamma",
+    "handlebars": "4.7.7"
+  },
+  "devDependencies": {
+    "wTesting": "gamma",
+    "webpack-cli": "4.7.2",
+    "webpack": "5.41.1",
+    "find-process": "1.4.4",
+    "express": "4.17.1",
+    "eslint": "7.1.0",
+    "babel-polyfill": "6.26.0",
+    "babel-loader": "8.2.2"
+  },
+  "keywords": [
+    "wTools",
+    "Documentation",
+    "jsdoc",
+    "jsdoc2md"
+  ]
 }
