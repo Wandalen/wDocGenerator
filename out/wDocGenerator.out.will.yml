@@ -3,8 +3,8 @@ root:
   - wDocGenerator.out
 consistency:
   ../will.yml: &ref_0
-    hash: 385bd35eaf6a4e8b3ffde7e7c5dfe44e
-    size: 7630
+    hash: dd3e0b52aa62728a444de5f16beba640
+    size: 7489
 module:
   wDocGenerator.out:
     about:
@@ -928,9 +928,6 @@ module:
           content: npm
         inherit:
           - module.export
-      npm.publish:
-        opts:
-          shell: npm publish
       npm.generate.debug.raw:
         opts:
           entryPath: 'path::entry.out.*=1'
@@ -1266,12 +1263,6 @@ module:
           - 'step::doc.export'
         criterion:
           content: doc
-          export: 1
-      npm.export:
-        steps:
-          - 'step::npm.publish'
-        criterion:
-          content: npm
           export: 1
       export:
         steps:
@@ -1682,9 +1673,6 @@ module:
           content: npm
         inherit:
           - module.export
-      npm.publish:
-        opts:
-          shell: npm publish
       npm.generate.debug.raw:
         opts:
           entryPath: 'path::entry.out.*=1'
@@ -2021,12 +2009,6 @@ module:
         criterion:
           content: doc
           export: 1
-      npm.export:
-        steps:
-          - 'step::npm.publish'
-        criterion:
-          content: npm
-          export: 1
       export:
         steps:
           - 'build::proto.export'
@@ -2084,5 +2066,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: 385bd35eaf6a4e8b3ffde7e7c5dfe44e
-        size: 7630
+        hash: dd3e0b52aa62728a444de5f16beba640
+        size: 7489
