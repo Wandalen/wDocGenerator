@@ -3,8 +3,8 @@ root:
   - wDocGenerator.out
 consistency:
   ../will.yml: &ref_0
-    hash: dd3e0b52aa62728a444de5f16beba640
-    size: 7489
+    hash: ebb1b2917faaa630bf09f4d6151e8573
+    size: 7497
 module:
   wDocGenerator.out:
     about:
@@ -2066,5 +2066,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: dd3e0b52aa62728a444de5f16beba640
-        size: 7489
+        hash: ebb1b2917faaa630bf09f4d6151e8573
+        size: 7497
