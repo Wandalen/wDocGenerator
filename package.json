@@ -55,7 +55,7 @@
     "webpack-cli": "4.10.0",
     "webpack": "5.74.0",
     "find-process": "1.4.7",
-    "express": "4.18.1",
+    "express": "4.19.2",
     "eslint": "7.32.0",
     "babel-polyfill": "6.26.0",
     "babel-loader": "8.2.5"
